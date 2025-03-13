@@ -54,12 +54,41 @@ Read and manage your Android SMS directly from the web UI.
 
 Generate Clash configurations and import Vmess, Vless, Trojan, and Shadowsocks through the UI.
 
+# Riwayat Perubahan (Changelog)
+
+## [1.0.7-Extended] - 2025-03-13
+
+### 🚀 Fitur Baru
+- Penambahan hotspot manager
+- Penambahan networktools  
+- Penambahan Cpu monitor
+- Integrasi dengan Clash Dashboard
+
+### 🛠️ Perbaikan & Peningkatan
+- Optimasi performa sidebar
+- Perbaikan tampilan responsif pada perangkat mobile
+- Peningkatan keamanan sistem
+
+## [1.0.7-Stable] - 2025-01-01
+
+### 📋 Initial Release
+- Rilis versi BOX UI
+- Implementasi fitur dasar sistem
+
 ## Credits
 
-- **PHP7 Webserver**: [nosignals/magisk-php7-webserver](https://github.com/nosignals/magisk-php7-webserver)
-- **BOX for Magisk**: [taamarin/box_for_magisk](https://github.com/taamarin/box_for_magisk)
-- **Config Generator**: [mitralola716/ocgen](https://github.com/mitralola716/ocgen)
+### 🌟 Modder Extended Version
+- **Developer:** [Latifan_id](https://github.com/latifangren)
 
+### 👨‍💻 Developer & Contributor
+- **WEB UI BFM:** [geeks121/webui_bfm](https://github.com/geeks121/webui_bfm)
+- **ARGON UI:** taamarin, Gondes & Zay's
+- **PHP7 Server:** [nosignals/magisk-php7-webserver](https://github.com/nosignals/magisk-php7-webserver)
+- **BOX Magisk:** [taamarin/box_for_magisk](https://github.com/taamarin/box_for_magisk)
+- **Generator:** [mitralola716/ocgen](https://github.com/mitralola716/ocgen)
+
+### 💝 Special Thanks
+Terima kasih kepada seluruh pengguna dan pendukung yang telah berkontribusi dalam pengembangan proyek ini. 
 ### Installation
 - **Download**: download this repo as zip file.
 - **check**: check if your download file is still folder, if yes extract first.
