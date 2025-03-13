@@ -83,17 +83,6 @@ Generate Clash configurations and import Vmess, Vless, Trojan, and Shadowsocks t
 - **re-zip**: zip again and flash the module.
 - **check again**: make sure when you download the module is not only folder name.
 
-### ScreenShot
-![image](https://github.com/user-attachments/assets/342b79e5-3169-40cc-b5c6-18a791396a5a)
-![image](https://github.com/user-attachments/assets/0f7abb32-8834-461d-9704-2c407b1425a4)
-![image](https://github.com/user-attachments/assets/6176ae44-2f9b-4674-bda9-333b57faf50f)
-![image](https://github.com/user-attachments/assets/6bdc4d0b-b7c8-45c5-8564-0840d706abea)
-![image](https://github.com/user-attachments/assets/add3e96e-0d57-44b5-8762-7d4f96833abb)
-![image](https://github.com/user-attachments/assets/fa8fbcea-0532-4fd0-9628-268002b4a277)
-![image](https://github.com/user-attachments/assets/335ca85a-bf05-4c7d-a753-b518efd970d0)
-![image](https://github.com/user-attachments/assets/35b393c5-00a7-44b3-b961-cdde41ccd121)
-![image](https://github.com/user-attachments/assets/0b62b405-33e6-41db-8dba-3ceccc1cc09a)
-![image](https://github.com/user-attachments/assets/cdfbaee3-6ff1-484a-b604-598c37ed1d2a)
 
 
 ## License
