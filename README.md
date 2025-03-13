@@ -7,7 +7,11 @@ BOX UI is a web-based interface for managing Box for Android tools. It supports 
 - **Password**: 12345
 
 ## Features
-
+### 🚀 Fitur Baru
+- Penambahan hotspot manager
+- Penambahan networktools  
+- Penambahan Cpu monitor
+- Integrasi dengan Clash Dashboard
 - **Clash Dashboard**: Comprehensive interface for managing Clash configurations.
 - **System Info**: View detailed information about your device.
 - **Tiny FM**: File manager for modifying files and configuration files.
