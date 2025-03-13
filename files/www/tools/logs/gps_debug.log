@@ -1,0 +1,59 @@
+Debug GPS Detail:
+=== GPS Provider ===
+    gps: Location[gps -7,737462,109,483167 hAcc=10 et=+1h53m39s688ms alt=30.6619873046875 vel=0.0 vAcc=16 sAcc=0 bAcc=??? {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]
+    passive: Location[network -7,737152,109,484848 hAcc=2400 et=+1h53m38s360ms vAcc=??? sAcc=??? bAcc=??? {Bundle[{noGPSLocation=Location[network -7,737152,109,484848 hAcc=2400 et=+1h53m38s360ms vAcc=??? sAcc=??? bAcc=??? {Bundle[{}]}]}]}]
+    network: Location[network -7,737152,109,484848 hAcc=2400 et=+1h53m38s360ms vAcc=??? sAcc=??? bAcc=??? {Bundle[{noGPSLocation=Location[network -7,737152,109,484848 hAcc=2400 et=+1h53m38s360ms vAcc=??? sAcc=??? bAcc=??? {Bundle[{}]}]}]}]
+  Last Known Locations Coarse Intervals:
+    fused: Location[fused -7,738215,109,489683 hAcc=200 et=+1h46m59s556ms vAcc=??? sAcc=2 bAcc=45 {Bundle[{noGPSLocation=Location[fused -7,738215,109,489683 hAcc=200 et=+1h46m59s556ms vAcc=??? sAcc=??? bAcc=??? {Bundle[mParcelledData.dataSize=220]}]}]}]
+    gps: Location[gps -7,737717,109,483312 hAcc=20 et=+1h51m27s691ms alt=25.7900390625 vel=0.0 vAcc=16 sAcc=2 bAcc=??? {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]
+    passive: Location[network -7,738215,109,489683 hAcc=200 et=+1h46m59s556ms vAcc=??? sAcc=??? bAcc=??? {Bundle[{noGPSLocation=Location[network -7,738215,109,489683 hAcc=200 et=+1h46m59s556ms vAcc=??? sAcc=??? bAcc=??? {Bundle[{coarseLocation=Location[network -7,747748,109,485962 hAcc=2000 et=+1h46m59s556ms vAcc=??? sAcc=??? bAcc=???]}]}]}]}]
+    network: Location[network -7,738215,109,489683 hAcc=200 et=+1h46m59s556ms vAcc=??? sAcc=??? bAcc=??? {Bundle[{noGPSLocation=Location[network -7,738215,109,489683 hAcc=200 et=+1h46m59s556ms vAcc=??? sAcc=??? bAcc=??? {Bundle[{coarseLocation=Location[network -7,747748,109,485962 hAcc=2000 et=+1h46m59s556ms vAcc=??? sAcc=??? bAcc=???]}]}]}]}]
+  Geofences:
+  mWhitelist=[] mBlacklist=[]
+  Throttling Whitelisted Packages:
+    com.google.android.gms
+  Bypass Whitelisted Packages:
+    com.google.android.dialer
+    com.google.android.gms
+  fudger: offset: -222, -60 (meters)
+
+
+=== Fused Provider ===
+    fused: Location[fused -7,737462,109,483167 hAcc=10 et=+1h53m39s688ms alt=30.6619873046875 vel=0.035569936 vAcc=16 sAcc=0 bAcc=??? {Bundle[{noGPSLocation=Location[fused -7,737640,109,488195 hAcc=200 et=+1h53m33s353ms vAcc=??? sAcc=??? bAcc=??? {Bundle[mParcelledData.dataSize=192]}]}]}]
+    gps: Location[gps -7,737462,109,483167 hAcc=10 et=+1h53m39s688ms alt=30.6619873046875 vel=0.0 vAcc=16 sAcc=0 bAcc=??? {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]
+    passive: Location[network -7,737152,109,484848 hAcc=2400 et=+1h53m38s360ms vAcc=??? sAcc=??? bAcc=??? {Bundle[{noGPSLocation=Location[network -7,737152,109,484848 hAcc=2400 et=+1h53m38s360ms vAcc=??? sAcc=??? bAcc=??? {Bundle[{}]}]}]}]
+    network: Location[network -7,737152,109,484848 hAcc=2400 et=+1h53m38s360ms vAcc=??? sAcc=??? bAcc=??? {Bundle[{noGPSLocation=Location[network -7,737152,109,484848 hAcc=2400 et=+1h53m38s360ms vAcc=??? sAcc=??? bAcc=??? {Bundle[{}]}]}]}]
+  Last Known Locations Coarse Intervals:
+    fused: Location[fused -7,738215,109,489683 hAcc=200 et=+1h46m59s556ms vAcc=??? sAcc=2 bAcc=45 {Bundle[{noGPSLocation=Location[fused -7,738215,109,489683 hAcc=200 et=+1h46m59s556ms vAcc=??? sAcc=??? bAcc=??? {Bundle[mParcelledData.dataSize=220]}]}]}]
+    gps: Location[gps -7,737717,109,483312 hAcc=20 et=+1h51m27s691ms alt=25.7900390625 vel=0.0 vAcc=16 sAcc=2 bAcc=??? {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]
+    passive: Location[network -7,738215,109,489683 hAcc=200 et=+1h46m59s556ms vAcc=??? sAcc=??? bAcc=??? {Bundle[{noGPSLocation=Location[network -7,738215,109,489683 hAcc=200 et=+1h46m59s556ms vAcc=??? sAcc=??? bAcc=??? {Bundle[{coarseLocation=Location[network -7,747748,109,485962 hAcc=2000 et=+1h46m59s556ms vAcc=??? sAcc=??? bAcc=???]}]}]}]}]
+    network: Location[network -7,738215,109,489683 hAcc=200 et=+1h46m59s556ms vAcc=??? sAcc=??? bAcc=??? {Bundle[{noGPSLocation=Location[network -7,738215,109,489683 hAcc=200 et=+1h46m59s556ms vAcc=??? sAcc=??? bAcc=??? {Bundle[{coarseLocation=Location[network -7,747748,109,485962 hAcc=2000 et=+1h46m59s556ms vAcc=??? sAcc=??? bAcc=???]}]}]}]}]
+  Geofences:
+  mWhitelist=[] mBlacklist=[]
+  Throttling Whitelisted Packages:
+    com.google.android.gms
+  Bypass Whitelisted Packages:
+    com.google.android.dialer
+    com.google.android.gms
+
+
+=== Network Provider ===
+    passive: Location[network -7,737152,109,484848 hAcc=2400 et=+1h53m38s360ms vAcc=??? sAcc=??? bAcc=??? {Bundle[{noGPSLocation=Location[network -7,737152,109,484848 hAcc=2400 et=+1h53m38s360ms vAcc=??? sAcc=??? bAcc=??? {Bundle[{}]}]}]}]
+    network: Location[network -7,737152,109,484848 hAcc=2400 et=+1h53m38s360ms vAcc=??? sAcc=??? bAcc=??? {Bundle[{noGPSLocation=Location[network -7,737152,109,484848 hAcc=2400 et=+1h53m38s360ms vAcc=??? sAcc=??? bAcc=??? {Bundle[{}]}]}]}]
+  Last Known Locations Coarse Intervals:
+    fused: Location[fused -7,738215,109,489683 hAcc=200 et=+1h46m59s556ms vAcc=??? sAcc=2 bAcc=45 {Bundle[{noGPSLocation=Location[fused -7,738215,109,489683 hAcc=200 et=+1h46m59s556ms vAcc=??? sAcc=??? bAcc=??? {Bundle[mParcelledData.dataSize=220]}]}]}]
+    gps: Location[gps -7,737717,109,483312 hAcc=20 et=+1h51m27s691ms alt=25.7900390625 vel=0.0 vAcc=16 sAcc=2 bAcc=??? {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]
+    passive: Location[network -7,738215,109,489683 hAcc=200 et=+1h46m59s556ms vAcc=??? sAcc=??? bAcc=??? {Bundle[{noGPSLocation=Location[network -7,738215,109,489683 hAcc=200 et=+1h46m59s556ms vAcc=??? sAcc=??? bAcc=??? {Bundle[{coarseLocation=Location[network -7,747748,109,485962 hAcc=2000 et=+1h46m59s556ms vAcc=??? sAcc=??? bAcc=???]}]}]}]}]
+    network: Location[network -7,738215,109,489683 hAcc=200 et=+1h46m59s556ms vAcc=??? sAcc=??? bAcc=??? {Bundle[{noGPSLocation=Location[network -7,738215,109,489683 hAcc=200 et=+1h46m59s556ms vAcc=??? sAcc=??? bAcc=??? {Bundle[{coarseLocation=Location[network -7,747748,109,485962 hAcc=2000 et=+1h46m59s556ms vAcc=??? sAcc=??? bAcc=???]}]}]}]}]
+  Geofences:
+  mWhitelist=[] mBlacklist=[]
+  Throttling Whitelisted Packages:
+    com.google.android.gms
+  Bypass Whitelisted Packages:
+    com.google.android.dialer
+    com.google.android.gms
+  fudger: offset: -222, -60 (meters)
+  passive provider:
+    useable=true
+
+

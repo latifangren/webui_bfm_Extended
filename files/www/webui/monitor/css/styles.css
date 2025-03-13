@@ -1,0 +1,519 @@
+body {
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg-primary);
+    margin: 0;
+    min-height: 100vh;
+    padding: 15px;
+    color: var(--text-primary);
+    transition: var(--transition);
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 15px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.chart-card {
+    width: 100%;
+    min-height: 280px;
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: 0 8px 30px var(--shadow-color);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.chart-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 35px var(--shadow-color);
+}
+
+.chart-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+    transform: translateX(-100%);
+    transition: 0.5s;
+}
+
+.chart-card:hover::before {
+    transform: translateX(100%);
+}
+
+.section-title {
+    font-size: 18px;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+}
+
+.section-title .iconify {
+    font-size: 20px;
+}
+
+.chart {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 20px var(--shadow-color),
+                0 5px 15px var(--shadow-color);
+    transition: all 0.4s ease;
+}
+
+.chart:hover {
+    transform: scale(1.05);
+    box-shadow: inset 0 0 25px var(--shadow-color),
+                0 8px 20px var(--shadow-color);
+}
+
+.chart::before {
+    content: attr(data-value);
+    position: absolute;
+    font-size: 24px;
+    font-weight: 700;
+    background: linear-gradient(45deg, var(--text-primary), var(--text-info));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.chart::after {
+    content: attr(data-label);
+    position: absolute;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-top: 35px;
+    z-index: 1;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.chart-ring {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: absolute;
+    border: 15px solid var(--bg-primary);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#memoryChart .chart-ring {
+    border-top-color: var(--info-color);
+    border-right-color: var(--info-color);
+    border-bottom-color: var(--info-color);
+    border-left-color: var(--bg-primary);
+    filter: drop-shadow(0 0 5px var(--info-color));
+}
+
+#cpuChart .chart-ring {
+    border-top-color: var(--danger-color);
+    border-right-color: var(--danger-color);
+    border-bottom-color: var(--danger-color);
+    border-left-color: var(--bg-primary);
+    filter: drop-shadow(0 0 5px var(--danger-color));
+}
+
+.details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.progress-bar, .cpu-progress-bar {
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar:hover, .cpu-progress-bar:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.bar-label, .cpu-bar-label {
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.bar, .cpu-bar {
+    height: 10px;
+    background-color: var(--bg-primary);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.bar-inner, .cpu-bar-inner {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.bar-inner {
+    background: linear-gradient(90deg, var(--info-color), #73b4ff);
+}
+
+.cpu-bar-inner {
+    background: linear-gradient(90deg, var(--danger-color), #ff9f9f);
+}
+
+.bar-inner::after, .cpu-bar-inner::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: translateX(-100%);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.network-mobile-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.compact-network-grid {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.compact-network-item {
+    width: 100%;
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    transition: var(--transition);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.network-item-header {
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.network-item-name {
+    font-size: 14px;
+}
+
+.network-item-ip {
+    font-size: 12px;
+}
+
+.network-stats {
+    font-size: 12px;
+}
+
+.signal-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.signal-item {
+    padding: 12px;
+    width: 100%;
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    text-align: center;
+    transition: var(--transition);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-sizing: border-box;
+}
+
+.signal-item small {
+    font-size: 11px;
+    margin-bottom: 4px;
+}
+
+.signal-item span {
+    font-size: 14px;
+}
+
+.cpu-temp {
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.cpu-temp[data-temp="normal"] {
+    color: var(--text-success);
+    background: linear-gradient(45deg, var(--text-success), var(--text-teal));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.cpu-temp[data-temp="warm"] {
+    color: var(--text-warning);
+    background: linear-gradient(45deg, var(--text-warning), var(--text-orange));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.cpu-temp[data-temp="hot"] {
+    color: var(--text-danger);
+    background: linear-gradient(45deg, var(--text-danger), #ff4757);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 10px;
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .chart-card {
+        min-height: 260px;
+        padding: 15px;
+    }
+
+    .chart {
+        width: 140px;
+        height: 140px;
+        margin-bottom: 15px;
+    }
+
+    .chart::before {
+        font-size: 20px;
+    }
+
+    .chart::after {
+        font-size: 12px;
+        margin-top: 30px;
+    }
+
+    .chart-ring {
+        border-width: 12px;
+    }
+
+    .progress-bar, .cpu-progress-bar {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+
+    .status-info {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .status-item {
+        padding: 12px;
+    }
+
+    .section-title {
+        font-size: 16px;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+
+    .section-title .iconify {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 8px;
+    }
+
+    .container {
+        padding: 8px;
+        gap: 12px;
+    }
+
+    .chart-card {
+        min-height: 240px;
+        padding: 12px;
+    }
+
+    .chart {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 12px;
+    }
+
+    .chart::before {
+        font-size: 18px;
+    }
+
+    .chart::after {
+        font-size: 11px;
+        margin-top: 25px;
+    }
+
+    .chart-ring {
+        border-width: 10px;
+    }
+
+    .progress-bar, .cpu-progress-bar {
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .bar-label, .cpu-bar-label {
+        font-size: 12px;
+    }
+
+    .bar, .cpu-bar {
+        height: 8px;
+    }
+
+    .status-info {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .status-item {
+        padding: 10px;
+    }
+
+    .status-item .iconify {
+        font-size: 20px;
+    }
+
+    .status-label {
+        font-size: 11px;
+    }
+
+    .status-value {
+        font-size: 14px;
+    }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-primary: #1a1a1a;
+        --bg-secondary: #2d2d2d;
+        --bg-card: #2d2d2d;
+        --text-primary: #ffffff;
+        --text-secondary: #b3b3b3;
+        --shadow-color: rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* Tambahkan variabel warna yang diperlukan */
+:root {
+    --primary-color: #4c96ff;
+    --danger-color: #ff6b6b;
+    --success-color: #2ecc71;
+    --warning-color: #f1c40f;
+    --info-color: #3498db;
+    --purple-color: #9b59b6;
+    --orange-color: #e67e22;
+    --teal-color: #1abc9c;
+    
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --text-success: var(--success-color);
+    --text-danger: var(--danger-color);
+    --text-warning: var(--warning-color);
+    --text-info: var(--info-color);
+    --text-purple: var(--purple-color);
+    --text-orange: var(--orange-color);
+    --text-teal: var(--teal-color);
+    
+    --bg-primary: #f5f6fa;
+    --bg-secondary: #ffffff;
+    --bg-card: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --border-radius: 16px;
+    --transition: all 0.3s ease;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    --text-primary: #ffffff;
+    --text-secondary: #b3b3b3;
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --bg-card: #2d2d2d;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .chart::before {
+    background: linear-gradient(45deg, #fff, var(--text-info));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+body.dark-mode .chart {
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5),
+                0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .chart:hover {
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6),
+                0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Animation optimizations for better performance */
+@media (prefers-reduced-motion: reduce) {
+    .chart-card,
+    .chart,
+    .progress-bar,
+    .bar-inner,
+    .cpu-bar-inner {
+        transition: none;
+    }
+
+    .bar-inner::after,
+    .cpu-bar-inner::after {
+        animation: none;
+    }
+}
