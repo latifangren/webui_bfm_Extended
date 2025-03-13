@@ -1,5 +1,4 @@
 
-
 ## Overview
 BOX UI is a web-based interface for managing Box for Android tools. It supports both Magisk and KernelSU modules and provides a comprehensive suite of features to control and monitor your Android device access your device without touch it.
 ## login
@@ -21,7 +20,6 @@ BOX UI is a web-based interface for managing Box for Android tools. It supports 
 - **Documentation**: Simple and clear documentation.
 - **Reboot Device**: Reboot your device or reboot to TWRP.
 - **Authentication**: Login, logout, and reset password functionalities.
-
 
 
 ## Installation
@@ -56,31 +54,12 @@ Read and manage your Android SMS directly from the web UI.
 
 Generate Clash configurations and import Vmess, Vless, Trojan, and Shadowsocks through the UI.
 
-                <div class="credits-card">
-                    <h3>👨‍💻 Developer & Contributor</h3>
-                    <div class="credits-list">
-                        <div class="credits-item">
-                            <strong>WEB UI BFM:</strong>
-                            <a href="https://github.com/geeks121/webui_bfm" target="_blank">geeks121/webui_bfm</a>
-                        </div>
-                        <div class="credits-item">
-                            <strong>ARGON UI:</strong>
-                            <span>taamarin, Gondes & Zay's</span>
-                        </div>
-                        <div class="credits-item">
-                            <strong>PHP7 Server:</strong>
-                            <a href="https://github.com/nosignals/magisk-php7-webserver" target="_blank">nosignals/magisk-php7-webserver</a>
-                        </div>
-                        <div class="credits-item">
-                            <strong>BOX Magisk:</strong>
-                            <a href="https://github.com/taamarin/box_for_magisk" target="_blank">taamarin/box_for_magisk</a>
-                        </div>
-                        <div class="credits-item">
-                            <strong>Generator:</strong>
-                            <a href="https://github.com/mitralola716/ocgen" target="_blank">mitralola716/ocgen</a>
-                        </div>
-                    </div>
-                </div>
+## Credits
+
+- **PHP7 Webserver**: [nosignals/magisk-php7-webserver](https://github.com/nosignals/magisk-php7-webserver)
+- **BOX for Magisk**: [taamarin/box_for_magisk](https://github.com/taamarin/box_for_magisk)
+- **Config Generator**: [mitralola716/ocgen](https://github.com/mitralola716/ocgen)
+
 ### Installation
 - **Download**: download this repo as zip file.
 - **check**: check if your download file is still folder, if yes extract first.
