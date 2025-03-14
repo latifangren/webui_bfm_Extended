@@ -289,6 +289,44 @@ if (LOGIN_ENABLED && !isset($_SESSION['user_id'])) {
 
             <div class="version">
                 <div class="version-header">
+                    <span class="version-number">Version 1.0.8 (Extended)</span>
+                    <span class="version-date">15 Maret 2025</span>
+                </div>
+                <div class="change-type">🚀 Fitur Baru</div>
+                <ul class="change-list">
+                    <li class="change-item">
+                        <span class="tag tag-new">NEW</span>
+                        Penambahan sistem update otomatis melalui Magisk Manager
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-new">NEW</span>
+                        Penambahan akses direktori ADB di File Manager
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-new">NEW</span>
+                        Penambahan akses direktori WebUI di File Manager
+                    </li>
+                </ul>
+
+                <div class="change-type">🛠️ Perbaikan & Peningkatan</div>
+                <ul class="change-list">
+                    <li class="change-item">
+                        <span class="tag tag-improvement">IMPROVEMENT</span>
+                        Penyederhanaan nama menu di File Manager
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-improvement">IMPROVEMENT</span>
+                        Peningkatan navigasi File Manager dengan tab baru
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-improvement">IMPROVEMENT</span>
+                        Integrasi dengan sistem pembaruan Magisk
+                    </li>
+                </ul>
+            </div>
+
+            <div class="version">
+                <div class="version-header">
                     <span class="version-number">Version 1.0.7 (Extended)</span>
                     <span class="version-date">13 Maret 2025</span>
                 </div>

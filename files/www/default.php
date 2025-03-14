@@ -224,12 +224,22 @@ $host = $x[0];
                   <ul class="nav nav-collapse">
                     <li>
                       <a href="#" onclick="loadIframe('/tiny/index.php')">
-                        <span class="sub-item">Root Path</span>
+                        <span class="sub-item">Root</span>
                       </a>
                     </li>
                     <li>
                       <a href="#" onclick="loadIframe('http://<?php echo $host; ?>/tiny/index.php?p=sdcard')">
-                        <span class="sub-item">Storage Path</span>
+                        <span class="sub-item">Storage</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" onclick="loadIframe('http://<?php echo $host; ?>/tiny/index.php?p=data/adb')">
+                        <span class="sub-item">ADB</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" onclick="loadIframe('http://<?php echo $host; ?>/tiny/index.php?p=data/adb/php7/files/www')">
+                        <span class="sub-item">WebUI</span>
                       </a>
                     </li>
                   </ul>

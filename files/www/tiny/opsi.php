@@ -154,8 +154,10 @@ p.active-tab::after {
 
 <header>
     <div class="new-container">
-        <p onclick="showTab('Root path')">Root path</p>
-        <p onclick="showTab('Storage path')">Storage path</p>
+        <p onclick="showTab('Root path')">Root</p>
+        <p onclick="showTab('Storage path')">Storage</p>
+        <p onclick="showTab('ADB path')">ADB</p>
+        <p onclick="showTab('WebUI path')">WebUI</p>
     </div>
     <div class="header-top">
         <h1>o</h1>
@@ -171,6 +173,12 @@ p.active-tab::after {
     </div>
     <div id="Storage path" class="tab-content">
         <iframe id="storageFrame" loading="lazy"></iframe>
+    </div>
+    <div id="ADB path" class="tab-content">
+        <iframe id="adbFrame" loading="lazy"></iframe>
+    </div>
+    <div id="WebUI path" class="tab-content">
+        <iframe id="webuiFrame" loading="lazy"></iframe>
     </div>
 </div>
 
@@ -206,6 +214,12 @@ function showTab(tabName) {
     }
     if (tabName === 'Storage path' && !document.getElementById('storageFrame').src) {
         document.getElementById('storageFrame').src = 'http://<?php echo $host; ?>/tiny/index.php?p=sdcard';
+    }
+    if (tabName === 'ADB path' && !document.getElementById('adbFrame').src) {
+        document.getElementById('adbFrame').src = 'http://<?php echo $host; ?>/tiny/index.php?p=data/adb';
+    }
+    if (tabName === 'WebUI path' && !document.getElementById('webuiFrame').src) {
+        document.getElementById('webuiFrame').src = 'http://<?php echo $host; ?>/tiny/index.php?p=data/adb/php7/files/www';
     }
 }
 
