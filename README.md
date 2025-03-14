@@ -59,7 +59,17 @@ Read and manage your Android SMS directly from the web UI.
 Generate Clash configurations and import Vmess, Vless, Trojan, and Shadowsocks through the UI.
 
 # Riwayat Perubahan (Changelog)
+## [1.0.8-Extended] - 2025-03-15
 
+### 🚀 Fitur Baru
+- Penambahan sistem update otomatis melalui Magisk Manager
+- Penambahan akses direktori ADB di File Manager
+- Penambahan akses direktori WebUI di File Manager
+
+### 🛠️ Perbaikan & Peningkatan
+- Penyederhanaan nama menu di File Manager
+- Peningkatan navigasi File Manager dengan tab baru
+- Integrasi dengan sistem pembaruan Magisk
 ## [1.0.7-Extended] - 2025-03-13
 
 ### 🚀 Fitur Baru
