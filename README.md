@@ -5,7 +5,7 @@ BOX UI is a web-based interface for managing Box for Android tools. It supports 
 
 - **Users**: admin
 - **Password**: 12345
-
+WARNING: file terbaru di fix jam 3:20 pagi 16-03-2025 untuk fix tampilan NETWORK TOOLS download dan flash ulang via magisk
 ## Features
 ### 🚀 Fitur Baru
 - Penambahan hotspot manager
