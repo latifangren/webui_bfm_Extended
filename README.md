@@ -6,26 +6,6 @@ BOX UI is a web-based interface for managing Box for Android tools. It supports 
 - **Users**: admin
 - **Password**: 12345
 
-## Features
-### 🚀 Fitur Baru
-- Penambahan hotspot manager
-- Penambahan networktools  
-- Penambahan Cpu monitor
-- Integrasi dengan Clash Dashboard
-- **Clash Dashboard**: Comprehensive interface for managing Clash configurations.
-- **System Info**: View detailed information about your device.
-- **Tiny FM**: File manager for modifying files and configuration files.
-- **TTyd**: Terminal manager that requires Termux and Termux:Boot installed.
-- **BOX Settings**: Manage BFR settings to run core Clash, SingBox, XRay, V2Fly, and select kernel (Mihomo or Premium).
-- **SMS Inbox**: Read Android SMS via the web UI.
-- **Start/Stop Commands**: Execute commands to start or stop BOX settings.
-- **Config Generator**: Generate Clash configurations and import Vmess, Vless, Trojan, and Shadowsocks via the UI.
-- **BOX Logs**: View logs for BOX activities.
-- **Documentation**: Simple and clear documentation.
-- **Reboot Device**: Reboot your device or reboot to TWRP.
-- **Authentication**: Login, logout, and reset password functionalities.
-
-
 ## Installation
 
 - install as Magisk or kernelSU module
@@ -64,8 +44,21 @@ Generate Clash configurations and import Vmess, Vless, Trojan, and Shadowsocks t
 ### 🚀 Fitur Baru
 - Penambahan fitur Speed Test pada tema default
 - Penambahan fitur Speed Test Local
+- Implementasi Ping Monitor dengan tampilan yang lebih modern
+- Fitur Dark Mode pada Ping Monitor
+- Penambahan halaman Dokumentasi dengan panduan lengkap
+- Tombol Update WebUI yang mengarah ke repository GitHub
+
 ### 🛠️ Perbaikan & Peningkatan
 - Integrasi modul Speed Test dari tema Argon ke tema default
+- Tampilan chart statistik ping yang lebih informatif dan menarik
+- Tata letak yang lebih compact dan responsif untuk berbagai perangkat
+- Integrasi Ping Monitor ke menu tema Default
+- Perbaikan tampilan path yang terpotong pada layar mobile
+- Desain halaman dokumentasi yang lebih modern dengan daftar isi
+- Perubahan ikon menu Dokumentasi untuk konsistensi visual
+- Penambahan fitur copy ke clipboard pada blok kode dokumentasi
+- Perbaikan fungsi tombol copy yang tidak berfungsi di beberapa perangkat
 
 # Riwayat Perubahan (Changelog)
 ## [1.0.8-Extended] - 2025-03-15
