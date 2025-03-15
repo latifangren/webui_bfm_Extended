@@ -1,6 +1,6 @@
 # Riwayat Perubahan (Changelog)
 
-## [1.0.10-Extended] - 2025-04-20
+## [1.0.10-Extended] - 2025-03-16
 
 ### 🚀 Fitur Baru
 - Implementasi tema warna baru dengan kombo hitam (#000000), kuning (#FECA0A), dan putih (#F1F1F1)

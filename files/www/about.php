@@ -311,7 +311,7 @@ if (LOGIN_ENABLED && !isset($_SESSION['user_id'])) {
             <div class="version">
                 <div class="version-header">
                     <span class="version-number">Version 1.0.10 (Extended)</span>
-                    <span class="version-date">20 April 2025</span>
+                    <span class="version-date">16 Maret 2025</span>
                 </div>
                 <div class="change-type">🚀 Fitur Baru</div>
                 <ul class="change-list">
