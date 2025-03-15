@@ -289,6 +289,28 @@ if (LOGIN_ENABLED && !isset($_SESSION['user_id'])) {
 
             <div class="version">
                 <div class="version-header">
+                    <span class="version-number">Version 1.0.9 (Extended)</span>
+                    <span class="version-date">15 Maret 2025</span>
+                </div>
+                <div class="change-type">🚀 Fitur Baru</div>
+                <ul class="change-list">
+                    <li class="change-item">
+                        <span class="tag tag-new">NEW</span>
+                        Penambahan fitur Speed Test pada tema default
+                    </li>
+                </ul>
+
+                <div class="change-type">🛠️ Perbaikan & Peningkatan</div>
+                <ul class="change-list">
+                    <li class="change-item">
+                        <span class="tag tag-improvement">IMPROVEMENT</span>
+                        Integrasi modul Speed Test dari tema Argon ke tema default
+                    </li>
+                </ul>
+            </div>
+
+            <div class="version">
+                <div class="version-header">
                     <span class="version-number">Version 1.0.8 (Extended)</span>
                     <span class="version-date">15 Maret 2025</span>
                 </div>

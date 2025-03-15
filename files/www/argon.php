@@ -87,6 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <a onclick="loadContent('/tools/smsviewer.php'); closeDropdown(); addUnderline(this)"> SMS Viewer</a>
             <a onclick="loadContent('/tools/ocgen/index.php'); closeDropdown(); addUnderline(this)"> Config Generator</a>
             <a onclick="loadContent('/tools/modpes.php'); closeDropdown(); addUnderline(this)"> Airplane Pilot</a>
+            <a onclick="loadContent('/tools/speedtest/speedtest.php'); closeDropdown(); addUnderline(this)"> Speed Test</a>
             <a onclick="loadContent('http://<?php echo $p; ?>:3001'); closeDropdown(); addUnderline(this)"> Terminal</a>
           </div>
         </li>

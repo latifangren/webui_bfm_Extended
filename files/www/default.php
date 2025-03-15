@@ -323,6 +323,11 @@ $host = $x[0];
                       </a>
                     </li>
                     <li>
+                      <a href="#" onclick="loadIframe('/tools/speedtest/speedtest.php')">
+                        <span class="sub-item">Speed Test</span>
+                      </a>
+                    </li>
+                    <li>
                       <a href="#" onclick="loadIframe('/tools_default/vnstat.php')">
                         <span class="sub-item">Vnstat Bandwith</span>
                       </a>

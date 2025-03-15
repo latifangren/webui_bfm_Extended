@@ -1,5 +1,13 @@
 # Riwayat Perubahan (Changelog)
 
+## [1.0.9-Extended] - 2025-03-15
+
+### 🚀 Fitur Baru
+- Penambahan fitur Speed Test pada tema default
+- Penambahan fitur Speed Test Local
+### 🛠️ Perbaikan & Peningkatan
+- Integrasi modul Speed Test dari tema Argon ke tema default
+
 ## [1.0.8-Extended] - 2025-03-15
 
 ### 🚀 Fitur Baru
