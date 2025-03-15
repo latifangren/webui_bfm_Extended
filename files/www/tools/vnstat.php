@@ -431,366 +431,190 @@ $chartDataJson = json_encode([
     <title>Network Usage Monitor</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <style>
-body {
-    background-color: #f4f4f4;
-    color: #333;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 15px;
-    line-height: 1.6;
-}
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-.output-box {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-.no-data {
-    text-align: center;
-    padding: 20px;
-    color: #888;
-}
-h2 {
-    color: #000;
-    margin: 20px 0;
-    font-size: 1.5em;
-    padding-left: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.interface-count {
-    font-size: 0.8em;
-    color: #888;
-    margin-right: 20px;
-}
-table {
-    width: 100%;
-    table-layout: fixed;
-    border-collapse: separate;
-    border-spacing: 0;
-    margin: 0;
-    padding: 0;
-    background-color: #fff;
-    border-radius: 10px;
-    font-size: 0.7em;
-    overflow: hidden;
-}
-th {
-    text-align: center !important;
-    background-color: #4C8EFF;
-    color: #fff;
-    font-weight: bold;
-    padding: 12px;
-    border: 1px solid #ddd;
-}
-th:first-child {
-    border-top-left-radius: 10px;
-}
-th:last-child {
-    border-top-right-radius: 10px;
-}
-tr:last-child td:first-child {
-    border-bottom-left-radius: 10px;
-}
-tr:last-child td:last-child {
-    border-bottom-right-radius: 10px;
-}
-table th:first-child,
-table td:first-child {
-    width: 25%;
-}
-table th:not(:first-child),
-table td:not(:first-child) {
-    width: 25%;
-}
-td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-td:first-child {
-    text-align: left;
-}
-td:not(:first-child) {
-    text-align: center;
-}
-tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-tr:nth-child(odd) {
-    background-color: #fff;
-}
-tr:hover {
-    background-color: #f1f1f1;
-}
-.button-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin: 20px 0;
-}
-.action-button {
-    display: inline-block;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-}
-.reset-button {
-    background-color: #ff4444;
-}
-.start-button {
-    background-color: #4CAF50;
-}
-.reset-button:hover {
-    background-color: #ff6666;
-}
-.start-button:hover {
-    background-color: #45a049;
-}
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-}
-.modal-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-}
-.modal-buttons {
-    margin-top: 20px;
-}
-.modal-buttons button {
-    margin: 0 10px;
-    padding: 8px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.confirm-reset {
-    background-color: #ff4444;
-    color: white;
-}
-.confirm-start {
-    background-color: #4CAF50;
-    color: white;
-}
-.cancel-button {
-    background-color: #666;
-    color: white;
-}
-.chart-container {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-canvas {
-    width: 100% !important;
-    max-height: 400px;
-}
-.chart-title {
-    color: #4C8EFF;
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 1.2em;
-}
-.stats-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-bottom: 20px;
-}
-.stats-box {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 5px;
-    text-align: center;
-}
-.stats-value {
-    font-size: 16px;
-    color: #4C8EFF;
-    margin: 1px 0;
-    font-weight: 700;
-}
-.stats-label {
-    color: #888;
-    font-size: 14px;
-}
-@media (max-width: 768px) {
-    body {
-        padding: 10px;
-    }
-    .output-box {
-        padding: 10px;
-        margin-bottom: 15px;
-    }
-    th, td {
-        padding: 8px;
-        font-size: 0.9em;
-    }
-    h2 {
-        font-size: 1.2em;
-        padding-left: 10px;
-    }
-}
-
-/* Dark Mode */
-@media (prefers-color-scheme: dark) {
-    body {
-        background-color: transparent;
-        color: #e0e0e0;
-    }
-
-    .output-box {
-        background-color: #333;
-        border: 1px solid #444;
-        color: #e0e0e0;
-    }
-
-    .no-data {
-        color: #bbb;
-    }
-
-    h2 {
-        color: #fff;
-    }
-
-    table {
-        background-color: #333;
-    }
-
-    th {
-        background-color: #4C8EFF;
-        color: #fff;
-    }
-
-    th, td {
-        border: 1px solid #555;
-    }
-
-    td {
-        color: #e0e0e0;
-    }
-
-    tr:nth-child(even) {
-        background-color: #424242;
-    }
-
-    tr:nth-child(odd) {
-        background-color: #333;
-    }
-
-    tr:hover {
-        background-color: #575757;
-    }
-
-    .button-container {
-        gap: 15px;
-    }
-
-    .action-button {
-        transition: background-color 0.3s ease;
-    }
-
-    .reset-button {
-        background-color: #ff4444;
-    }
-
-    .start-button {
-        background-color: #4CAF50;
-    }
-
-    .reset-button:hover {
-        background-color: #ff6666;
-    }
-
-    .start-button:hover {
-        background-color: #45a049;
-    }
-
-    .modal-content {
-        background-color: #333;
-        color: #fff;
-    }
-
-    .modal-buttons button {
-        background-color: #555;
-        color: #fff;
-    }
-
-    .chart-container {
-        background-color: #333;
-        border: 1px solid #444;
-    }
-
-    .chart-title {
-        color: #4C8EFF;
-    }
-
-    .stats-box {
-        background-color: #333;
-        border-radius: 10px;
-        padding: 5px;
-        text-align: center;
-    }
-
-    .stats-value {
-        color: #4C8EFF;
-    }
-
-    .stats-label {
-        color: #bbb;
-    }
-
-    /* Adjust the layout for mobile in dark mode */
-    @media (max-width: 768px) {
         body {
-            padding: 10px;
+            background-color: #000000;
+            color: #F1F1F1;
+            font-family: 'Roboto', sans-serif;
         }
-
-        .output-box {
-            padding: 10px;
-            margin-bottom: 15px;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
-
-        th, td {
-            padding: 8px;
-            font-size: 0.9em;
-        }
-
         h2 {
-            font-size: 1.2em;
-            padding-left: 10px;
+            color: #FECA0A;
+            font-size: 1.5rem;
+            margin: 30px 0 15px;
+            font-weight: 500;
+            padding-left: 15px;
+            border-left: 4px solid #FECA0A;
         }
-    }
-}
+        .output-box {
+            background-color: #1a1a1a;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(254, 202, 10, 0.2);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+        th {
+            background-color: rgba(254, 202, 10, 0.1);
+            color: #FECA0A;
+            font-weight: 500;
+        }
+        tr {
+            border-bottom: 1px solid rgba(254, 202, 10, 0.1);
+        }
+        tr:hover {
+            background-color: rgba(254, 202, 10, 0.05);
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .action-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        .reset-button {
+            background-color: #FECA0A;
+            color: #000000;
+        }
+        .start-button {
+            background-color: #FECA0A;
+            color: #000000;
+        }
+        .reset-button:hover, .start-button:hover {
+            background-color: #e5b609;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+        }
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #1a1a1a;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #FECA0A;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        .modal-buttons {
+            margin-top: 20px;
+        }
+        .modal-buttons button {
+            margin: 0 10px;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .confirm-reset, .confirm-start {
+            background-color: #FECA0A;
+            color: #000000;
+        }
+        .cancel-button {
+            background-color: #333;
+            color: #F1F1F1;
+        }
+        .confirm-reset:hover, .confirm-start:hover {
+            background-color: #e5b609;
+        }
+        .chart-container {
+            background-color: #1a1a1a;
+            border: 1px solid rgba(254, 202, 10, 0.2);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        canvas {
+            width: 100% !important;
+            max-height: 400px;
+        }
+        .chart-title {
+            color: #FECA0A;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }        
+        .stats-box {
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(254, 202, 10, 0.2);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }        
+        .stats-value {
+            font-size: 24px;
+            color: #FECA0A;
+            margin: 10px 0;
+        }       
+        .stats-label {
+            color: #F1F1F1;
+            font-size: 14px;
+        }
+        .no-data {
+            text-align: center;
+            padding: 20px;
+            color: #F1F1F1;
+            font-style: italic;
+        }
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .output-box {
+                padding: 10px;
+                margin-bottom: 15px;
+            }
+            th, td {
+                padding: 8px;
+                font-size: 0.9em;
+            }
+            h2 {
+                font-size: 1.2em;
+                padding-left: 10px;
+            }
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -922,18 +746,17 @@ canvas {
                 datasets: [{
                     label: 'Download (GB)',
                     data: chartData.downloads,
-                    borderColor: '#38b3ff',
-                    backgroundColor: 'rgba(56, 179, 255, 0.1)',
+                    borderColor: '#FECA0A',
+                    backgroundColor: 'rgba(254, 202, 10, 0.1)',
                     fill: true,
                     tension: 0.4
                 }, {
                     label: 'Upload (GB)',
                     data: chartData.uploads,
-                    borderColor: '#6eff8f',
-                    backgroundColor: 'rgba(150, 255, 181, 0.3)',
+                    borderColor: '#e5b609',
+                    backgroundColor: 'rgba(229, 182, 9, 0.1)',
                     fill: true,
-                    tension: 0.4,
-                    zIndex: 4
+                    tension: 0.4
                 }]
             },
             options: {
@@ -947,10 +770,10 @@ canvas {
                     y: {
                         beginAtZero: true,
                         grid: {
-                            color: '#888'
+                            color: 'rgba(254, 202, 10, 0.1)'
                         },
                         ticks: {
-                            color: '#888',
+                            color: '#F1F1F1',
                             callback: function(value) {
                                 return value.toFixed(2) + ' GB';
                             }
@@ -958,17 +781,17 @@ canvas {
                     },
                     x: {
                         grid: {
-                            color: '#888'
+                            color: 'rgba(254, 202, 10, 0.1)'
                         },
                         ticks: {
-                            color: '#888'
+                            color: '#F1F1F1'
                         }
                     }
                 },
                 plugins: {
                     legend: {
                         labels: {
-                            color: '#888'
+                            color: '#F1F1F1'
                         }
                     },
                     tooltip: {

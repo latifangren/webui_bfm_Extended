@@ -14,6 +14,7 @@ if (LOGIN_ENABLED && !isset($_SESSION['user_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Changelog</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -47,7 +48,7 @@ if (LOGIN_ENABLED && !isset($_SESSION['user_id'])) {
             position: relative;
         }
         .tab.active {
-            color: #5e72e4;
+            color: #FECA0A;
             font-weight: bold;
         }
         .tab.active::after {
@@ -57,7 +58,7 @@ if (LOGIN_ENABLED && !isset($_SESSION['user_id'])) {
             left: 0;
             width: 100%;
             height: 2px;
-            background-color: #5e72e4;
+            background-color: #FECA0A;
         }
         .tab-content {
             display: none;
@@ -78,11 +79,11 @@ if (LOGIN_ENABLED && !isset($_SESSION['user_id'])) {
             border-radius: 4px;
         }
         #changelog::-webkit-scrollbar-thumb {
-            background: #5e72e4;
+            background: #FECA0A;
             border-radius: 4px;
         }
         #changelog::-webkit-scrollbar-thumb:hover {
-            background: #4a5cd1;
+            background: #e0b600;
         }
         .version {
             margin-bottom: 30px;
@@ -101,7 +102,7 @@ if (LOGIN_ENABLED && !isset($_SESSION['user_id'])) {
         .version-number {
             font-size: 1.5em;
             font-weight: bold;
-            color: #5e72e4;
+            color: #FECA0A;
         }
         .version-date {
             color: #8898aa;
@@ -123,7 +124,7 @@ if (LOGIN_ENABLED && !isset($_SESSION['user_id'])) {
         }
         .change-item::before {
             content: "•";
-            color: #5e72e4;
+            color: #FECA0A;
             position: absolute;
             left: -15px;
         }
@@ -161,7 +162,7 @@ if (LOGIN_ENABLED && !isset($_SESSION['user_id'])) {
         }
 
         .credits-card h3 {
-            color: #5e72e4;
+            color: #FECA0A;
             margin-bottom: 15px;
             font-size: 1.2em;
             border-bottom: 2px solid #eaecef;
@@ -194,13 +195,13 @@ if (LOGIN_ENABLED && !isset($_SESSION['user_id'])) {
         }
 
         .credits-item a {
-            color: #5e72e4;
+            color: #FECA0A;
             text-decoration: none;
             transition: color 0.2s;
         }
 
         .credits-item a:hover {
-            color: #324cdd;
+            color: #e0b600;
         }
 
         .credits-badge {
@@ -208,24 +209,28 @@ if (LOGIN_ENABLED && !isset($_SESSION['user_id'])) {
             padding: 3px 8px;
             border-radius: 12px;
             font-size: 0.8em;
-            background: #5e72e4;
-            color: white;
+            background: #FECA0A;
+            color: #000000;
             margin-left: auto;
         }
 
         /* Tambahan style untuk dark mode */
         body.dark-mode {
-            background-color: #1a1c23;
-            color: #e4e6eb;
+            background-color: #000000;
+            color: #F1F1F1;
         }
 
         body.dark-mode .container {
-            background: #242631;
+            background: #121212;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
 
         body.dark-mode .tab {
             color: #8898aa;
+        }
+        
+        body.dark-mode .tab.active {
+            color: #FECA0A;
         }
 
         body.dark-mode .version {
@@ -233,12 +238,28 @@ if (LOGIN_ENABLED && !isset($_SESSION['user_id'])) {
         }
 
         body.dark-mode .credits-card {
-            background: #242631;
+            background: #121212;
             border-color: #363945;
         }
 
         body.dark-mode .credits-item:hover {
-            background-color: #2d303b;
+            background-color: #1a1a1a;
+        }
+        
+        body.dark-mode .version-number {
+            color: #FECA0A;
+        }
+        
+        body.dark-mode .change-item::before {
+            color: #FECA0A;
+        }
+        
+        body.dark-mode #changelog::-webkit-scrollbar-thumb {
+            background: #FECA0A;
+        }
+        
+        body.dark-mode #changelog::-webkit-scrollbar-track {
+            background: #1a1a1a;
         }
 
         /* Style untuk tombol dark mode */
@@ -249,8 +270,8 @@ if (LOGIN_ENABLED && !isset($_SESSION['user_id'])) {
             padding: 10px;
             border-radius: 50%;
             border: none;
-            background: #5e72e4;
-            color: white;
+            background: #FECA0A;
+            color: #000000;
             cursor: pointer;
             width: 40px;
             height: 40px;
@@ -259,33 +280,75 @@ if (LOGIN_ENABLED && !isset($_SESSION['user_id'])) {
             justify-content: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             transition: all 0.3s ease;
+            z-index: 1000;
         }
 
         .dark-mode-toggle:hover {
-            transform: scale(1.1);
+            background: #e0b600;
+            transform: translateY(-2px);
         }
 
-        body.dark-mode .dark-mode-toggle {
-            background: #8898aa;
+        .dark-mode-toggle .material-icons {
+            font-size: 20px;
         }
     </style>
 </head>
-<body>
-    <!-- Tambahkan tombol dark mode -->
-    <button class="dark-mode-toggle" onclick="toggleDarkMode()" title="Toggle Dark Mode">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-        </svg>
+<body class="<?php echo isset($_COOKIE['darkMode']) && $_COOKIE['darkMode'] === 'true' ? 'dark-mode' : ''; ?>">
+    <!-- Tambahkan tombol dark mode di sini -->
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <i class="material-icons">dark_mode</i>
     </button>
 
     <div class="container">
         <div class="tabs">
-            <button class="tab active" onclick="openTab(event, 'changelog')">Changelog</button>
+            <button class="tab" onclick="openTab(event, 'changelog')">Changelog</button>
             <button class="tab" onclick="openTab(event, 'credits')">Credits</button>
         </div>
 
         <div id="changelog" class="tab-content active">
-            <h1 style="text-align: center; color: #5e72e4; margin-bottom: 30px;">Changelog</h1>
+            <h1 style="text-align: center; color: #FECA0A; margin-bottom: 30px;">Changelog</h1>
+
+            <div class="version">
+                <div class="version-header">
+                    <span class="version-number">Version 1.0.10 (Extended)</span>
+                    <span class="version-date">20 April 2025</span>
+                </div>
+                <div class="change-type">🚀 Fitur Baru</div>
+                <ul class="change-list">
+                    <li class="change-item">
+                        <span class="tag tag-new">NEW</span>
+                        Implementasi tema warna baru dengan kombo hitam (#000000), kuning (#FECA0A), dan putih (#F1F1F1)
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-new">NEW</span>
+                        Penyederhanaan tampilan antarmuka untuk pengalaman pengguna yang lebih baik
+                    </li>
+                </ul>
+
+                <div class="change-type">🛠️ Perbaikan & Peningkatan</div>
+                <ul class="change-list">
+                    <li class="change-item">
+                        <span class="tag tag-improvement">IMPROVEMENT</span>
+                        Penyederhanaan tombol dark mode untuk tampilan yang lebih bersih
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-improvement">IMPROVEMENT</span>
+                        Mengoptimalkan tampilan di perangkat mobile dengan mengatasi masalah tumpang tindih teks "BOX UI"
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-improvement">IMPROVEMENT</span>
+                        Penggunaan tema hitam sebagai default untuk mengurangi beban baterai pada perangkat AMOLED
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-fix">FIX</span>
+                        Perbaikan tampilan pada mode gelap di berbagai halaman
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-fix">FIX</span>
+                        Menghapus menu "Akun" yang tidak digunakan dari opsi box
+                    </li>
+                </ul>
+            </div>
 
             <div class="version">
                 <div class="version-header">
@@ -457,7 +520,7 @@ if (LOGIN_ENABLED && !isset($_SESSION['user_id'])) {
         </div>
 
         <div id="credits" class="tab-content">
-            <h1 style="text-align: center; color: #5e72e4; margin-bottom: 30px;">Credits</h1>
+            <h1 style="text-align: center; color: #FECA0A; margin-bottom: 30px;">Credits</h1>
             <div class="credits-container">
                 <div class="credits-card">
                     <h3>🌟 Modder Extended Version</h3>
@@ -509,7 +572,7 @@ if (LOGIN_ENABLED && !isset($_SESSION['user_id'])) {
     </div>
 
     <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
-        <h3 style="color: #5e72e4;">Hubungi Saya</h3>
+        <h3 style="color: #FECA0A;">Hubungi Saya</h3>
         <div style="display: flex; justify-content: center; gap: 20px;">
             <a href="https://t.me/latifan_id" target="_blank" style="text-decoration: none;">
                 <div style="display: flex; align-items: center; color: #0088cc;">
@@ -556,20 +619,47 @@ if (LOGIN_ENABLED && !isset($_SESSION['user_id'])) {
             evt.currentTarget.className += " active";
         }
 
-        // Tambahkan fungsi untuk dark mode
+        // Fungsi untuk dark mode yang diperbaiki
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
-            // Simpan preferensi ke localStorage
+            
+            // Simpan preferensi ke cookie (bukan localStorage)
             const isDarkMode = document.body.classList.contains('dark-mode');
-            localStorage.setItem('darkMode', isDarkMode);
+            document.cookie = `darkMode=${isDarkMode};path=/;max-age=${60*60*24*365}`;
+            
+            // Update icon
+            const icon = document.querySelector('.dark-mode-toggle .material-icons');
+            if (isDarkMode) {
+                icon.textContent = 'light_mode';
+            } else {
+                icon.textContent = 'dark_mode';
+            }
         }
 
         // Check preferensi dark mode saat halaman dimuat
         document.addEventListener('DOMContentLoaded', () => {
-            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            // Fungsi untuk mendapatkan nilai cookie
+            function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+                return null;
+            }
+            
+            // Cek preferensi dari cookie
+            const isDarkMode = getCookie('darkMode') === 'true';
+            const icon = document.querySelector('.dark-mode-toggle .material-icons');
+            
             if (isDarkMode) {
                 document.body.classList.add('dark-mode');
+                icon.textContent = 'light_mode';
+            } else {
+                document.body.classList.remove('dark-mode');
+                icon.textContent = 'dark_mode';
             }
+            
+            // Set tab default active (changelog)
+            document.querySelector('.tab').click();
         });
     </script>
 </body>

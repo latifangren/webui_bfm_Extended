@@ -13,10 +13,10 @@
     }
         body {
             font-family: 'LemonMilkProRegular';
-            background-color: transparent;
+            background-color: #000000;
             margin: 0;
             padding: 0;
-            color: transparent;
+            color: #F1F1F1;
         }
         header {
             padding: 0;
@@ -26,17 +26,17 @@
             margin-bottom: 10px; /* Reduced the bottom margin */
         }
         .header-top {
-            background-color: transparent;
+            background-color: #000000;
             padding: 5px;
         }
         .header-bottom {
-            background-color: transparent;
+            background-color: #000000;
             padding: 5px;
         }
         header h1 {
             margin: 0;
             font-size: 0.8em;
-            color: #ffffff;
+            color: #FECA0A;
         }
         .new-container {
             position: absolute;
@@ -49,22 +49,27 @@
             height: 85%;
             padding: 10px;
             box-sizing: border-box;
-            background-color: #ffffff;
-            color: #000;
+            background-color: #1a1a1a;
+            color: #F1F1F1;
             text-align: center;
             z-index: 2;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(254, 202, 10, 0.2);
         }
         .new-container p {
             text-align: left;
             font-size: 0.7em;
-            color: #555;
+            color: #F1F1F1;
             margin-top: 5px;
             margin-left: 18px;
             font-weight: 200;
             float: left;
             margin-right: 2px; 
             cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .new-container p:hover {
+            color: #FECA0A;
         }
         .container {
             width: 100%;
@@ -76,70 +81,72 @@
             display: none;
             width: 100%;
             box-sizing: border-box;
+            background-color: #000000;
         }
         .tab-content.active {
             display: block;
         }
 
-p.active-tab {
-    color: #5e72e4;
-    position: relative; /* Untuk mengatur garis bawah */
-    padding-bottom: 17px; /* Jarak antara teks dan garis bawah */
-}
+        p.active-tab {
+            color: #FECA0A;
+            position: relative; /* Untuk mengatur garis bawah */
+            padding-bottom: 17px; /* Jarak antara teks dan garis bawah */
+        }
 
-p.active-tab::before {
-    content: ''; /* Membuat pseudo-element */
-    position: absolute;
-    top: -20px;
-    left: -15%;
-    width: 130%;
-    height: 150%;
-    background-color: rgba(85, 103, 205, 0.1);
-}
+        p.active-tab::before {
+            content: ''; /* Membuat pseudo-element */
+            position: absolute;
+            top: -20px;
+            left: -15%;
+            width: 130%;
+            height: 150%;
+            background-color: rgba(254, 202, 10, 0.1);
+        }
 
-p.active-tab::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: -15%;
-    width: 130%;
-    height: 3px;
-    background-color: #5e72e4;
-}
+        p.active-tab::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -15%;
+            width: 130%;
+            height: 3px;
+            background-color: #FECA0A;
+        }
         iframe {
             width: 100%;
             height: 770px;
             border: none;
+            background-color: #000000;
         }
         @media (prefers-color-scheme: dark) {
-    body {
-        background-color: transparent;
-        color: transparent;
-    }
+            body {
+                background-color: #000000;
+                color: #F1F1F1;
+            }
 
-    .new-container, .new-container p {
-        background-color: #2a2a2a;
-        color: #e0e0e0;
-    }
+            .new-container, .new-container p {
+                background-color: #1a1a1a;
+                color: #F1F1F1;
+            }
 
-    .tab-content {
-        background-color: #222;
-    }
-    
-    p.active-tab::before {
-        background-color: rgba(0, 0, 0, 0.3);
-    }
+            .tab-content {
+                background-color: #000000;
+            }
+            
+            p.active-tab::before {
+                background-color: rgba(254, 202, 10, 0.1);
+            }
 
-    p.active-tab{
-        color: #e0e0e0; 
-    }
-    p.active-tab::after {
-        background-color: #474f72; 
-    }
-    iframe {
-        background-color: #1a1a1a;
+            p.active-tab{
+                color: #FECA0A; 
+            }
+            p.active-tab::after {
+                background-color: #FECA0A; 
+            }
+            iframe {
+                background-color: #000000;
+            }
         }
-}
     </style>
 </head>
 <body>

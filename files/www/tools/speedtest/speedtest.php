@@ -17,11 +17,11 @@ $localSpeedTestUrl = "./local/index.php";
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #4361ee;
-            --secondary-color: #3a0ca3;
-            --accent-color: #4cc9f0;
-            --background-color: #f8f9fa;
-            --card-bg: #ffffff;
+            --primary-color: #FECA0A;
+            --secondary-color: #FECA0A;
+            --accent-color: #FECA0A;
+            --background-color: #E0E0E0;
+            --card-bg: #FFFFFF;
             --text-color: #333333;
             --border-radius: 12px;
             --button-radius: 50px;
@@ -31,13 +31,13 @@ $localSpeedTestUrl = "./local/index.php";
         }
 
         body.dark-mode {
-            --primary-color: #4cc9f0;
-            --secondary-color: #4361ee;
-            --accent-color: #7209b7;
-            --background-color: #121212;
-            --card-bg: #1e1e1e;
-            --text-color: #f0f0f0;
-            --shadow: 0 4px 20px rgba(0,0,0,0.25);
+            --primary-color: #FECA0A;
+            --secondary-color: #FECA0A;
+            --accent-color: #FECA0A;
+            --background-color: #000000;
+            --card-bg: #111111;
+            --text-color: #F1F1F1;
+            --shadow: 0 4px 20px rgba(254, 202, 10, 0.2);
         }
 
         body {
@@ -47,7 +47,7 @@ $localSpeedTestUrl = "./local/index.php";
             background-color: var(--background-color);
             color: var(--text-color);
             transition: var(--transition);
-            background-image: radial-gradient(circle at 10% 20%, rgba(var(--primary-color), 0.05) 0%, rgba(var(--secondary-color), 0.05) 90%);
+            background-image: radial-gradient(circle at 10% 20%, rgba(254, 202, 10, 0.05) 0%, rgba(254, 202, 10, 0.05) 90%);
         }
 
         .header {
@@ -61,7 +61,7 @@ $localSpeedTestUrl = "./local/index.php";
             top: 0;
             z-index: 100;
             height: 40px;
-            border-bottom: 2px solid rgba(67, 97, 238, 0.1);
+            border-bottom: 2px solid rgba(254, 202, 10, 0.1);
         }
 
         .logo {
@@ -164,13 +164,13 @@ $localSpeedTestUrl = "./local/index.php";
         }
 
         .tab.active {
-            color: white;
-            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+            color: #000000;
+            box-shadow: 0 4px 15px rgba(254, 202, 10, 0.3);
             transform: translateY(-2px);
         }
 
         .tab:not(.active):hover {
-            background: rgba(67, 97, 238, 0.1);
+            background: rgba(254, 202, 10, 0.1);
             transform: translateY(-1px);
         }
 
@@ -185,7 +185,7 @@ $localSpeedTestUrl = "./local/index.php";
             border: none;
             border-radius: var(--button-radius);
             background: var(--gradient);
-            color: white;
+            color: #000000;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -220,7 +220,7 @@ $localSpeedTestUrl = "./local/index.php";
 
         button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 7px 15px rgba(67, 97, 238, 0.25);
+            box-shadow: 0 7px 15px rgba(254, 202, 10, 0.25);
         }
 
         button.alternate {
@@ -251,7 +251,7 @@ $localSpeedTestUrl = "./local/index.php";
         }
 
         button.alternate:hover {
-            color: white;
+            color: #000000;
             border-color: transparent;
         }
 
@@ -362,7 +362,7 @@ $localSpeedTestUrl = "./local/index.php";
         /* Glow effect untuk dark mode */
         body.dark-mode .tab.active,
         body.dark-mode button:hover {
-            box-shadow: 0 0 15px rgba(76, 201, 240, 0.5);
+            box-shadow: 0 0 15px rgba(254, 202, 10, 0.5);
         }
 
         /* Responsive design */

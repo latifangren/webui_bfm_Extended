@@ -133,7 +133,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'get_data') {
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #f5f6fa;
+            background-color: #E0E0E0;
             margin: 0;
             padding: 12px;
             color: #333333;
@@ -148,7 +148,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'get_data') {
         .dashboard-header h1 {
             margin: 0;
             font-size: 20px;
-            color: #333333;
+            color: #FECA0A;
         }
 
         .container {
@@ -160,18 +160,18 @@ if (isset($_GET['action']) && $_GET['action'] === 'get_data') {
         }
 
         .chart-card {
-            background: #ffffff;
+            background: #FFFFFF;
             border-radius: 8px;
             padding: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .section-title {
             font-size: 15px;
             font-weight: 600;
-            color: #333333;
+            color: #FECA0A;
             padding-bottom: 8px;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid #DDDDDD;
             margin-bottom: 12px;
             display: flex;
             align-items: center;
@@ -179,10 +179,10 @@ if (isset($_GET['action']) && $_GET['action'] === 'get_data') {
         }
 
         .core-card {
-            background: #f8f9fa;
+            background: #F8F8F8;
             border-radius: 6px;
             margin-bottom: 8px;
-            border: 1px solid #eee;
+            border: 1px solid #DDDDDD;
         }
 
         .core-card .card-body {
@@ -190,7 +190,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'get_data') {
         }
 
         .core-card h5 {
-            color: #8B5CF6;
+            color: #FECA0A;
             font-weight: 600;
             margin: 0 0 6px 0;
             font-size: 0.95em;
@@ -198,7 +198,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'get_data') {
 
         .frequency-bar {
             height: 6px;
-            background-color: #eee;
+            background-color: #DDDDDD;
             border-radius: 3px;
             margin: 6px 0;
             overflow: hidden;
@@ -206,14 +206,14 @@ if (isset($_GET['action']) && $_GET['action'] === 'get_data') {
 
         .frequency-bar .progress {
             height: 100%;
-            background: linear-gradient(90deg, #8B5CF6, #A78BFA);
+            background: linear-gradient(90deg, #FECA0A, #FEDC6A);
             transition: width 0.3s ease;
         }
 
         .frequency-label {
             display: flex;
             justify-content: space-between;
-            color: #666;
+            color: #333333;
             font-size: 0.85em;
         }
 
@@ -224,8 +224,8 @@ if (isset($_GET['action']) && $_GET['action'] === 'get_data') {
         }
 
         .status-online {
-            background-color: rgba(139, 92, 246, 0.1);
-            color: #8B5CF6;
+            background-color: rgba(254, 202, 10, 0.2);
+            color: #FECA0A;
         }
 
         .status-offline {
@@ -234,20 +234,20 @@ if (isset($_GET['action']) && $_GET['action'] === 'get_data') {
         }
 
         .governor-badge {
-            background-color: #f0f0f0;
-            color: #666;
+            background-color: #EEEEEE;
+            color: #333333;
             padding: 3px 8px;
             border-radius: 4px;
             font-size: 0.8em;
         }
 
         .cluster-header {
-            color: #8B5CF6;
+            color: #FECA0A;
             font-size: 0.9em;
             font-weight: 600;
             margin: 12px 0 8px 0;
             padding: 6px;
-            background: rgba(139, 92, 246, 0.05);
+            background: rgba(254, 202, 10, 0.1);
             border-radius: 4px;
         }
 
@@ -259,40 +259,40 @@ if (isset($_GET['action']) && $_GET['action'] === 'get_data') {
 
         /* Dark Mode */
         body.dark-mode {
-            background-color: #1a1a1a;
-            color: #ffffff;
+            background-color: #000000;
+            color: #F1F1F1;
         }
 
         .dark-mode .dashboard-header h1 {
-            color: #ffffff;
+            color: #FECA0A;
         }
 
         .dark-mode .chart-card {
-            background-color: #2d2d2d;
-            border: 1px solid #404040;
+            background-color: #111111;
+            border: 1px solid #333333;
         }
 
         .dark-mode .section-title {
-            color: #ffffff;
-            border-bottom-color: #404040;
+            color: #FECA0A;
+            border-bottom-color: #333333;
         }
 
         .dark-mode .core-card {
-            background: #333;
-            border-color: #404040;
+            background: #1a1a1a;
+            border-color: #333333;
         }
 
         .dark-mode .frequency-bar {
-            background-color: #404040;
+            background-color: #333333;
         }
 
         .dark-mode .frequency-label {
-            color: #aaa;
+            color: #F1F1F1;
         }
 
         .dark-mode .governor-badge {
-            background-color: #404040;
-            color: #aaa;
+            background-color: #333333;
+            color: #F1F1F1;
         }
 
         /* Theme Switch - Compact Version */
@@ -317,7 +317,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'get_data') {
         }
 
         .slider {
-            background-color: #ccc;
+            background-color: #BBBBBB;
             bottom: 0;
             cursor: pointer;
             left: 0;
@@ -329,7 +329,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'get_data') {
         }
 
         .slider:before {
-            background-color: #fff;
+            background-color: #FFFFFF;
             bottom: 3px;
             content: "";
             height: 18px;
@@ -341,7 +341,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'get_data') {
         }
 
         input:checked + .slider {
-            background-color: #8B5CF6;
+            background-color: #FECA0A;
         }
 
         input:checked + .slider:before {
@@ -350,34 +350,18 @@ if (isset($_GET['action']) && $_GET['action'] === 'get_data') {
 
         .theme-switch-wrapper span {
             font-size: 0.85em;
-            color: inherit;
+            color: #333333;
         }
 
-        @media (max-width: 768px) {
-            body {
-                padding: 8px;
-            }
-            
-            .container {
-                grid-template-columns: 1fr;
-            }
-            
-            .cores-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .cores-grid {
-                grid-template-columns: 1fr;
-            }
+        .dark-mode .theme-switch-wrapper span {
+            color: #F1F1F1;
         }
 
         /* Footer Styles */
         .footer {
             margin-top: 20px;
             padding: 15px 0;
-            background: linear-gradient(45deg, #4527a0, #6a1b9a);
+            background: linear-gradient(45deg, #CCCCCC, #E5E5E5);
         }
 
         .footer-container {
@@ -404,11 +388,11 @@ if (isset($_GET['action']) && $_GET['action'] === 'get_data') {
             display: flex;
             align-items: center;
             gap: 8px;
-            color: #fff;
+            color: #333333;
         }
 
         .footer-icon {
-            color: #ff4081;
+            color: #FECA0A;
             font-size: 18px;
             animation: pulse 1.5s infinite;
         }
@@ -419,35 +403,35 @@ if (isset($_GET['action']) && $_GET['action'] === 'get_data') {
             gap: 6px;
             padding: 6px 12px;
             border-radius: 20px;
-            color: #fff;
+            color: #000000;
             text-decoration: none;
             font-size: 14px;
             transition: all 0.3s ease;
         }
 
         .telegram-button {
-            background-color: #7e57c2;
+            background-color: #FECA0A;
         }
 
         .dashboard-button {
-            background-color: #2196f3;
+            background-color: #FFFFFF;
         }
 
         .footer-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(254, 202, 10, 0.3);
         }
 
         .purple-text {
-            color: #e1bee7;
+            color: #FECA0A;
         }
 
         .cyan-text {
-            color: #80deea;
+            color: #333333;
         }
 
         .grey-text {
-            color: #bdbdbd;
+            color: #666666;
         }
 
         @keyframes pulse {
@@ -458,11 +442,44 @@ if (isset($_GET['action']) && $_GET['action'] === 'get_data') {
 
         /* Dark Mode Footer Adjustments */
         .dark-mode .footer {
-            background: linear-gradient(45deg, #2c1810, #4a148c);
+            background: linear-gradient(45deg, #000000, #222222);
         }
 
         .dark-mode .footer-button {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: #FECA0A;
+            color: #000000;
+        }
+
+        .dark-mode .footer-brand {
+            color: #F1F1F1;
+        }
+
+        .dark-mode .cyan-text {
+            color: #F1F1F1;
+        }
+
+        .dark-mode .grey-text {
+            color: #999999;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 8px;
+            }
+            
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .cores-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cores-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 600px) {

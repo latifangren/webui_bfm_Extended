@@ -160,46 +160,46 @@ $scriptDirectory = getScriptDirectory($scriptPath);
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            --bg-color: #f8f9fa;
-            --card-bg: white;
-            --text-color: #333;
-            --header-color: #3a76f8;
-            --shadow-color: rgba(0,0,0,0.08);
-            --border-color: #ddd;
-            --subtitle-color: #777;
-            --running-bg: #e0f7ea;
-            --running-color: #00a854;
-            --stopped-bg: #ffebef;
-            --stopped-color: #f5222d;
-            --airplane-on-bg: #fff7e6;
-            --airplane-on-color: #fa8c16;
-            --airplane-off-bg: #e6f7ff;
-            --airplane-off-color: #1890ff;
-            --log-bg: #f8f9fa;
-            --success-color: #52c41a;
-            --error-color: #f5222d;
-            --chart-grid: rgba(0, 0, 0, 0.05);
+            --bg-color: #000000;
+            --card-bg: #1a1a1a;
+            --text-color: #F1F1F1;
+            --header-color: #FECA0A;
+            --shadow-color: rgba(0,0,0,0.2);
+            --border-color: #333;
+            --subtitle-color: #aaa;
+            --running-bg: #1a1a1a;
+            --running-color: #FECA0A;
+            --stopped-bg: #1a1a1a;
+            --stopped-color: #F1F1F1;
+            --airplane-on-bg: #1a1a1a;
+            --airplane-on-color: #FECA0A;
+            --airplane-off-bg: #1a1a1a;
+            --airplane-off-color: #F1F1F1;
+            --log-bg: #111;
+            --success-color: #FECA0A;
+            --error-color: #F1F1F1;
+            --chart-grid: rgba(255, 255, 255, 0.08);
         }
 
         .dark-mode {
-            --bg-color: #1f1f1f;
-            --card-bg: #2d2d2d;
-            --text-color: #f0f0f0;
-            --header-color: #4a83f8;
+            --bg-color: #000000;
+            --card-bg: #1a1a1a;
+            --text-color: #F1F1F1;
+            --header-color: #FECA0A;
             --shadow-color: rgba(0,0,0,0.2);
-            --border-color: #444;
+            --border-color: #333;
             --subtitle-color: #aaa;
-            --running-bg: #163228;
-            --running-color: #52c41a;
-            --stopped-bg: #3b1a1f;
-            --stopped-color: #ff4d4f;
-            --airplane-on-bg: #3b2e15;
-            --airplane-on-color: #ffa940;
-            --airplane-off-bg: #15233b;
-            --airplane-off-color: #40a9ff;
-            --log-bg: #2b2b2b;
-            --success-color: #73d13d;
-            --error-color: #ff7875;
+            --running-bg: #1a1a1a;
+            --running-color: #FECA0A;
+            --stopped-bg: #1a1a1a;
+            --stopped-color: #F1F1F1;
+            --airplane-on-bg: #1a1a1a;
+            --airplane-on-color: #FECA0A;
+            --airplane-off-bg: #1a1a1a;
+            --airplane-off-color: #F1F1F1;
+            --log-bg: #111;
+            --success-color: #FECA0A;
+            --error-color: #F1F1F1;
             --chart-grid: rgba(255, 255, 255, 0.08);
         }
 
@@ -389,9 +389,10 @@ $scriptDirectory = getScriptDirectory($scriptPath);
         }
         
         .chart-header {
-            background: linear-gradient(135deg, #4285f4, #34a853);
+            background: linear-gradient(135deg, #000000, #1a1a1a);
+            border-bottom: 2px solid #FECA0A;
             padding: 8px 10px;
-            color: white;
+            color: #FECA0A;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -428,10 +429,11 @@ $scriptDirectory = getScriptDirectory($scriptPath);
         }
         
         .log-section h2 {
-            background: linear-gradient(135deg, #fbbc05, #ea4335);
+            background: linear-gradient(135deg, #000000, #1a1a1a);
+            border-bottom: 2px solid #FECA0A;
             margin: 0;
             padding: 8px 10px;
-            color: white;
+            color: #FECA0A;
             font-size: 16px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
@@ -497,14 +499,15 @@ $scriptDirectory = getScriptDirectory($scriptPath);
             color: var(--airplane-off-color);
         }
         .success-ping {
-            background-color: #34a853;
-            color: white;
-            box-shadow: 0 2px 5px rgba(52, 168, 83, 0.4);
+            background-color: #FECA0A;
+            color: #000000;
+            box-shadow: 0 2px 5px rgba(254, 202, 10, 0.4);
         }
         .failed-ping {
-            background-color: #ea4335;
-            color: white;
-            box-shadow: 0 2px 5px rgba(234, 67, 53, 0.4);
+            background-color: #1a1a1a;
+            color: #F1F1F1;
+            border: 1px solid #FECA0A;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
         }
         
         /* Animation */
@@ -512,9 +515,9 @@ $scriptDirectory = getScriptDirectory($scriptPath);
             animation: pulse 2s infinite;
         }
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(0, 170, 100, 0.4); }
-            70% { box-shadow: 0 0 0 8px rgba(0, 170, 100, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 170, 100, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(254, 202, 10, 0.4); }
+            70% { box-shadow: 0 0 0 8px rgba(254, 202, 10, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(254, 202, 10, 0); }
         }
         
         /* Log highlight */
@@ -547,22 +550,98 @@ $scriptDirectory = getScriptDirectory($scriptPath);
                 font-size: 10px;
             }
         }
+        
+        .start-btn, .stop-btn, .restart-btn {
+            background-color: #1a1a1a;
+            color: #F1F1F1;
+            border: 1px solid #FECA0A;
+            border-radius: 20px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .start-btn:hover, .restart-btn:hover {
+            background-color: #FECA0A;
+            color: #000000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(254, 202, 10, 0.3);
+        }
+        
+        .stop-btn:hover {
+            background-color: #FECA0A;
+            color: #000000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(254, 202, 10, 0.3);
+        }
+        
+        /* Header dan branding */
+        .app-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 10px;
+            background-color: #000000;
+            border-bottom: 2px solid #FECA0A;
+            margin-bottom: 20px;
+        }
+        
+        .app-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0;
+            color: #FECA0A;
+        }
+        
+        .app-emoji {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        
+        /* Footer styling */
+        .app-footer {
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+            border-top: 2px solid #FECA0A;
+            background-color: #000000;
+        }
+        
+        .footer-text {
+            color: #F1F1F1;
+            font-size: 14px;
+        }
+        
+        .footer-brand {
+            color: #FECA0A;
+            font-weight: 600;
+        }
+        
+        .footer-emoji {
+            margin: 0 5px;
+        }
+        
+        .footer-link {
+            color: #FECA0A;
+            text-decoration: none;
+            border-bottom: 1px dotted #FECA0A;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            opacity: 0.8;
+            border-bottom: 1px solid #FECA0A;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <div class="logo">
-                <div class="logo-icon">📡</div>
-                <h1>Ping Monitor</h1>
-                <div class="credit">
-                    <span class="credit-text">mod by</span>
-                    <a href="https://t.me/latifan_id" class="credit-link" target="_blank">
-                        latifan_id
-                    </a>
-                </div>
-            </div>
-            <button class="dark-mode-toggle" id="darkModeToggle">🌓</button>
+        <div class="app-header">
+            <span class="app-emoji">📡</span>
+            <h1 class="app-title">Ping Monitor</h1>
         </div>
         
         <?php if (!empty($message)): ?>
@@ -662,6 +741,15 @@ $scriptDirectory = getScriptDirectory($scriptPath);
         </div>
     </div>
 
+    <div class="app-footer">
+        <p class="footer-text">
+            <span class="footer-brand">Ping Monitor</span>
+            <span class="footer-emoji">⚡</span>
+            <span>mod by</span>
+            <a href="https://t.me/latifan_id" class="footer-link">latifan_id</a>
+        </p>
+    </div>
+
     <script>
         // Konfigurasi chart yang benar-benar baru
         const pingData = <?php echo json_encode($pingData); ?>;
@@ -672,10 +760,10 @@ $scriptDirectory = getScriptDirectory($scriptPath);
         
         // Siapkan warna dan border dari data ping
         const backgroundColors = data.map(status => 
-            status === 1 ? 'rgba(52, 168, 83, 0.5)' : 'rgba(234, 67, 53, 0.5)'
+            status === 1 ? 'rgba(254, 202, 10, 0.5)' : 'rgba(26, 26, 26, 0.5)'
         );
         const borderColors = data.map(status => 
-            status === 1 ? 'rgb(52, 168, 83)' : 'rgb(234, 67, 53)'
+            status === 1 ? '#FECA0A' : '#F1F1F1'
         );
         
         // Buat chart baru dengan animasi dan styling yang lebih menarik
@@ -791,10 +879,10 @@ $scriptDirectory = getScriptDirectory($scriptPath);
             // Persiapkan label dan warna
             const labels = times.map(time => time.substr(11, 5));
             const backgroundColors = data.map(status => 
-                status === 1 ? 'rgba(52, 168, 83, 0.5)' : 'rgba(234, 67, 53, 0.5)'
+                status === 1 ? 'rgba(254, 202, 10, 0.5)' : 'rgba(26, 26, 26, 0.5)'
             );
             const borderColors = data.map(status => 
-                status === 1 ? 'rgb(52, 168, 83)' : 'rgb(234, 67, 53)'
+                status === 1 ? '#FECA0A' : '#F1F1F1'
             );
             
             // Update chart data
@@ -815,8 +903,8 @@ $scriptDirectory = getScriptDirectory($scriptPath);
                     lastPingStatus.style.transform = 'scale(1)';
                 }, 300);
                 
-                lastPingStatus.className = lastStatus === 1 ? 'last-ping-status success-ping' : 'last-ping-status failed-ping';
-                lastPingStatus.textContent = lastStatus === 1 ? '✅ Ping Terakhir: Berhasil' : '❌ Ping Terakhir: Gagal';
+                lastPingStatus.className = 'last-ping-status ' + (lastStatus === 1 ? 'success-ping' : 'failed-ping');
+                lastPingStatus.innerHTML = 'Ping Terakhir: ' + (lastStatus === 1 ? '✅ Sukses' : '❌ Gagal');
             }
         }
         

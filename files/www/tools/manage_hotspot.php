@@ -208,33 +208,39 @@ if (isset($_POST['unlimit']) && isset($_POST['ip'])) {
     <title>Perangkat Terkoneksi ke Hotspot</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Default styles */
         body {
             font-family: 'Poppins', Arial, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background-color: #FFFFFF;
             margin: 0;
             padding: 20px;
-            color: #2c3e50;
+            color: #333333;
             min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #FFFFFF;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 80px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         h1 {
             text-align: center;
-            font-size: 2.4em;
+            color: #FECA0A;
             margin-bottom: 30px;
-            position: relative;
-            padding: 15px 0;
-            background: linear-gradient(45deg, #FF6B6B, #4ECDC4, #45B7AF, #3498db);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 300% 300%;
-            animation: gradient-text 5s ease infinite;
             font-weight: 700;
+            font-size: 28px;
+            position: relative;
+            padding-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(254, 202, 10, 0.3);
             letter-spacing: 1px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
-        h1::after {
+        h1:after {
             content: '';
             position: absolute;
             bottom: 0;
@@ -242,152 +248,163 @@ if (isset($_POST['unlimit']) && isset($_POST['ip'])) {
             transform: translateX(-50%);
             width: 100px;
             height: 4px;
-            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            background: linear-gradient(90deg, rgba(254, 202, 10, 0.1), #FECA0A, rgba(254, 202, 10, 0.1));
             border-radius: 2px;
-        }
-
-        @keyframes gradient-text {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        /* Dark mode adjustments */
-        body.dark-mode h1 {
-            background: linear-gradient(45deg, #FF8585, #5DDDD3, #4EC8BF, #3498db);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        body.dark-mode h1::after {
-            background: linear-gradient(45deg, #FF8585, #5DDDD3);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            margin-bottom: 100px;
         }
 
         table {
             width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            margin-top: 25px;
-            background: white;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 14px;
+            background-color: #FFFFFF;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         th, td {
-            padding: 15px 20px;
+            padding: 16px;
             text-align: left;
-            border-bottom: 1px solid #eef2f7;
         }
 
         th {
-            background-color: #3498db;
-            color: white;
+            background-color: rgba(254, 202, 10, 0.1);
+            color: #333333;
             font-weight: 600;
             text-transform: uppercase;
-            font-size: 0.85em;
-            letter-spacing: 0.5px;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        td {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         tr:hover {
-            background-color: #f8fafc;
-            transform: scale(1.005);
-            transition: all 0.2s ease;
+            background-color: rgba(254, 202, 10, 0.05);
+        }
+
+        .button {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 4px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 13px;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .refresh-button {
+            background-color: #FECA0A;
+            color: #000000;
+        }
+
+        .refresh-button:hover {
+            background-color: #e5b609;
+        }
+
+        .block-button {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .block-button:hover {
+            background-color: #c0392b;
+        }
+
+        .unblock-button {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        .unblock-button:hover {
+            background-color: #219a52;
         }
 
         .button-group {
             display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin: 30px 0;
+            justify-content: space-between;
+            margin-bottom: 20px;
         }
 
-        .button {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+        .manage-button {
+            background-color: #FECA0A;
+            color: #000000;
+            padding: 10px 20px;
             font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            border-radius: 5px;
         }
 
-        .refresh-button {
-            background: linear-gradient(45deg, #3498db, #2980b9);
-            color: white;
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        .manage-button:hover {
+            background-color: #e5b609;
         }
 
-        .refresh-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        .message {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-weight: 500;
+            text-align: center;
         }
 
-        .block-button {
-            background: linear-gradient(45deg, #e74c3c, #c0392b);
-            color: white;
-            padding: 8px 16px;
-            font-size: 12px;
+        .success {
+            background-color: rgba(39, 174, 96, 0.1);
+            color: #27ae60;
+            border: 1px solid rgba(39, 174, 96, 0.3);
         }
 
-        .unblock-button {
-            background: linear-gradient(45deg, #7f8c8d, #95a5a6);
-            color: white;
-            padding: 8px 16px;
-            font-size: 12px;
+        .error {
+            background-color: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+            border: 1px solid rgba(231, 76, 60, 0.3);
         }
 
         .limit-button {
-            background: linear-gradient(45deg, #f1c40f, #f39c12);
+            background-color: #FECA0A;
+            color: #000000;
+            padding: 8px 16px;
+            font-size: 12px;
+        }
+
+        .limit-button:hover {
+            background-color: #e5b609;
+        }
+
+        .unlimit-button {
+            background-color: #1abc9c;
             color: white;
             padding: 8px 16px;
             font-size: 12px;
         }
 
-        .unlimit-button {
-            background: linear-gradient(45deg, #1abc9c, #16a085);
-            color: white;
-            padding: 8px 16px;
-            font-size: 12px;
+        .unlimit-button:hover {
+            background-color: #16a085;
         }
 
         .search-box {
             width: 100%;
             padding: 15px;
-            border: 2px solid #eef2f7;
+            border: 2px solid rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             font-size: 16px;
             transition: all 0.3s ease;
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            background-color: #FFFFFF;
+            color: #333333;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
         .search-box:focus {
-            border-color: #3498db;
+            border-color: #FECA0A;
             outline: none;
-            box-shadow: 0 2px 15px rgba(52, 152, 219, 0.2);
+            box-shadow: 0 2px 15px rgba(254, 202, 10, 0.2);
         }
 
         .status-badge {
@@ -402,13 +419,15 @@ if (isset($_POST['unlimit']) && isset($_POST['ip'])) {
         }
 
         .status-blocked {
-            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            background-color: rgba(231, 76, 60, 0.8);
             color: white;
+            border: 1px solid rgba(254, 202, 10, 0.3);
         }
 
         .status-limited {
-            background: linear-gradient(45deg, #f1c40f, #f39c12);
-            color: white;
+            background-color: rgba(254, 202, 10, 0.8);
+            color: #000000;
+            border: 1px solid rgba(254, 202, 10, 0.3);
         }
 
         /* Modal Styles */
@@ -419,21 +438,22 @@ if (isset($_POST['unlimit']) && isset($_POST['ip'])) {
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(5px);
             z-index: 1000;
         }
 
         .modal-content {
-            background: white;
+            background-color: #FFFFFF;
             margin: 10% auto;
             padding: 30px;
             border-radius: 15px;
             width: 90%;
             max-width: 500px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
             position: relative;
             animation: modalSlideIn 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         @keyframes modalSlideIn {
@@ -452,13 +472,13 @@ if (isset($_POST['unlimit']) && isset($_POST['ip'])) {
             right: 20px;
             top: 15px;
             font-size: 28px;
-            color: #95a5a6;
+            color: #FECA0A;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .close:hover {
-            color: #e74c3c;
+            color: #e5b609;
             transform: rotate(90deg);
         }
 
@@ -470,34 +490,37 @@ if (isset($_POST['unlimit']) && isset($_POST['ip'])) {
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
-            color: #2c3e50;
+            color: #333333;
         }
 
         .form-group input {
             width: 100%;
             padding: 12px;
-            border: 2px solid #eef2f7;
+            border: 2px solid rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             font-size: 16px;
             transition: all 0.3s ease;
+            background-color: #FFFFFF;
+            color: #333333;
         }
 
         .form-group input:focus {
-            border-color: #3498db;
+            border-color: #FECA0A;
             outline: none;
-            box-shadow: 0 2px 15px rgba(52, 152, 219, 0.1);
+            box-shadow: 0 2px 15px rgba(254, 202, 10, 0.2);
         }
 
         /* Footer Styles */
         .footer {
-            background: linear-gradient(45deg, #2c3e50, #3498db);
+            background-color: #FFFFFF;
             padding: 20px 0;
             position: fixed;
             bottom: 0;
             width: 100%;
             left: 0;
             z-index: 1000;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         .footer-container {
@@ -514,178 +537,47 @@ if (isset($_POST['unlimit']) && isset($_POST['ip'])) {
             flex-wrap: wrap;
         }
 
-        .telegram-button {
-            background: rgba(255,255,255,0.1);
-            padding: 8px 16px;
-            border-radius: 20px;
-            color: white;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-            font-size: 14px;
-        }
-
-        .telegram-button:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
-        }
-
-        /* Dark mode styles */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background: linear-gradient(135deg, #2c3e50 0%, #1a1a1a 100%);
-                color: #ecf0f1;
-            }
-
-            .container {
-                background: rgba(44, 62, 80, 0.95);
-            }
-
-            table {
-                background: #34495e;
-            }
-
-            th {
-                background: #2980b9;
-            }
-
-            td {
-                color: #ecf0f1;
-                border-bottom: 1px solid #4a6278;
-            }
-
-            tr:hover {
-                background: #2c3e50;
-            }
-
-            .search-box {
-                background: #34495e;
-                border-color: #4a6278;
-                color: #ecf0f1;
-            }
-
-            .modal-content {
-                background: #34495e;
-                color: #ecf0f1;
-            }
-
-            .form-group input {
-                background: #2c3e50;
-                border-color: #4a6278;
-                color: #ecf0f1;
-            }
-        }
-
         /* Responsive Adjustments */
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
             .container {
-                padding: 10px;
-                margin: 0;
-                margin-bottom: 80px;
-            }
-
-            h1 {
-                font-size: 1.8em;
-                margin-bottom: 20px;
-                padding: 10px 0;
-            }
-
-            table {
-                display: block;
-                overflow-x: auto;
-                white-space: nowrap;
-                font-size: 14px;
-            }
-
-            th, td {
-                padding: 10px;
-            }
-
-            .button {
-                padding: 8px 12px;
-                font-size: 12px;
+                padding: 20px;
             }
 
             .button-group {
-                flex-wrap: wrap;
-                gap: 8px;
-            }
-
-            .search-box {
-                padding: 10px;
-                font-size: 14px;
-                margin-bottom: 15px;
-            }
-
-            .status-badge {
-                padding: 4px 8px;
-                font-size: 10px;
-            }
-
-            .modal-content {
-                margin: 20% auto;
-                padding: 20px;
-                width: 95%;
-            }
-
-            .footer {
-                padding: 15px 0;
-            }
-
-            .footer-content {
                 flex-direction: column;
                 gap: 10px;
             }
 
-            .footer-brand {
-                flex-wrap: wrap;
-                justify-content: center;
-                text-align: center;
+            .refresh-button, .theme-toggle {
+                width: 100%;
             }
 
-            .telegram-button {
-                padding: 6px 12px;
+            table {
+                font-size: 13px;
+            }
+
+            th, td {
+                padding: 12px 8px;
+            }
+
+            .button {
                 font-size: 12px;
-            }
-
-            td {
-                min-width: 100px;
-            }
-
-            td:nth-child(4) {
-                min-width: 150px;
-            }
-
-            td:nth-child(5) {
-                min-width: 200px;
-            }
-
-            .form-group input {
-                padding: 8px;
-                font-size: 14px;
-            }
-
-            .close {
-                right: 15px;
-                top: 10px;
-                font-size: 24px;
+                padding: 6px 12px;
             }
         }
 
         @media (max-width: 480px) {
-            h1 {
-                font-size: 1.5em;
+            .container {
+                padding: 15px;
             }
 
-            .button {
-                width: 100%;
-                margin-bottom: 5px;
+            h1 {
+                font-size: 20px;
+            }
+
+            th, td {
+                padding: 8px 6px;
+                font-size: 12px;
             }
 
             td .button {
@@ -709,43 +601,42 @@ if (isset($_POST['unlimit']) && isset($_POST['ip'])) {
         }
 
         .copyright {
-            color: #FF6B6B;
+            color: #FECA0A;
             font-weight: 600;
-            text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+            text-shadow: 0 0 10px rgba(254, 202, 10, 0.3);
         }
 
         .brand-name {
-            background: linear-gradient(45deg, #4ECDC4, #45B7AF);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #FECA0A;
             font-weight: 600;
             font-size: 1.1em;
         }
 
         .heart-icon {
-            color: #FF6B6B;
+            color: #FECA0A;
             animation: heartBeat 1.5s ease infinite;
             font-size: 18px !important;
         }
 
         .by-text {
-            color: #A8E6CF;
+            color: #F1F1F1;
             font-weight: 500;
         }
 
         .telegram-button {
-            background: linear-gradient(45deg, #3498db, #2980b9);
+            background-color: #1a1a1a;
             padding: 8px 16px;
             border-radius: 20px;
-            color: white;
+            color: #FECA0A;
             font-weight: 500;
-            box-shadow: 0 2px 10px rgba(52, 152, 219, 0.3);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(254, 202, 10, 0.3);
         }
 
         .telegram-button:hover {
-            background: linear-gradient(45deg, #2980b9, #2573a7);
+            background-color: rgba(254, 202, 10, 0.1);
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+            box-shadow: 0 4px 15px rgba(254, 202, 10, 0.2);
         }
 
         @keyframes heartBeat {
@@ -756,40 +647,20 @@ if (isset($_POST['unlimit']) && isset($_POST['ip'])) {
             70% { transform: scale(1); }
         }
 
-        /* Dark mode adjustments */
-        @media (prefers-color-scheme: dark) {
-            .copyright {
-                color: #FF8585;
-            }
-            
-            .brand-name {
-                background: linear-gradient(45deg, #5DDDD3, #4EC8BF);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-            }
-            
-            .heart-icon {
-                color: #FF8585;
-            }
-            
-            .by-text {
-                color: #B8F6DF;
-            }
-        }
-
         .theme-toggle {
-            background: linear-gradient(45deg, #34495e, #2c3e50);
-            color: white;
+            background-color: #FECA0A;
+            color: #000000;
             padding: 12px 24px;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 15px rgba(44, 62, 80, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         .theme-toggle:hover {
+            background-color: #e5b609;
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(44, 62, 80, 0.4);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
         }
 
         .theme-toggle i {
@@ -798,68 +669,83 @@ if (isset($_POST['unlimit']) && isset($_POST['ip'])) {
         }
 
         body.dark-mode {
-            background: linear-gradient(135deg, #2c3e50 0%, #1a1a1a 100%);
-            color: #ecf0f1;
+            background-color: #000000;
+            color: #F1F1F1;
         }
 
         body.dark-mode .container {
-            background: rgba(44, 62, 80, 0.95);
+            background-color: #1a1a1a;
+            border: 1px solid rgba(254, 202, 10, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         body.dark-mode table {
-            background: #34495e;
+            background-color: #1a1a1a;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         body.dark-mode th {
-            background: #2980b9;
+            background-color: rgba(254, 202, 10, 0.1);
+            color: #FECA0A;
         }
 
         body.dark-mode td {
-            color: #ecf0f1;
-            border-bottom: 1px solid #4a6278;
+            color: #F1F1F1;
+            border-bottom: 1px solid rgba(254, 202, 10, 0.1);
         }
 
         body.dark-mode tr:hover {
-            background: #2c3e50;
+            background-color: rgba(254, 202, 10, 0.05);
         }
 
         body.dark-mode .search-box {
-            background: #34495e;
-            border-color: #4a6278;
-            color: #ecf0f1;
+            background-color: #1a1a1a;
+            border-color: rgba(254, 202, 10, 0.2);
+            color: #F1F1F1;
         }
 
         body.dark-mode .modal-content {
-            background: #34495e;
-            color: #ecf0f1;
+            background-color: #1a1a1a;
+            color: #F1F1F1;
+            border: 1px solid rgba(254, 202, 10, 0.3);
         }
 
         body.dark-mode .form-group input {
-            background: #2c3e50;
-            border-color: #4a6278;
-            color: #ecf0f1;
+            background-color: #1a1a1a;
+            border-color: rgba(254, 202, 10, 0.2);
+            color: #F1F1F1;
+        }
+
+        body.dark-mode .form-group label {
+            color: #FECA0A;
         }
 
         body.dark-mode .theme-toggle {
-            background: linear-gradient(45deg, #f1c40f, #f39c12);
+            background-color: #1a1a1a;
+            color: #FECA0A;
+            border: 1px solid rgba(254, 202, 10, 0.3);
         }
 
-        body.dark-mode .copyright {
-            color: #FF8585;
+        body.dark-mode .theme-toggle:hover {
+            background-color: rgba(254, 202, 10, 0.1);
         }
-        
-        body.dark-mode .brand-name {
-            background: linear-gradient(45deg, #5DDDD3, #4EC8BF);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+
+        body.dark-mode h2 {
+            color: #FECA0A;
         }
-        
+
+        body.dark-mode .close {
+            color: #FECA0A;
+        }
+
+        body.dark-mode .copyright,
+        body.dark-mode .brand-name,
         body.dark-mode .heart-icon {
-            color: #FF8585;
+            color: #FECA0A;
         }
-        
+
         body.dark-mode .by-text {
-            color: #B8F6DF;
+            color: #F1F1F1;
         }
     </style>
 </head>
@@ -898,17 +784,21 @@ if (isset($_POST['unlimit']) && isset($_POST['ip'])) {
             <tbody>
                 <?php
                 if (empty($devices)) {
-                    echo '<tr><td colspan="5" style="text-align: center;">Tidak ada perangkat yang terkoneksi</td></tr>';
+                    echo '<tr><td colspan="5" style="text-align: center;"><i class="material-icons" style="vertical-align: middle; margin-right: 5px;">info</i>Tidak ada perangkat yang terkoneksi</td></tr>';
                 } else {
                     $counter = 1;
                     foreach ($devices as $device) {
                         $status_badges = '';
                         if (isBlocked($device['ip'])) {
-                            $status_badges .= '<span class="status-badge status-blocked">Diblokir</span>';
+                            $status_badges .= '<span class="status-badge status-blocked"><i class="material-icons tiny" style="font-size: 12px; vertical-align: middle; margin-right: 3px;">block</i>Diblokir</span>';
                         }
                         if (isLimited($device['ip'])) {
                             $limit_value = getLimitValue($device['ip']);
-                            $status_badges .= '<span class="status-badge status-limited">Dibatasi ' . $limit_value . ' Kbps</span>';
+                            $status_badges .= '<span class="status-badge status-limited"><i class="material-icons tiny" style="font-size: 12px; vertical-align: middle; margin-right: 3px;">speed</i>Dibatasi ' . $limit_value . ' Kbps</span>';
+                        }
+                        
+                        if (empty($status_badges)) {
+                            $status_badges = '<span class="status-badge" style="background-color: rgba(39, 174, 96, 0.8); color: white;"><i class="material-icons tiny" style="font-size: 12px; vertical-align: middle; margin-right: 3px;">check_circle</i>Aktif</span>';
                         }
                         
                         echo "<tr>
@@ -917,18 +807,26 @@ if (isset($_POST['unlimit']) && isset($_POST['ip'])) {
                                 <td>" . htmlspecialchars($device['mac']) . "</td>
                                 <td>{$status_badges}</td>
                                 <td>
-                                    <button class='button limit-button' onclick='openLimitModal(\"" . htmlspecialchars($device['ip']) . "\")'>Limit</button>
+                                    <button class='button limit-button' onclick='openLimitModal(\"" . htmlspecialchars($device['ip']) . "\")'>
+                                        <i class='material-icons tiny' style='vertical-align: middle; margin-right: 3px;'>speed</i>Limit
+                                    </button>
                                     <form method='POST' style='display: inline;'>
                                         <input type='hidden' name='ip' value='" . htmlspecialchars($device['ip']) . "'>
-                                        <button type='submit' name='unlimit' class='button unlimit-button' onclick='return confirm(\"Apakah Anda yakin ingin membuka limit bandwidth untuk perangkat ini?\")'>Buka Limit</button>
+                                        <button type='submit' name='unlimit' class='button unlimit-button' onclick='return confirm(\"Apakah Anda yakin ingin membuka limit bandwidth untuk perangkat ini?\")'>
+                                            <i class='material-icons tiny' style='vertical-align: middle; margin-right: 3px;'>settings_ethernet</i>Buka Limit
+                                        </button>
                                     </form>
                                     <form method='POST' style='display: inline;'>
                                         <input type='hidden' name='ip' value='" . htmlspecialchars($device['ip']) . "'>
-                                        <button type='submit' name='block' class='button block-button' onclick='return confirm(\"Apakah Anda yakin ingin memblokir perangkat ini?\")'>Blokir</button>
+                                        <button type='submit' name='block' class='button block-button' onclick='return confirm(\"Apakah Anda yakin ingin memblokir perangkat ini?\")'>
+                                            <i class='material-icons tiny' style='vertical-align: middle; margin-right: 3px;'>block</i>Blokir
+                                        </button>
                                     </form>
                                     <form method='POST' style='display: inline;'>
                                         <input type='hidden' name='ip' value='" . htmlspecialchars($device['ip']) . "'>
-                                        <button type='submit' name='unblock' class='button unblock-button' onclick='return confirm(\"Apakah Anda yakin ingin membuka blokir perangkat ini?\")'>Buka Blokir</button>
+                                        <button type='submit' name='unblock' class='button unblock-button' onclick='return confirm(\"Apakah Anda yakin ingin membuka blokir perangkat ini?\")'>
+                                            <i class='material-icons tiny' style='vertical-align: middle; margin-right: 3px;'>check_circle</i>Buka Blokir
+                                        </button>
                                     </form>
                                 </td>
                               </tr>";
@@ -944,14 +842,16 @@ if (isset($_POST['unlimit']) && isset($_POST['ip'])) {
     <div id="limitModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeLimitModal()">&times;</span>
-            <h2>Batasi Bandwidth</h2>
+            <h2><i class="material-icons" style="vertical-align: middle; margin-right: 8px;">speed</i>Batasi Bandwidth</h2>
             <form method="POST" action="">
                 <input type="hidden" name="ip" id="limitIp">
                 <div class="form-group">
                     <label for="download">Download (Kbps):</label>
                     <input type="number" id="download" name="download" value="1024" min="1" required>
                 </div>
-                <button type="submit" name="limit" class="button manage-button">Terapkan Limit</button>
+                <button type="submit" name="limit" class="button manage-button">
+                    <i class="material-icons" style="vertical-align: middle; margin-right: 5px;">save</i>Terapkan Limit
+                </button>
             </form>
         </div>
     </div>
@@ -967,7 +867,7 @@ if (isset($_POST['unlimit']) && isset($_POST['ip'])) {
                     <span class="by-text">by</span>
                     <a href="https://t.me/latifan_id" class="telegram-link" target="_blank">
                         <span class="telegram-button">
-                            <i class="material-icons tiny">telegram</i>
+                            <i class="material-icons tiny" style="vertical-align: middle; margin-right: 3px;">send</i>
                             <span>@latifan_id</span>
                         </span>
                     </a>
@@ -1020,7 +920,7 @@ if (isset($_POST['unlimit']) && isset($_POST['ip'])) {
             }
         }
 
-        // Check saved theme preference
+        // Aktifkan dark mode hanya jika sebelumnya disimpan dalam localStorage
         document.addEventListener('DOMContentLoaded', function() {
             const savedTheme = localStorage.getItem('theme');
             const themeIcon = document.getElementById('theme-icon');
@@ -1028,13 +928,42 @@ if (isset($_POST['unlimit']) && isset($_POST['ip'])) {
             
             if (savedTheme === 'dark') {
                 document.body.classList.add('dark-mode');
-                themeIcon.textContent = 'light_mode';
-                themeText.textContent = 'Mode Terang';
+                
+                if (themeIcon && themeText) {
+                    themeIcon.textContent = 'light_mode';
+                    themeText.textContent = 'Mode Terang';
+                }
+            } else {
+                document.body.classList.remove('dark-mode');
+                
+                if (themeIcon && themeText) {
+                    themeIcon.textContent = 'dark_mode';
+                    themeText.textContent = 'Mode Gelap';
+                }
             }
+        });
+
+        // Tambahkan efek ripple ke semua tombol
+        const buttons = document.querySelectorAll('.button');
+        buttons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                const x = e.clientX - e.target.offsetLeft;
+                const y = e.clientY - e.target.offsetTop;
+                
+                const ripple = document.createElement('span');
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
         });
     </script>
 
     <!-- Add Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </body>
-</html> 
+</html>  

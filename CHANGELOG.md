@@ -1,5 +1,18 @@
 # Riwayat Perubahan (Changelog)
 
+## [1.0.10-Extended] - 2025-04-20
+
+### 🚀 Fitur Baru
+- Implementasi tema warna baru dengan kombo hitam (#000000), kuning (#FECA0A), dan putih (#F1F1F1)
+- Penyederhanaan tampilan antarmuka untuk pengalaman pengguna yang lebih baik
+
+### 🛠️ Perbaikan & Peningkatan
+- Penyederhanaan tombol dark mode untuk tampilan yang lebih bersih
+- Mengoptimalkan tampilan di perangkat mobile dengan mengatasi masalah tumpang tindih teks "BOX UI"
+- Penggunaan tema hitam sebagai default untuk mengurangi beban baterai pada perangkat AMOLED
+- Perbaikan tampilan pada mode gelap di berbagai halaman
+- Menghapus menu "Akun" yang tidak digunakan dari opsi box
+
 ## [1.0.9-Extended] - 2025-03-15
 
 ### 🚀 Fitur Baru

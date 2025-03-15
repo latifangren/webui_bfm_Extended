@@ -330,19 +330,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
     <link rel="stylesheet" href="../auth/css/materialize.min.css">
     <style>
         body {
-            background-color: #121212;
-            color: #fff;
+            background-color: #000000;
+            color: #F1F1F1;
             font-family: 'Roboto', sans-serif;
         }
         .nav-wrapper {
-            background: linear-gradient(45deg, #6a1b9a, #4527a0);
+            background: #000000;
             padding: 0 20px;
+            border-bottom: 2px solid #FECA0A;
         }
         .brand-logo {
             font-weight: 300;
+            color: #FECA0A !important;
         }
         .page-footer {
-            background: linear-gradient(45deg, #4527a0, #6a1b9a);
+            background: #000000;
+            border-top: 2px solid #FECA0A;
             padding-top: 20px;
         }
         .container {
@@ -350,6 +353,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
             margin-bottom: 20px;
         }
         .btn {
+            background-color: #FECA0A !important;
+            color: #000000 !important;
             border-radius: 30px;
             margin: 5px;
             text-transform: none;
@@ -357,22 +362,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
             transition: all 0.3s ease;
         }
         .btn:hover {
+            background-color: #F1B108 !important;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        .btn i {
+            color: #000000 !important;
         }
         .card {
             border-radius: 8px;
             margin-top: 15px;
-            background-color: #1e1e1e;
+            background-color: #1a1a1a !important;
+            border: 1px solid rgba(254, 202, 10, 0.2);
         }
         .card .card-content {
             padding: 20px;
         }
         .card .card-title {
             font-weight: 500;
+            color: #FECA0A !important;
         }
         .info-card {
-            background-color: #1e1e1e;
+            background-color: #1a1a1a;
             border-left: 4px solid;
             padding: 15px;
             margin: 10px 0;
@@ -384,31 +395,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
         .info-card-primary {
-            border-color: #7e57c2;
+            border-color: #FECA0A;
         }
         .info-card-success {
-            border-color: #66bb6a;
+            border-color: #FECA0A;
         }
         .info-card-warning {
-            border-color: #ffb74d;
+            border-color: #FECA0A;
         }
         .info-card-danger {
-            border-color: #ef5350;
+            border-color: #FECA0A;
         }
         .info-title {
             display: flex;
             align-items: center;
             font-size: 1.1em;
-            color: #aaa;
+            color: #FECA0A;
         }
         .info-value {
             font-size: 1.4em;
             margin-top: 5px;
             font-weight: 300;
+            color: #F1F1F1;
         }
         .info-icon {
             margin-right: 10px;
-            color: #7e57c2;
+            color: #FECA0A;
         }
         .signal-indicator {
             display: flex;
@@ -421,7 +433,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
             background-color: #1e1e1e;
         }
         .signal-bar.active {
-            background-color: #7e57c2;
+            background-color: #FECA0A;
         }
         .badge-container {
             display: flex;
@@ -436,6 +448,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
             margin: 5px;
             font-size: 12px;
             font-weight: 600;
+            background-color: #1a1a1a !important;
+            color: #F1F1F1 !important;
+            border: 1px solid #FECA0A;
         }
         .tech-badge {
             display: inline-block;
@@ -445,17 +460,68 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
             font-weight: 500;
             margin-left: 8px;
             vertical-align: middle;
+            background-color: #FECA0A !important;
+            color: #000000 !important;
         }
-        .tech-2g { background-color: #795548; }
-        .tech-3g { background-color: #42a5f5; }
-        .tech-4g { background-color: #66bb6a; }
-        .tech-5g { background-color: #7e57c2; }
+        .tech-2g, .tech-3g, .tech-4g, .tech-5g {
+            background-color: #FECA0A !important;
+            color: #000000 !important;
+        }
         .header-card {
-            background: linear-gradient(45deg, #303f9f, #1a237e);
-            color: white;
+            background: #1a1a1a;
+            color: #F1F1F1;
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 20px;
+            border: 1px solid #FECA0A;
+        }
+        .header-card h5 {
+            color: #FECA0A;
+        }
+        
+        /* Override any color classes with !important */
+        .purple.darken-2,
+        .blue-grey.darken-1,
+        .deep-purple,
+        .teal.darken-1,
+        .purple-text.text-lighten-3,
+        .cyan-text.text-lighten-3,
+        .grey-text.text-lighten-2,
+        .pink-text,
+        .deep-purple.darken-1,
+        .blue.darken-2 {
+            background-color: #1a1a1a !important;
+            color: #F1F1F1 !important;
+            border: 1px solid #FECA0A !important;
+        }
+        
+        .btn-small.deep-purple.darken-1,
+        .btn-small.blue.darken-2 {
+            background-color: #FECA0A !important;
+            color: #000000 !important;
+        }
+        
+        [type="checkbox"].filled-in:checked + span:not(.lever):after {
+            border: 2px solid #FECA0A;
+            background-color: #FECA0A;
+        }
+        
+        /* Footer specifically */
+        .footer-copyright {
+            background-color: #000000 !important;
+            border-top: 1px solid #FECA0A;
+        }
+        
+        .purple-text.text-lighten-3 {
+            color: #FECA0A !important;
+        }
+        
+        .cyan-text.text-lighten-3 {
+            color: #F1F1F1 !important;
+        }
+        
+        .pink-text.pulse {
+            color: #FECA0A !important;
         }
     </style>
 </head>

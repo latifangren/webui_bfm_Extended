@@ -7,10 +7,11 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #ffffff;
-            --text-color: #333333;
-            --card-bg: #f5f5f5;
+            --bg-color: #F1F1F1;
+            --text-color: #000000;
+            --card-bg: #ffffff;
             --hover-color: #e0e0e0;
+            --accent-color: #FECA0A;
             --header-height: 60px;
         }
         
@@ -19,10 +20,13 @@
         }
 
         body[data-theme="dark"] {
-            --bg-color: #121212;
-            --text-color: #ffffff;
-            --card-bg: #1e1e1e;
-            --hover-color: #2d2d2d;
+            --bg-color: #000000;
+            --text-color: #F1F1F1;
+            --card-bg: #121212;
+            --hover-color: #1a1a1a;
+            --accent-color: #FECA0A;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             padding-top: var(--header-height);
         }
 
@@ -50,7 +54,7 @@
         .logo {
             font-size: 1.5rem;
             font-weight: 500;
-            color: var(--text-color);
+            color: var(--accent-color);
         }
 
         .theme-toggle {
@@ -70,7 +74,7 @@
 
         .theme-icon {
             font-size: 24px;
-            color: var(--text-color);
+            color: var(--accent-color);
         }
 
         .container {
@@ -133,6 +137,24 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            background-color: var(--accent-color);
+            color: #000000;
+        }
+
+        .btn:hover {
+            background-color: #e0b600;
+        }
+
+        .btn.green {
+            background-color: var(--accent-color);
+        }
+
+        .btn.red {
+            background-color: #ff5252;
+        }
+
+        .btn.blue {
+            background-color: var(--accent-color);
         }
 
         .btn i {
@@ -143,16 +165,16 @@
             font-size: 1.8rem;
             margin: 30px 0 20px;
             font-weight: 500;
-            color: var(--text-color);
+            color: var(--accent-color);
         }
 
         .success-message {
-            color: #4CAF50;
+            color: var(--accent-color);
             text-align: center;
             margin: 15px 0;
             padding: 15px;
             border-radius: 12px;
-            background-color: rgba(76, 175, 80, 0.1);
+            background-color: rgba(254, 202, 10, 0.1);
             font-size: 1.1rem;
         }
 
@@ -198,6 +220,9 @@
 <body <?php echo isset($_COOKIE['theme']) && $_COOKIE['theme'] === 'dark' ? 'data-theme="dark"' : ''; ?>>
     <header class="header">
         <div class="logo">Airplane BOX UI</div>
+        <button id="theme-toggle" class="theme-toggle">
+            <i class="material-icons theme-icon" id="theme-icon">dark_mode</i>
+        </button>
     </header>
 
     <div class="container">
@@ -292,7 +317,7 @@
                 
                 $airplane_mode_enabled = true;
             } elseif (isset($_POST['action']) && $_POST['action'] === 'update_radios') {
-                // Update individual radios based on the user’s choice
+                // Update individual radios based on the user's choice
                 if (isset($_POST['bluetooth_control'])) {
                     shell_exec("su -c 'svc bluetooth enable'");
                 } else {
@@ -387,24 +412,62 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
         // Menentukan tema berdasarkan preferensi pengguna
-        const userPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const getCookie = (name) => {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        };
 
-        // Setel tema awal
-        if (userPrefersDark) {
-            document.body.setAttribute('data-theme', 'dark');
+        // Set cookie untuk tema
+        const setCookie = (name, value, days) => {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
+        };
+
+        // Fungsi untuk mengalihkan tema
+        const toggleTheme = () => {
+            const currentTheme = document.body.getAttribute('data-theme') || 'light';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.body.setAttribute('data-theme', newTheme);
+            updateThemeIcon(newTheme);
+            setCookie('theme', newTheme, 365);
+        };
+
+        // Perbarui ikon tema
+        const updateThemeIcon = (theme) => {
+            const themeIcon = document.getElementById('theme-icon');
+            themeIcon.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
+        };
+
+        // Set tema awal berdasarkan cookie atau preferensi sistem
+        const savedTheme = getCookie('theme');
+        const userPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        let currentTheme;
+        if (savedTheme) {
+            currentTheme = savedTheme;
         } else {
-            document.body.setAttribute('data-theme', 'light');
+            currentTheme = userPrefersDark ? 'dark' : 'light';
         }
+        
+        document.body.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
 
         // Setelah tema diterapkan, tampilkan konten
         document.body.style.visibility = 'visible';
 
-        // Menangani perubahan preferensi tema setelahnya
+        // Tambahkan event listener untuk tombol toggle tema
+        document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+
+        // Menangani perubahan preferensi tema sistem
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-            if (e.matches) {
-                document.body.setAttribute('data-theme', 'dark');
-            } else {
-                document.body.setAttribute('data-theme', 'light');
+            if (!getCookie('theme')) {
+                const newTheme = e.matches ? 'dark' : 'light';
+                document.body.setAttribute('data-theme', newTheme);
+                updateThemeIcon(newTheme);
             }
         });
     </script>

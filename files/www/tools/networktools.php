@@ -769,16 +769,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../auth/css/materialize.min.css">
     <style>
         body {
-            background-color: #121212;
-            color: #fff;
+            background-color: #000000;
+            color: #F1F1F1;
             font-family: 'Roboto', sans-serif;
         }
         .nav-wrapper {
-            background: linear-gradient(45deg, #6a1b9a, #4527a0);
+            background: #000000;
             padding: 0 20px;
+            border-bottom: 2px solid #FECA0A;
         }
         .brand-logo {
             font-weight: 300;
+            color: #FECA0A !important;
         }
         @media only screen and (max-width: 992px) {
             .brand-logo {
@@ -806,19 +808,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
         .sidenav {
-            background-color: #1a1a1a;
+            background-color: #121212;
         }
         .sidenav li > a {
-            color: #fff;
+            color: #F1F1F1;
         }
         .sidenav .user-view {
             padding: 32px 32px 0;
         }
         .sidenav .user-view .background {
+            background-color: #000000;
             height: 100px;
         }
         .page-footer {
-            background: linear-gradient(45deg, #4527a0, #6a1b9a);
+            background: #000000;
+            border-top: 2px solid #FECA0A;
             padding-top: 20px;
         }
         .container {
@@ -826,6 +830,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin-bottom: 20px;
         }
         .btn {
+            background-color: #FECA0A !important;
+            color: #000000 !important;
             border-radius: 30px;
             margin: 5px;
             text-transform: none;
@@ -833,59 +839,133 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             transition: all 0.3s ease;
         }
         .btn:hover {
+            background-color: #F1B108 !important;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         }
+        .btn i {
+            color: #000000 !important;
+        }
         .card {
+            background-color: #1a1a1a !important;
             border-radius: 8px;
             margin-top: 15px;
+            border: 1px solid rgba(254, 202, 10, 0.2);
         }
         .card .card-content {
             padding: 20px;
         }
         .card .card-title {
             font-weight: 500;
+            color: #FECA0A !important;
         }
         .tabs .tab a {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(254, 202, 10, 0.7);
         }
         .tabs .tab a:hover, .tabs .tab a.active {
-            color: #fff;
+            color: #FECA0A;
         }
         .tabs .indicator {
-            background-color: #aa00ff;
+            background-color: #FECA0A;
         }
         .tabs {
-            background-color: #1e1e1e;
+            background-color: #000000;
             margin-bottom: 20px;
+            border-bottom: 1px solid #FECA0A;
         }
         .tabs .tab a:focus, .tabs .tab a:focus.active {
-            background-color: rgba(170, 0, 255, 0.1);
+            background-color: rgba(254, 202, 10, 0.1);
         }
         select.browser-default {
             background-color: #2d2d2d;
-            color: white;
-            border: 1px solid #444;
+            color: #F1F1F1;
+            border: 1px solid #FECA0A;
             border-radius: 4px;
             padding: 8px;
             margin-bottom: 15px;
         }
-        .input-field input[type=text], .input-field input[type=number] {
-            border-bottom: 1px solid #444;
+        
+        .card.indigo.darken-4, 
+        .card.blue-grey.darken-3, 
+        .card.light-blue.darken-3,
+        .card.amber.darken-2 {
+            background-color: #1a1a1a !important;
         }
-        .input-field input[type=text]:focus, .input-field input[type=number]:focus {
-            border-bottom: 1px solid #aa00ff !important;
-            box-shadow: 0 1px 0 0 #aa00ff !important;
+        
+        .input-field input[type=text],
+        .input-field input[type=number],
+        .input-field input[type=password] {
+            border-bottom: 1px solid #FECA0A !important;
+            box-shadow: 0 1px 0 0 #FECA0A !important;
+            color: #F1F1F1 !important;
         }
-        [type="checkbox"].filled-in:checked+span:not(.lever):after {
-            border: 2px solid #aa00ff;
-            background-color: #aa00ff;
+        
+        .input-field input[type=text]:focus,
+        .input-field input[type=number]:focus,
+        .input-field input[type=password]:focus {
+            border-bottom: 1px solid #F1B108 !important;
+            box-shadow: 0 1px 0 0 #F1B108 !important;
         }
-        h5 {
-            font-weight: 300;
-            border-left: 3px solid #aa00ff;
-            padding-left: 10px;
-            margin-top: 40px;
+        
+        .input-field label {
+            color: #999 !important;
+        }
+        
+        .input-field input[type=text]:focus + label,
+        .input-field input[type=number]:focus + label,
+        .input-field input[type=password]:focus + label {
+            color: #FECA0A !important;
+        }
+        
+        [type="checkbox"].filled-in:checked + span:not(.lever):after {
+            border: 2px solid #FECA0A;
+            background-color: #FECA0A;
+        }
+        
+        .progress-bar {
+            background-color: rgba(241, 241, 241, 0.1);
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #FECA0A, #F1B108);
+        }
+        
+        .green-text {
+            color: #FECA0A !important;
+        }
+        
+        .blue-text, .cyan-text {
+            color: #F1F1F1 !important;
+        }
+        
+        .orange-text {
+            color: #F1B108 !important;
+        }
+        
+        .btn-floating {
+            background-color: #FECA0A !important;
+        }
+        
+        .btn-floating i {
+            color: #000000 !important;
+        }
+        
+        .footer-copyright {
+            background-color: rgba(0, 0, 0, 0.5) !important;
+        }
+        
+        .purple-text.text-lighten-3 {
+            color: #FECA0A !important;
+        }
+        
+        /* Override any color classes with !important */
+        .indigo.darken-4,
+        .blue-grey.darken-3,
+        .light-blue.darken-3,
+        .deep-purple.darken-1,
+        .blue.darken-2 {
+            background-color: #1a1a1a !important;
+            border: 1px solid #FECA0A !important;
         }
         .feature-card {
             height: 100%;
@@ -917,14 +997,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             flex-wrap: wrap;
             margin-bottom: 20px;
         }
+        
         .badge {
             display: inline-block;
-            padding: 5px 10px;
+            padding: 8px 12px;
             border-radius: 15px;
             margin: 5px;
             font-size: 12px;
             font-weight: 600;
+            background-color: #1a1a1a !important;
+            color: #F1F1F1 !important;
+            border: 1px solid #FECA0A;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
         }
+        
+        .badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Override standard Materialize color classes used in badges */
+        .badge.purple.darken-2,
+        .badge.blue-grey.darken-1,
+        .badge.deep-purple,
+        .badge.teal.darken-1 {
+            background-color: #1a1a1a !important;
+            color: #F1F1F1 !important;
+            border: 1px solid #FECA0A !important;
+        }
+        
+        /* Gold highlight for important text within badges */
+        .badge-highlight {
+            color: #FECA0A !important;
+            font-weight: 700;
+        }
+        
         .divider {
             background-color: #444;
             margin: 30px 0;
@@ -985,10 +1093,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="row">
             <div class="col s12">
                 <div class="badge-container">
-                    <span class="badge purple darken-2">Root Access: Active</span>
-                    <span class="badge blue-grey darken-1">Network: <?php echo shell_exec("su -c 'getprop gsm.network.type'") ?: 'Unknown'; ?></span>
-                    <span class="badge deep-purple">Signal: <?php echo shell_exec("su -c \"dumpsys telephony.registry | grep mSignalStrength | head -n1 | awk '{print \\$2}'\"") ?: 'Unknown'; ?></span>
-                    <span class="badge teal darken-1">Operator: <?php echo shell_exec("su -c 'getprop gsm.sim.operator.alpha'") ?: 'Unknown'; ?></span>
+                    <span class="badge"><span class="badge-highlight">Root Access:</span> Active</span>
+                    <span class="badge"><span class="badge-highlight">Network:</span> <?php echo shell_exec("su -c 'getprop gsm.network.type'") ?: 'Unknown'; ?></span>
+                    <span class="badge"><span class="badge-highlight">Signal:</span> <?php echo shell_exec("su -c \"dumpsys telephony.registry | grep mSignalStrength | head -n1 | awk '{print \\$2}'\"") ?: 'Unknown'; ?></span>
+                    <span class="badge"><span class="badge-highlight">Operator:</span> <?php echo shell_exec("su -c 'getprop gsm.sim.operator.alpha'") ?: 'Unknown'; ?></span>
                 </div>
             </div>
         </div>
@@ -1000,8 +1108,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <li class="tab col s2"><a class="active" href="#tab-lock-band"><i class="material-icons left tiny">network_cell</i>Lock Band</a></li>
                     <li class="tab col s2"><a href="#tab-modem-control"><i class="material-icons left tiny">router</i>Modem</a></li>
                     <li class="tab col s2"><a href="#tab-kernel-tweaks"><i class="material-icons left tiny">memory</i>Kernel</a></li>
-                    <li class="tab col s3"><a href="#tab-radio-control"><i class="material-icons left tiny">settings_input_antenna</i>Radio</a></li>
-                    <li class="tab col s3"><a href="#tab-ip-address"><i class="material-icons left tiny">dns</i>IP Address</a></li>
+                    <li class="tab col s3"><a href="#tab-radio-control"><i class="material-icons left tiny">airplanemode_active</i>Airplane Mode</a></li>
+                    <li class="tab col s3"><a href="#tab-ip-address"><i class="material-icons left tiny">wifi</i>Set WLAN IP</a></li>
                 </ul>
             </div>
         </div>
@@ -1285,7 +1393,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="card blue-grey darken-3">
                 <div class="card-content">
                     <span class="card-title">
-                        <i class="material-icons left">settings_input_antenna</i>Pengaturan Radio & Mode Pesawat
+                        <i class="material-icons left">airplanemode_active</i>Pengaturan Airplane Mode
                     </span>
                     <p class="grey-text text-lighten-1">Kontrol radio perangkat dan pengaturan mode pesawat.</p>
 
@@ -1366,9 +1474,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="card light-blue darken-3">
                 <div class="card-content">
                     <span class="card-title">
-                        <i class="material-icons left">router</i>Pengaturan IP Address
+                        <i class="material-icons left">wifi</i>Pengaturan WLAN IP
                     </span>
-                    <p class="grey-text text-lighten-1">Atur IP Address untuk interface jaringan.</p>
+                    <p class="grey-text text-lighten-1">Atur IP Address untuk interface WLAN.</p>
                     
                     <form action="" method="post">
                         <div class="row">

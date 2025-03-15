@@ -20,9 +20,7 @@ if ($data === null) {
 $path = isset($data['path']) ? $data['path'] : 'default';
 
 // Tentukan file PHP yang akan di-include berdasarkan nilai path
-if ($path === 'argon') {
-    include('argon.php');
-} else {
-    include('default.php');
+if ($path === 'extended') {
+    include('extended.php');
 }
 ?>

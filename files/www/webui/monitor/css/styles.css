@@ -125,19 +125,19 @@ body {
 }
 
 #memoryChart .chart-ring {
-    border-top-color: var(--info-color);
-    border-right-color: var(--info-color);
-    border-bottom-color: var(--info-color);
+    border-top-color: var(--primary-color);
+    border-right-color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
     border-left-color: var(--bg-primary);
-    filter: drop-shadow(0 0 5px var(--info-color));
+    filter: drop-shadow(0 0 5px var(--primary-color));
 }
 
 #cpuChart .chart-ring {
-    border-top-color: var(--danger-color);
-    border-right-color: var(--danger-color);
-    border-bottom-color: var(--danger-color);
+    border-top-color: var(--primary-color);
+    border-right-color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
     border-left-color: var(--bg-primary);
-    filter: drop-shadow(0 0 5px var(--danger-color));
+    filter: drop-shadow(0 0 5px var(--primary-color));
 }
 
 .details {
@@ -186,11 +186,11 @@ body {
 }
 
 .bar-inner {
-    background: linear-gradient(90deg, var(--info-color), #73b4ff);
+    background: linear-gradient(90deg, var(--primary-color), #fede6a);
 }
 
 .cpu-bar-inner {
-    background: linear-gradient(90deg, var(--danger-color), #ff9f9f);
+    background: linear-gradient(90deg, var(--primary-color), #fede6a);
 }
 
 .bar-inner::after, .cpu-bar-inner::after {
@@ -283,24 +283,24 @@ body {
 }
 
 .cpu-temp[data-temp="normal"] {
-    color: var(--text-success);
-    background: linear-gradient(45deg, var(--text-success), var(--text-teal));
+    color: var(--primary-color);
+    background: linear-gradient(45deg, var(--primary-color), #fede6a);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .cpu-temp[data-temp="warm"] {
-    color: var(--text-warning);
-    background: linear-gradient(45deg, var(--text-warning), var(--text-orange));
+    color: var(--primary-color);
+    background: linear-gradient(45deg, var(--primary-color), #fede6a);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .cpu-temp[data-temp="hot"] {
-    color: var(--text-danger);
-    background: linear-gradient(45deg, var(--text-danger), #ff4757);
+    color: var(--primary-color);
+    background: linear-gradient(45deg, var(--primary-color), #ff4757);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -437,25 +437,25 @@ body {
 /* Dark mode adjustments */
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg-primary: #1a1a1a;
-        --bg-secondary: #2d2d2d;
-        --bg-card: #2d2d2d;
-        --text-primary: #ffffff;
-        --text-secondary: #b3b3b3;
+        --bg-primary: #000000;
+        --bg-secondary: #111111;
+        --bg-card: #111111;
+        --text-primary: #F1F1F1;
+        --text-secondary: #BBBBBB;
         --shadow-color: rgba(0, 0, 0, 0.3);
     }
 }
 
 /* Tambahkan variabel warna yang diperlukan */
 :root {
-    --primary-color: #4c96ff;
-    --danger-color: #ff6b6b;
-    --success-color: #2ecc71;
-    --warning-color: #f1c40f;
-    --info-color: #3498db;
-    --purple-color: #9b59b6;
-    --orange-color: #e67e22;
-    --teal-color: #1abc9c;
+    --primary-color: #FECA0A;
+    --danger-color: #FECA0A;
+    --success-color: #FECA0A;
+    --warning-color: #FECA0A;
+    --info-color: #FECA0A;
+    --purple-color: #FECA0A;
+    --orange-color: #FECA0A;
+    --teal-color: #FECA0A;
     
     --text-primary: #333333;
     --text-secondary: #666666;
@@ -467,9 +467,9 @@ body {
     --text-orange: var(--orange-color);
     --text-teal: var(--teal-color);
     
-    --bg-primary: #f5f6fa;
-    --bg-secondary: #ffffff;
-    --bg-card: #ffffff;
+    --bg-primary: #E0E0E0;
+    --bg-secondary: #FFFFFF;
+    --bg-card: #FFFFFF;
     --shadow-color: rgba(0, 0, 0, 0.1);
     --border-radius: 16px;
     --transition: all 0.3s ease;
@@ -477,16 +477,16 @@ body {
 
 /* Dark mode styles */
 body.dark-mode {
-    --text-primary: #ffffff;
-    --text-secondary: #b3b3b3;
-    --bg-primary: #1a1a1a;
-    --bg-secondary: #2d2d2d;
-    --bg-card: #2d2d2d;
+    --text-primary: #F1F1F1;
+    --text-secondary: #BBBBBB;
+    --bg-primary: #000000;
+    --bg-secondary: #111111;
+    --bg-card: #111111;
     --shadow-color: rgba(0, 0, 0, 0.3);
 }
 
 body.dark-mode .chart::before {
-    background: linear-gradient(45deg, #fff, var(--text-info));
+    background: linear-gradient(45deg, #F1F1F1, var(--primary-color));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;

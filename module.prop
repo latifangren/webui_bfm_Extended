@@ -1,7 +1,7 @@
 id=UNIVERSALBFRWEBUI
 name=Universal BFR WEBUI
-version=v1.0.9 Extended
-versionCode=20250315
+version=v1.0.10 Extended
+versionCode=20250316
 author=LATIFAN
 description= Universal webui for box for magisk with php webserver , use gateway or 127.0.0.1:80 or 127.0.0.1 direct
 updateJson=https://github.com/latifangren/webui_bfm_argon_Extended/raw/main/update.json

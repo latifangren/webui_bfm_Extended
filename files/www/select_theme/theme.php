@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             flex-direction: column;
         }
         .card-a {
-            background-color: white;
+            background-color: #F1F1F1;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -47,13 +47,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin-top: 90px;
         }
         h2 {
-            color: #343a40;
+            color: #000000;
             font-size: 20px;
             margin-bottom: 30px;
             font-weight: 700;
         }
         p {
-            color: #000;
+            color: #000000;
             font-size: 14px;
             font-weight: 600;
             margin-bottom: 30px;
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         label {
             font-size: 14px;
             font-weight: 600;
-            color: #555;
+            color: #000000;
             display: block;
             margin-bottom: 10px;
         }
@@ -71,20 +71,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            background-color: #f8f9fa;
-            color: #333;
+            background-color: #F1F1F1;
+            color: #000000;
             font-size: 14px;
             outline: none;
         }
         select:focus {
-            border: 1px solid #6379f4;
+            border: 1px solid #FECA0A;
         }
         .btn {
             display: block;
             width: 40%;
             padding: 12px;
-            background-color: #6379f4;
-            color: white;
+            background-color: #FECA0A;
+            color: #000000;
             border: none;
             border-radius: 5px;
             font-size: 12px;
@@ -96,19 +96,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin-right: auto;
         }
         .btn:hover {
-            background-color: #5064c9;
+            background-color: #E0B500;
         }
         .success-message {
-            color: green;
+            color: #FECA0A;
             font-size: 14px;
             font-weight: 600;
             text-align: center;
             position: absolute;
-            top: 60px; /* Adjust this to position it where you want */
+            top: 60px;
             left: 50%;
             transform: translateX(-50%);
             width: 100%;
-            z-index: 2; /* Make sure it appears above other content */
+            z-index: 2;
         }
         header {
             padding: 0;
@@ -125,8 +125,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             height: 50px;
             padding: 10px;
             box-sizing: border-box;
-            background-color: #ffffff;
-            color: #000;
+            background-color: #000000;
+            color: #FECA0A;
             text-align: center;
             z-index: 1;
             border-radius: 5px;
@@ -134,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .new-container p {
             text-align: left;
             font-size: 1.1em;
-            color: #555;
+            color: #FECA0A;
             margin-top: 3px;
             margin-left: 10px;
             font-weight: bold;
@@ -147,39 +147,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         color: transparent;
     }
     .card-a {
-        background-color: #2a2a2a;
-        color: #e0e0e0;
+        background-color: #000000;
+        color: #F1F1F1;
         box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.3);
     }
     h2 {
-        color: #f1f1f1;
+        color: #F1F1F1;
     }
     p {
-        color: #f1f1f1;
+        color: #F1F1F1;
     }
     label {
-        color: #ddd;
+        color: #F1F1F1;
     }
     select {
-        background-color: #444;
-        color: #ccc;
-        border: 1px solid #666;
+        background-color: #222222;
+        color: #F1F1F1;
+        border: 1px solid #444444;
     }
     select:focus {
-        border: 1px solid #474f72;
+        border: 1px solid #FECA0A;
     }
     .btn {
-        background-color: #474f72;
+        background-color: #FECA0A;
+        color: #000000;
     }
     .btn:hover {
-        background-color: #2e344e;
+        background-color: #E0B500;
     }
     .success-message {
-        color: green;
+        color: #FECA0A;
     }
-    .new-container, .new-container p {
-        background-color: #2a2a2a;
-        color: #e0e0e0;
+    .new-container {
+        background-color: #000000;
+    }
+    .new-container p {
+        color: #FECA0A;
     }
 }
     </style>

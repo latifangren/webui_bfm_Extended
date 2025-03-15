@@ -403,58 +403,41 @@ if (preg_match_all('/CellSignalStrengthLte: rssi=([-\d]+) rsrp=([-\d]+) rsrq=([-
   <link rel="stylesheet" href="css/styles.css">
   <style>
     :root {
-      --primary-color: #4c96ff;
-      --danger-color: #ff6b6b;
-      --success-color: #2ecc71;
-      --warning-color: #f1c40f;
-      --info-color: #3498db;
-      --purple-color: #9b59b6;
-      --orange-color: #e67e22;
-      --teal-color: #1abc9c;
-      
-      /* Text Colors */
+      --bg-primary: #E0E0E0;
+      --bg-secondary: #FFFFFF;
       --text-primary: #333333;
       --text-secondary: #666666;
-      --text-success: var(--success-color);
-      --text-danger: var(--danger-color);
-      --text-warning: var(--warning-color);
-      --text-info: var(--info-color);
-      --text-purple: var(--purple-color);
-      --text-orange: var(--orange-color);
-      --text-teal: var(--teal-color);
-      
-      --bg-primary: #f5f6fa;
-      --bg-secondary: #ffffff;
-      --bg-card: #ffffff;
+      --text-info: #333333;
+      --text-purple: #FECA0A;
+      --primary-color: #FECA0A;
+      --secondary-color: #FECA0A;
+      --chart-color: #FECA0A;
+      --accent-color: #FECA0A;
       --shadow-color: rgba(0, 0, 0, 0.1);
-      --border-radius: 16px;
+      --border-radius: 12px;
       --transition: all 0.3s ease;
     }
 
-    body.dark-mode {
-      --text-primary: #ffffff;
-      --text-secondary: #b3b3b3;
-      --text-success: #2ecc71;
-      --text-danger: #ff6b6b;
-      --text-warning: #f1c40f;
-      --text-info: #3498db;
-      --text-purple: #9b59b6;
-      --text-orange: #e67e22;
-      --text-teal: #1abc9c;
-      
-      --bg-primary: #1a1a1a;
-      --bg-secondary: #2d2d2d;
-      --bg-card: #2d2d2d;
+    [data-theme="dark"] {
+      --bg-primary: #000000;
+      --bg-secondary: #111111;
+      --text-primary: #F1F1F1;
+      --text-secondary: #BBBBBB;
+      --text-info: #F1F1F1;
+      --text-purple: #FECA0A;
+      --primary-color: #FECA0A;
+      --secondary-color: #FECA0A;
+      --chart-color: #FECA0A;
+      --accent-color: #FECA0A;
       --shadow-color: rgba(0, 0, 0, 0.3);
     }
 
     body {
-      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--bg-primary);
-      margin: 0;
-      min-height: 100vh;
-      padding: 20px;
+      font-family: 'Roboto', sans-serif;
+      background: var(--bg-primary);
       color: var(--text-primary);
+      margin: 0;
+      padding: 0;
       transition: var(--transition);
     }
 
@@ -492,7 +475,7 @@ if (preg_match_all('/CellSignalStrengthLte: rssi=([-\d]+) rsrp=([-\d]+) rsrq=([-
 
     .chart-card,
     .network-card {
-      background: var(--bg-card);
+      background: var(--bg-secondary);
       border-radius: var(--border-radius);
       padding: 25px;
       box-shadow: 0 8px 30px var(--shadow-color);
@@ -769,53 +752,24 @@ if (preg_match_all('/CellSignalStrengthLte: rssi=([-\d]+) rsrp=([-\d]+) rsrq=([-
       display: flex;
       align-items: center;
       background: var(--bg-secondary);
-      padding: 10px 20px;
-      border-radius: 30px;
+      padding: 10px;
+      border-radius: 50%;
       box-shadow: 0 4px 15px var(--shadow-color);
       z-index: 1000;
-    }
-
-    .theme-switch {
-      display: inline-block;
-      height: 34px;
-      width: 60px;
-      position: relative;
-    }
-
-    .theme-switch input {
-      display: none;
-    }
-
-    .slider {
-      background-color: #ccc;
-      bottom: 0;
+      width: 40px;
+      height: 40px;
+      justify-content: center;
       cursor: pointer;
-      left: 0;
-      position: absolute;
-      right: 0;
-      top: 0;
-      transition: .4s;
-      border-radius: 34px;
+      transition: all 0.3s ease;
     }
 
-    .slider:before {
-      background-color: #fff;
-      bottom: 4px;
-      content: "";
-      height: 26px;
-      left: 4px;
-      position: absolute;
-      transition: .4s;
-      width: 26px;
-      border-radius: 50%;
+    .theme-switch-wrapper:hover {
+      transform: scale(1.1);
     }
 
-    input:checked + .slider {
-      background-color: var(--primary-color);
-    }
-
-    input:checked + .slider:before {
-      transform: translateX(26px);
+    .theme-switch-wrapper .iconify {
+      font-size: 20px;
+      color: var(--text-primary);
     }
 
     @media (max-width: 768px) {
@@ -847,12 +801,8 @@ if (preg_match_all('/CellSignalStrengthLte: rssi=([-\d]+) rsrp=([-\d]+) rsrq=([-
   </style>
 </head>
 <body>
-  <div class="theme-switch-wrapper">
-    <label class="theme-switch" for="checkbox">
-      <input type="checkbox" id="checkbox" />
-      <div class="slider"></div>
-    </label>
-    <span>Dark Mode</span>
+  <div class="theme-switch-wrapper" id="darkModeToggle">
+    <span class="iconify" data-icon="mdi:weather-sunny"></span>
   </div>
 
   <div class="dashboard-header">
@@ -1061,32 +1011,33 @@ const domElements = {
     memoryChart: document.querySelector('#memoryChart'),
     cpuChart: document.querySelector('#cpuChart'),
     barElements: document.querySelectorAll('.bar-inner'),
-    darkModeToggle: document.getElementById('checkbox')
+    darkModeToggle: document.getElementById('darkModeToggle')
 };
 
 // Dark mode functions
 function enableDarkMode() {
-    document.body.classList.add('dark-mode');
-    localStorage.setItem('darkMode', 'enabled');
+    document.documentElement.setAttribute('data-theme', 'dark');
+    localStorage.setItem('theme', 'dark');
 }
 
 function disableDarkMode() {
-    document.body.classList.remove('dark-mode');
-    localStorage.setItem('darkMode', null);
+    document.documentElement.setAttribute('data-theme', 'light');
+    localStorage.setItem('theme', 'light');
 }
 
 // Check for saved dark mode preference
-if (localStorage.getItem('darkMode') === 'enabled') {
+if (localStorage.getItem('theme') === 'dark') {
     enableDarkMode();
-    domElements.darkModeToggle.checked = true;
 }
 
 // Listen for dark mode toggle
-domElements.darkModeToggle.addEventListener('change', () => {
-    if (domElements.darkModeToggle.checked) {
-        enableDarkMode();
-    } else {
+domElements.darkModeToggle.addEventListener('click', () => {
+    if (document.documentElement.getAttribute('data-theme') === 'dark') {
         disableDarkMode();
+        domElements.darkModeToggle.querySelector('.iconify').setAttribute('data-icon', 'mdi:weather-sunny');
+    } else {
+        enableDarkMode();
+        domElements.darkModeToggle.querySelector('.iconify').setAttribute('data-icon', 'mdi:weather-night');
     }
 });
 
@@ -1210,6 +1161,17 @@ if (cpuTempElement) {
         subtree: true
     });
 }
+
+// Update iconify icon based on current theme on load
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.documentElement.getAttribute('data-theme') === 'dark') {
+        domElements.darkModeToggle.querySelector('.iconify').setAttribute('data-icon', 'mdi:weather-sunny');
+    }
+});
+
+// Remove old dark mode toggle script that's now redundant
+const toggleSwitch = document.querySelector('#checkbox');
+// ... existing code ...
  </script>
 </body>
 </html>

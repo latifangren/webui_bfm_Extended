@@ -12,15 +12,15 @@ $version = "1.0";
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #4361ee;
-            --secondary-color: #3a0ca3;
-            --accent-color: #f72585;
-            --light-color: #f8f9fa;
-            --dark-color: #212529;
-            --gradient-bg: transparent;
-            --card-bg: rgba(255, 255, 255, 0.9);
+            --primary-color: #000000;
+            --secondary-color: #000000;
+            --accent-color: #FECA0A;
+            --light-color: #F1F1F1;
+            --dark-color: #000000;
+            --gradient-bg: linear-gradient(135deg, #000000, #222222);
+            --card-bg: rgba(241, 241, 241, 0.9);
             --shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
-            --text-color: #333333;
+            --text-color: #000000;
         }
         
         body {
@@ -58,7 +58,7 @@ $version = "1.0";
         }
         
         .colorful-text {
-            background: linear-gradient(90deg, #ff9a9e, #fad0c4, #fad0c4, #a1c4fd, #c2e9fb);
+            background: linear-gradient(90deg, #FECA0A, #F1B108);
             background-size: 300% 100%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -173,7 +173,7 @@ $version = "1.0";
             font-size: 24px;
             font-weight: bold;
             margin: 5px 0;
-            color: var(--primary-color);
+            color: #000000;
             transition: all 0.5s ease;
         }
         
@@ -216,7 +216,7 @@ $version = "1.0";
         .progress-fill {
             height: 100%;
             width: 0%;
-            background: var(--gradient-bg);
+            background: linear-gradient(90deg, #FECA0A, #F1B108);
             border-radius: 8px;
             transition: width 0.5s ease;
             position: relative;
@@ -351,8 +351,9 @@ $version = "1.0";
         /* Mendukung dark mode */
         @media (prefers-color-scheme: dark) {
             :root {
+                --gradient-bg: #000000;
                 --card-bg: rgba(30, 30, 30, 0.9);
-                --text-color: #e0e0e0;
+                --text-color: #F1F1F1;
                 --shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
             }
             

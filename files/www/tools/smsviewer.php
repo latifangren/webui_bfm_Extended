@@ -98,21 +98,18 @@ $currentMessages = array_slice($smsMessages, $offset, $itemsPerPage);
         }
 
         :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --bg-light: #f8fafc;
-            --bg-dark: #0a0c10;
-            --text-dark: #1e293b;
-            --text-light: #f8fafc;
-            --card-light: #ffffff;
-            --card-dark: #1e293b;
+            --bg-color: #F1F1F1;
+            --text-color: #000000;
+            --card-bg: #ffffff;
+            --hover-color: #e0e0e0;
+            --accent-color: #FECA0A;
             --border-light: #e2e8f0;
             --border-dark: #334155;
         }
 
         body {
-            background-color: tranparet;
-            color: var(--text-dark);
+            background-color: var(--bg-color);
+            color: var(--text-color);
             transition: background-color 0.3s ease;
             display: flex;
             flex-direction: column;
@@ -122,8 +119,12 @@ $currentMessages = array_slice($smsMessages, $offset, $itemsPerPage);
         }
 
         body.dark {
-            background-color: tranparet;
-            color: var(--text-light);
+            --bg-color: #000000;
+            --text-color: #F1F1F1;
+            --card-bg: #121212;
+            --hover-color: #1a1a1a;
+            background-color: var(--bg-color);
+            color: var(--text-color);
         }
 
         /* Base styles */
@@ -142,13 +143,13 @@ $currentMessages = array_slice($smsMessages, $offset, $itemsPerPage);
             gap: 1rem;
             margin-bottom: 1rem;
             padding: 1.5rem;
-            background: var(--card-light);
+            background: var(--card-bg);
             border-radius: 1rem;
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
         }
 
         .dark .filters {
-            background: var(--card-dark);
+            background: var(--card-bg);
         }
 
         .form-group {
@@ -164,22 +165,22 @@ $currentMessages = array_slice($smsMessages, $offset, $itemsPerPage);
             padding: 0.75rem;
             border: 1px solid var(--border-light);
             border-radius: 0.5rem;
-            background: var(--bg-light);
-            color: var(--text-dark);
+            background: var(--bg-color);
+            color: var(--text-color);
             font-size: 1rem;
             transition: all 0.2s ease;
         }
 
         .dark select, .dark input[type="text"] {
-            background: var(--bg-dark);
+            background: var(--bg-color);
             border-color: var(--border-dark);
-            color: var(--text-light);
+            color: var(--text-color);
         }
 
         button {
             padding: 0.75rem 1.5rem;
-            background: var(--primary);
-            color: white;
+            background: var(--accent-color);
+            color: #000000;
             border: none;
             border-radius: 0.5rem;
             font-weight: 500;
@@ -188,7 +189,7 @@ $currentMessages = array_slice($smsMessages, $offset, $itemsPerPage);
         }
 
         button:hover {
-            background: var(--primary-dark);
+            background: #e0b600;
         }
 
         .message-list {
@@ -199,14 +200,14 @@ $currentMessages = array_slice($smsMessages, $offset, $itemsPerPage);
 
         .message {
             padding: 1.3rem;
-            background: var(--card-light);
+            background: var(--card-bg);
             border-radius: 1rem;
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
             transition: transform 0.2s ease;
         }
 
         .dark .message {
-            background: var(--card-dark);
+            background: var(--card-bg);
         }
 
         .message:hover {
@@ -215,7 +216,7 @@ $currentMessages = array_slice($smsMessages, $offset, $itemsPerPage);
         
         .message-sender {
             font-weight: 600;
-            color: var(--primary);
+            color: var(--accent-color);
             margin-bottom: 0.5rem;
             font-size: 0.8rem; 
         }
@@ -250,7 +251,7 @@ $currentMessages = array_slice($smsMessages, $offset, $itemsPerPage);
         }
 
         .dark .theme-toggle {
-            background: #6366f1;
+            background: var(--accent-color);
         }
 
         .theme-toggle::after {
@@ -283,93 +284,83 @@ $currentMessages = array_slice($smsMessages, $offset, $itemsPerPage);
 
         .pagination a {
             padding: 0.4rem 0.8rem;
-            background: var(--primary);
-            color: white;
+            background: var(--accent-color);
+            color: #000000;
             text-decoration: none;
             border-radius: 0.5rem;
             transition: background-color 0.2s ease;
-            font-size: 0.8rem; /* Smaller font size */
+            font-size: 0.8rem;
             min-width: 2rem;
             text-align: center;
         }
 
         .pagination a:hover {
-            background: var(--primary-dark);
+            background: #e0b600;
         }
-    header {
-      padding: 0;
-      text-align: center;
-      position: relative;
-      width: 100%;
-    }
-    .header-top {
-      background-color: transparent;
-      padding: 5px;
-    }
-    .header-bottom {
-      background-color: transparent;
-      padding: 5px;
-      color: transparent;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 0.8em;
-      color: transparent;
-    }
-    .new-container {
-      position: absolute;
-      top: 20%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      margin-bottom: 100px;
-      border-radius: 5px;
-      width: 95%;
-      height: 100%;
-      padding: 10px;
-      box-sizing: border-box;
-      background-color: #ffffff;
-      color: #000;
-      text-align: center;
-      z-index: 2;
-    }
-    .new-container p {
-      text-align: left;
-      font-size: 1.1em;
-      color: #555;
-      margin-top: 3px;
-      margin-left: 10px;
-      font-weight: bold;
-    }
-    
-    .new-container.dark {
-      background-color: #2a2a2a;
-      color: #e0e0e0;
-    }
-    
-    .new-container.dark p {
-      background-color: #2a2a2a;
-      color: #e0e0e0;
-    }
-
-        @media (max-width: 768px) {
-            .pagination {
-                gap: 0.2rem;
-            }
-            
-            .pagination a {
-                padding: 0.3rem 0.6rem;
-                font-size: 0.75rem;
-                min-width: 1.8rem;
-            }
+        
+        header {
+          padding: 0;
+          text-align: center;
+          position: relative;
+          width: 100%;
         }
-       
-        .pagination a:hover {
-            background: var(--primary-dark);
+        
+        .header-top {
+          background-color: transparent;
+          padding: 5px;
+        }
+        
+        .header-bottom {
+          background-color: transparent;
+          padding: 5px;
+          color: transparent;
+        }
+        
+        header h1 {
+          margin: 0;
+          font-size: 0.8em;
+          color: transparent;
+        }
+        
+        .new-container {
+          position: absolute;
+          top: 20%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          margin-bottom: 100px;
+          border-radius: 5px;
+          width: 95%;
+          height: 100%;
+          padding: 10px;
+          box-sizing: border-box;
+          background-color: var(--card-bg);
+          color: var(--text-color);
+          text-align: center;
+          z-index: 2;
+        }
+        
+        .new-container p {
+          text-align: left;
+          font-size: 1.1em;
+          color: var(--accent-color);
+          margin-top: 3px;
+          margin-left: 10px;
+          font-weight: bold;
+        }
+        
+        .new-container.dark {
+          background-color: var(--card-bg);
+          color: var(--text-color);
+        }
+        
+        .new-container.dark p {
+          color: var(--accent-color);
         }
 
         .pagination .disabled {
-            background: #cbd5e1;
+            background: #64748b;
             pointer-events: none;
+            opacity: 0.7;
         }
 
         .dark .pagination .disabled {
@@ -377,7 +368,7 @@ $currentMessages = array_slice($smsMessages, $offset, $itemsPerPage);
         }
 
         .pagination .active {
-            background: var(--primary-dark);
+            background: #e0b600;
         }
 
         /* Desktop styles (>= 1024px) */
@@ -520,7 +511,7 @@ $currentMessages = array_slice($smsMessages, $offset, $itemsPerPage);
         }
     </style>
 </head>
-<body class="<?['darkMode'] === 'true' ? 'dark' : ''; ?>">
+<body class="<?php echo isset($_COOKIE['theme']) && $_COOKIE['theme'] === 'dark' ? 'dark' : ''; ?>">
     <div class="container">
 <header>
     <div class="new-container">
@@ -615,11 +606,35 @@ $currentMessages = array_slice($smsMessages, $offset, $itemsPerPage);
 const body = document.body;
 const newContainer = document.querySelector('.new-container');
 
-// Check system preference for dark mode
-const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+// Fungsi untuk mendapatkan nilai cookie
+const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+};
 
-// Apply the theme based on system preference
-if (prefersDarkMode) {
+// Fungsi untuk mengatur cookie
+const setCookie = (name, value, days) => {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
+};
+
+// Periksa cookie tema
+const savedTheme = getCookie('theme');
+const userPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+// Tentukan tema berdasarkan cookie atau preferensi sistem
+let currentTheme;
+if (savedTheme) {
+    currentTheme = savedTheme;
+} else {
+    currentTheme = userPrefersDark ? 'dark' : 'light';
+}
+
+// Terapkan tema
+if (currentTheme === 'dark') {
     body.classList.add('dark');
     newContainer.classList.add('dark');
 } else {
@@ -627,14 +642,20 @@ if (prefersDarkMode) {
     newContainer.classList.remove('dark');
 }
 
-// Optional: Listen for changes in the system theme preference and update accordingly
+// Simpan preferensi tema
+setCookie('theme', currentTheme, 365);
+
+// Mendengarkan perubahan preferensi tema sistem
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-    if (e.matches) {
-        body.classList.add('dark');
-        newContainer.classList.add('dark');
-    } else {
-        body.classList.remove('dark');
-        newContainer.classList.remove('dark');
+    if (!getCookie('theme')) {
+        const newTheme = e.matches ? 'dark' : 'light';
+        if (newTheme === 'dark') {
+            body.classList.add('dark');
+            newContainer.classList.add('dark');
+        } else {
+            body.classList.remove('dark');
+            newContainer.classList.remove('dark');
+        }
     }
 });
 

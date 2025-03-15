@@ -19,18 +19,21 @@ body {
 
 .container {
     width: 320px;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #1a1a1a;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
     padding: 20px;
     text-align: center;
     margin-bottom: 10px;
+    border: 1px solid rgba(254, 202, 10, 0.2);
+    border-radius: 8px;
+    color: #F1F1F1;
 }
 
 .tab-container {
     width: 100px;
     height: 15px;
-    background-color: #007bff;
-    color: white;
+    background-color: #FECA0A;
+    color: #000000;
     margin: 0 auto -3px;
     display: flex;
     flex-direction: column;
@@ -38,43 +41,51 @@ body {
     align-items: center;
     position: relative;
     z-index: 1;
-    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
-    font-size: 10px; /* Reduced font size for the tab text */
+    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.3);
+    font-size: 10px;
+    border-radius: 3px 3px 0 0;
 }
 
 .icon-container {
     width: 100px;
     height: 50px;
-    background-color: white;
-    border-radius: 2px;
+    background-color: #1a1a1a;
+    border-radius: 5px;
     margin: 0 auto 25px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border: 1px solid #FECA0A;
 }
 
 .icon-container .iconify {
-    font-size: 18px; /* Reduced icon size */
-    color: black;
+    font-size: 18px;
+    color: #FECA0A;
 }
 
 .icon-container p {
     margin: 5px 0 0;
-    font-size: 10px; /* Reduced font size for text under icon */
-    color: black;
+    font-size: 10px;
+    color: #FECA0A;
+    font-weight: bold;
 }
 
 .status {
     text-align: left;
     margin-bottom: 20px;
-    font-size: 12px; /* Reduced font size for status text */
-    color: #555;
+    font-size: 12px;
+    color: #F1F1F1;
 }
 
 .status p {
     margin: 0px 0;
+}
+
+.status p strong {
+    color: #FECA0A;
+    font-weight: 600;
 }
 
 .buttons {
@@ -90,23 +101,26 @@ body {
     border: none;
     border-radius: 3px;
     cursor: pointer;
-    color: white;
+    color: #000000;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
 }
 
 .buttons button:hover {
-    opacity: 0.9; /* Slight fade on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .start {
-    background-color: #28a745;
+    background-color: #FECA0A;
 }
 
 .stop {
-    background-color: #dc3545;
+    background-color: #FECA0A;
 }
 
 .edit, .restart {
-    background-color: #5e72e4;
+    background-color: #FECA0A;
 }
 
 .edit-form {
@@ -118,11 +132,13 @@ body {
     transform: translate(-50%, -50%);
     width: 300px;
     height: 280px;
-    background-color: white;
+    background-color: #1a1a1a;
     padding: 10px;
     box-sizing: border-box;
-    border-radius: 2px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    border: 1px solid #FECA0A;
+    color: #F1F1F1;
 }
 
 .edit-form h3 {
@@ -131,13 +147,16 @@ body {
     padding-left: 20px;
     font-size: 1em;
     font-weight: 550;
+    color: #FECA0A;
 }
+
 .edit-form p {
     margin: 2px 0;
     text-align: left;
     padding-left: 20px;
     font-size: 0.8em;
     font-weight: 500;
+    color: #FECA0A;
 }
 
 .edit-form textarea {
@@ -145,92 +164,110 @@ body {
     margin: 0px 0;
     padding: 8px;
     border-radius: 3px;
-    border: 1px solid #ccc;
+    border: 1px solid #FECA0A;
     font-size: 10px;
     height: 30px;
+    background-color: #000000;
+    color: #F1F1F1;
 }
 
 .edit-form button {
     margin-top: 20px;
     margin-right: 10px;
     padding: 5px 10px;
-    background-color: #007bff;
-    color: white;
+    background-color: #FECA0A;
+    color: #000000;
     border: none;
     border-radius: 2px;
     cursor: pointer;
     font-size: 14px;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
     font-weight: 600;
 }
 
 .edit-form button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #e5b609;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Dark mode styles */
+/* Dark mode styles - masih tetap menggunakan tema hitam-kuning */
 @media (prefers-color-scheme: dark) {
     body {
         background-color: transparent;
-        color: #e0e0e0;
+        color: #F1F1F1;
     }
 
     .container {
-        background-color: #333;
-        color: #e0e0e0;
+        background-color: #1a1a1a;
+        color: #F1F1F1;
     }
 
     .tab-container {
-        background-color: #006bb3;
+        background-color: #FECA0A;
+        color: #000000;
     }
 
     .icon-container {
-        background-color: #444;
+        background-color: #1a1a1a;
+        border: 1px solid #FECA0A;
     }
     
     .icon-container p {
-        color: #fff;
+        color: #FECA0A;
     }
 
     .icon-container .iconify {
-        color: white;
+        color: #FECA0A;
     }
 
     .status {
-        color: #bbb;
+        color: #F1F1F1;
+    }
+    
+    .status p strong {
+        color: #FECA0A;
     }
 
     .buttons button {
-        background-color: #555;
-    }
-
-    .buttons button:hover {
-        opacity: 0.8;
+        color: #000000;
     }
 
     .start {
-        background-color: #4caf50 !important;
+        background-color: #FECA0A !important;
     }
 
     .stop {
-        background-color: #f44336 !important;
+        background-color: #FECA0A !important;
     }
 
     .edit, .restart {
-        background-color: #474f72 !important;
+        background-color: #FECA0A !important;
     }
 
     .edit-form {
-        background-color: #333;
-        color: #e0e0e0;
+        background-color: #1a1a1a;
+        color: #F1F1F1;
+        border: 1px solid #FECA0A;
+    }
+    
+    .edit-form h3, .edit-form p {
+        color: #FECA0A;
+    }
+    
+    .edit-form textarea {
+        background-color: #000000;
+        color: #F1F1F1;
+        border: 1px solid #FECA0A;
     }
 
     .edit-form button {
-        background-color: #006bb3;
+        background-color: #FECA0A;
+        color: #000000;
     }
 
     .edit-form button:hover {
-        background-color: #0056b3;
+        background-color: #e5b609;
     }
 }
 

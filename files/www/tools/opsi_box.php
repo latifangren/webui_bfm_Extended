@@ -54,8 +54,8 @@ $host = $x[0];
     height: 85%;
     padding: 10px;
     box-sizing: border-box;
-    background-color: #ffffff;
-    color: #000;
+    background-color: #000000;
+    color: #F1F1F1;
     text-align: left;  /* Align text to the left for horizontal scroll */
     z-index: 2;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -69,7 +69,7 @@ $host = $x[0];
 .new-container p {
     display: inline-block; /* Make paragraphs inline horizontally */
     font-size: 0.7em;
-    color: #555;
+    color: #F1F1F1;
     margin-top: 5px;
     margin-left: 18px;
     font-weight: 200;
@@ -98,7 +98,7 @@ $host = $x[0];
         }
 
 p.active-tab {
-    color: #5e72e4;
+    color: #FECA0A;
     position: relative; /* Untuk mengatur garis bawah */
     padding-bottom: 17px; /* Jarak antara teks dan garis bawah */
 }
@@ -110,7 +110,7 @@ p.active-tab::before {
     left: -15%;
     width: 130%;
     height: 150%;
-    background-color: rgba(85, 103, 205, 0.1);
+    background-color: rgba(254, 202, 10, 0.1);
 }
 
 p.active-tab::after {
@@ -120,7 +120,7 @@ p.active-tab::after {
     left: -15%;
     width: 130%;
     height: 3px;
-    background-color: #5e72e4;
+    background-color: #FECA0A;
 }
         iframe {
             width: 100%;
@@ -135,26 +135,26 @@ p.active-tab::after {
     }
 
     .new-container, .new-container p {
-        background-color: #2a2a2a;
-        color: #e0e0e0;
+        background-color: #000000;
+        color: #F1F1F1;
     }
 
     .tab-content {
-        background-color: #222;
+        background-color: #000000;
     }
     
     p.active-tab::before {
-        background-color: rgba(0, 0, 0, 0.3);
+        background-color: rgba(254, 202, 10, 0.1);
     }
 
     p.active-tab{
-        color: #e0e0e0; 
+        color: #FECA0A; 
     }
     p.active-tab::after {
-        background-color: #474f72; 
+        background-color: #FECA0A; 
     }
     iframe {
-        background-color: #1a1a1a;
+        background-color: #000000;
         }
 }
     </style>
@@ -167,7 +167,6 @@ p.active-tab::after {
         <p onclick="showTab('SERVICES')">Services</p>
         <p onclick="showTab('YAML')">Config.yaml</p>
         <p onclick="showTab('JSON')">Config.json</p>
-        <p onclick="showTab('AKUN')">Akun</p>
     </div>
     <div class="header-top">
         <h1>o</h1>
@@ -189,9 +188,6 @@ p.active-tab::after {
     </div>
     <div id="JSON" class="tab-content">
         <iframe id="json" loading="lazy"></iframe>
-    </div>
-    <div id="AKUN" class="tab-content">
-        <iframe id="akun" loading="lazy"></iframe>
     </div>
 </div>
 
@@ -233,9 +229,6 @@ function showTab(tabName) {
     }
     if (tabName === 'JSON' && !document.getElementById('json').src) {
         document.getElementById('json').src = 'http://<?php echo $host; ?>/tiny/index.php?p=data%2Fadb%2Fbox%2Fsing-box&view=config.json';
-    }
-    if (tabName === 'AKUN' && !document.getElementById('akun').src) {
-        document.getElementById('akun').src = 'http://<?php echo $host; ?>/tiny/index.php?p=data%2Fadb%2Fbox%2Fisiakun&view=akun.yaml';
     }
 }
 
