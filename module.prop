@@ -1,6 +1,6 @@
 id=BFR-M WEBUI-Extended
-name=BFR-M WEBUI Extended
-version=v1.0.9 Extended
+name=BFR-M WEBUI-Extended
+version=v1.0.9-Extended
 versionCode=20250315
 author=LATIFAN
 description= Universal webui for box for magisk with php webserver , use gateway or 127.0.0.1:80 or 127.0.0.1 direct
