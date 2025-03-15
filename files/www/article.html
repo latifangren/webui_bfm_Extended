@@ -3,104 +3,360 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BFM webui by ZAPBER</title>
+    <title>BFM webui Extended</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f5f7fa;
             color: #333;
         }
+        
         .container {
             max-width: 800px;
-            margin: 20px auto;
+            margin: 0 auto;
             padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        h1, h2, h3 {
-            color: #444;
+        
+        header {
+            background: var(--dark-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 20px;
+            box-shadow: var(--box-shadow);
         }
+        
+        h1, h2, h3, h4 {
+            color: var(--dark-color);
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            color: white;
+        }
+        
+        h2 {
+            font-size: 1.6rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 5px;
+            margin-top: 2rem;
+        }
+        
+        h3 {
+            font-size: 1.3rem;
+            margin-top: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        h4 {
+            font-size: 1.1rem;
+            color: var(--dark-color);
+            margin-top: 1rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .step {
+            display: flex;
+            margin-bottom: 10px;
+            align-items: flex-start;
+        }
+        
+        .step-number {
+            background: var(--primary-color);
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
         pre {
-            background-color: #f4f4f4;
-            border: 1px solid #ddd;
-            padding: 10px;
+            background-color: #2d3748;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
             overflow: auto;
+            position: relative;
+            margin: 10px 0 15px 0;
         }
+        
         code {
-            background-color: #f9f2f4;
-            color: #c7254e;
-            padding: 2px 4px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
             border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background-color: #27ae60;
+        }
+        
+        .copy-btn i {
+            margin-right: 5px;
+        }
+        
+        .requirement-list li {
+            list-style-type: none;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .requirement-list li:before {
+            content: "✓";
+            color: var(--secondary-color);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .note {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--warning-color);
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        
+        .note i {
+            color: var(--warning-color);
+            margin-right: 5px;
+        }
+        
+        #toc {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        #toc h3 {
+            margin-top: 0;
+        }
+        
+        .toc-list {
+            list-style-type: none;
+            padding-left: 10px;
+        }
+        
+        .toc-list li {
+            margin-bottom: 8px;
+        }
+        
+        .toc-list a {
+            display: block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        
+        .toc-list a:hover {
+            background: #f5f7fa;
+            text-decoration: none;
+        }
+        
+        .section {
+            padding-top: 10px;
+            scroll-margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+            }
+            
+            h3 {
+                font-size: 1.2rem;
+            }
+            
+            pre {
+                padding: 10px 5px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Custom Webui Box for KSU & magisk by ZAPBER</h1>
-        <p>WebUI ini bersifat universal untuk CFM dan BFR (default BFR) dan sudah include php yang dibutuhkan untuk webserver tanpa install melalui termux.</p>
+        <header>
+            <h1><i class="fas fa-server"></i> Dokumentasi Perbaikan dan Instalasi fitur Tambahan</h1>
+        </header>
         
-        <h2>Pengenalan</h2>
-        <p>Fitur simple dengan fungsi seadanya dan belum sempurna.</p>
-        <h3>Fitur</h3>
-        <ul>
-            <li>0. File manager = tinyfm</li>
-            <li>1. YACD port default 9090</li>
-            <li>2. clash logs</li>
-            <li>3. clash command untuk start stop bfm clash via webui</li>
-            <li>4. ttyd - terminal emulator terhubung ke termux bash</li>
-            <li>5. monitor device</li>
-            <li>6. tombol reboot dari webui</li>
-            <li>7. dark mode- lightmode</li>
-        </ul>
-        <h3>Struktur file untuk akses di tab lain</h3>
-        <ul>
-            <li>0. tinifym file manager akses di /file.php</li>
-            <li>1. yacd clash dashboard > ip:9090/ui/#/proxies</li>
-            <li>2. untuk monitor /monitor/index.php</li>
-            <li>3. untuk akses terminal ip:3001</li>
-            <li>4. untuk clash logs akses di /logs.php</li>
-            <li>4. untuk command /executed.php</li>
-        </ul>
-        <h3>requirements</h3>
-        <ul>
-            <li>0. only magisk and termux</li>
-            <li>1. ttyd for termux</li>
-        </ul>
+        <div id="toc" class="card">
+            <h3><i class="fas fa-list"></i> Daftar Isi</h3>
+            <ul class="toc-list">
+                <li><a href="#intro">Pengenalan</a></li>
+                <li><a href="#requirements">Requirements</a></li>
+                <li><a href="#ttyd">Instalasi TTYD</a></li>
+                <li><a href="#termux-boot">Termux:Boot</a></li>
+                <li><a href="#hotspot">Auto Hotspot On</a></li>
+                <li><a href="#vnstat">Instalasi Vnstat</a></li>
+                <li><a href="#ping-monitor">Ping Monitor</a></li>
+            </ul>
+        </div>
         
-        <h3>installasi ttyd requirements</h3>
-        <p>ttyd adalah untuk terminal emulator dan bisa diakses melalui browser. installasinya dibawah ini</p>
-        <pre><code>pkg install php && pkg install ttyd</code></pre>
-        <h3>Install termux:boot</h3>
-        <p>termux:boot ini wajib jika ingin autostart ttyd ketika boot/reboot download di f-droid</p>
-        <h3>buat folder</h3>
-        <p>untuk membuat ttyd boot dan jalan ketika reboot, buat folder dulu seperti ini. ~/.termux/boot</p>
-        <pre><code>
-mkdir ~/.termux/boot
-        </code></pre>
-        <p>lalu pindah ke direktori boot yg sudah dibuat</p>
-        <pre><code>
-cd ~/.termux/boot
-        </code></pre>
-        <p>kemudian buat file ttyd.sh dengan isi seperti berikut</p>
-        <pre><code>nano ttyd.sh</code></pre>
-            <p>copas code dibawah</p>
-            <p>ganti port 3001 kalau mau default 3001, jika diganti maka harus ganti juga di file index.php</p>
-        <pre><code>
-#!/data/data/com.termux/files/usr/bin/sh
+        <section id="intro" class="section card">
+            <h2>Pengenalan</h2>
+            <p>WebUI ini bersifat universal untuk CFM dan BFR (default BFR) dan sudah include php yang dibutuhkan untuk webserver tanpa install melalui termux.</p>
+        </section>
+        
+        <section id="requirements" class="section card">
+            <h2>Requirements</h2>
+            <ul class="requirement-list">
+                <li>Magisk dan Termux saja</li>
+                <li>TTYD untuk Termux</li>
+            </ul>
+        </section>
+        
+        <section id="ttyd" class="section card">
+            <h2>Instalasi TTYD</h2>
+            <p>TTYD adalah terminal emulator yang bisa diakses melalui browser. Berikut cara instalasi:</p>
+            
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <p>Install paket yang dibutuhkan:</p>
+                    <pre><code>pkg install php && pkg install ttyd</code></pre>
+                </div>
+            </div>
+        </section>
+        
+        <section id="termux-boot" class="section card">
+            <h2>Termux:Boot Setup</h2>
+            <p>Termux:Boot diperlukan agar TTYD dapat berjalan otomatis setelah reboot.</p>
+            
+            <div class="note">
+                <i class="fas fa-info-circle"></i> Download aplikasi Termux:Boot dari F-Droid
+            </div>
+            
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <p>Buat folder boot:</p>
+                    <pre><code>mkdir ~/.termux/boot</code></pre>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <p>Pindah ke direktori boot:</p>
+                    <pre><code>cd ~/.termux/boot</code></pre>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <p>Buat file ttyd.sh:</p>
+                    <pre><code>nano ttyd.sh</code></pre>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <p>Isi dengan konten berikut:</p>
+                    <pre><code>#!/data/data/com.termux/files/usr/bin/sh
 termux-wake-lock
 echo "Running script at boot..."
 # Your commands go here
 ttyd -p 3001 -W -t enableTrzsz=true bash
-termux-wake-unlock
-        </code></pre>
+termux-wake-unlock</code></pre>
+                    <div class="note">
+                        <i class="fas fa-exclamation-triangle"></i> Ganti port 3001 jika diperlukan, tapi ingat harus ganti juga di file index.php
+                    </div>
+                </div>
+            </div>
+        </section>
         
-        <h3>auto hotspot on</h3>
-        <p>buat file hotspoton.sh , berguna untuk auto onkan hotspot ketika setelah reboot, isi dengan code dibawah</p>
-        <pre><code>
-#!/system/bin/sh
+        <section id="hotspot" class="section card">
+            <h2>Auto Hotspot On</h2>
+            <p>Fitur ini akan mengaktifkan hotspot secara otomatis setelah reboot.</p>
+            
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <p>Buat file hotspoton.sh dengan isi:</p>
+                    <pre><code>#!/system/bin/sh
 sleep 20
 am start -n com.android.settings/.TetherSettings
 sleep 5
@@ -110,14 +366,250 @@ input keyevent 66
 sleep 5
 input keyevent 66
 sleep 3
-input key event 3
-        </code></pre>
-        <p>simpan di /data/adb/service.d, works mungkin di rom aosp rom lain atau stock belum coba, permission samakan dengan file yg lain agar tereksekusi dengan baik</p>
-        <h3>Credit</h3>
-        <p>Terima kasih untuk pembuat bfm webui pertama tidak ada di changelog</p>
-        <p>webui ini dibuat untuk mempersingkat dan memperindah tampilan webui untuk android bfm dibuat oleh MUHAMADD FAUZZI NURHAQQIN (FB)</p>
-        <h2>Conclusion</h2>
-        <p>openwrt member walaupun bukan untuk openwrt tapi tools bfm berguna untuk tethering ke router dengan usb to lan</p>
+input key event 3</code></pre>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <p>Simpan di /data/adb/service.d dan sesuaikan permissionnya dengan file lain</p>
+                    <div class="note">
+                        <i class="fas fa-info-circle"></i> Works di ROM AOSP, untuk ROM lain atau stock belum dicoba
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="vnstat" class="section card">
+            <h2>Instalasi Vnstat</h2>
+            <p>Vnstat berguna untuk memantau penggunaan bandwidth jaringan.</p>
+            
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <p>Install paket dan setup service:</p>
+                    <pre><code>pkg i -y root-repo
+pkg i -y termux-services vnstat vnstati
+ 
+mkdir -p /data/data/com.termux/files/var/service/vnstat
+ 
+cat > /data/data/com.termux/files/var/service/vnstat/run <<EOF
+#!/data/data/com.termux/files/usr/bin/sh
+exec vnstatd -n
+EOF
+ 
+chmod +x /data/data/com.termux/files/var/service/vnstat/run
+ 
+sv up vnstat
+
+sv status vnstat</code></pre>
+                </div>
+            </div>
+            
+            <h3>Konfigurasi Vnstat untuk WebUI</h3>
+            
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <p>Cek folder /data/adb/php7/files/www/tools/ apakah file vnstat.php ada</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <p>Jika tidak ada, download dari <a href="https://t.me/taamarin/427800">link ini</a> dan rename menjadi "vnstat.php" dengan izin 644</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <p>Tambahkan file vnstat.sh di folder /data/adb/service.d/ dari <a href="https://t.me/taamarin/283465/421386">link ini</a> dengan izin 755</p>
+                </div>
+            </div>
+            
+            <h3>Penggunaan Vnstat</h3>
+            <p>Setelah reboot, cek status dengan perintah:</p>
+            <pre><code>su -c pidof vnstatd</code></pre>
+            <p>Untuk testing, buka speedtest/YouTube, tunggu 30 detik, lalu buka BOX WebUI.</p>
+        </section>
+        
+        <section id="ping-monitor" class="section card">
+            <h2>Ping Monitor</h2>
+            
+            <h3>Pengantar</h3>
+            <p>PingMonitor adalah alat untuk memantau konektivitas jaringan melalui ping dalam lingkungan Android.</p>
+            
+            <h3>Prasyarat</h3>
+            <ul class="requirement-list">
+                <li>Android dengan akses root</li>
+                <li>Magisk terinstal</li>
+                <li>Web server (PHP) sudah terinstal</li>
+            </ul>
+            
+            <h3>Instalasi</h3>
+            
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <p>Buat script pingloop.sh dengan konten berikut:</p>
+                    <pre><code>#!/bin/ash
+
+# Alamat host yang ingin Anda ping
+HOST="quiz.vidio.com"
+
+# Jumlah kegagalan ping sebelum mode pesawat diaktifkan
+PING_FAIL_LIMIT=20
+
+# Waktu tunggu (detik) sebelum menonaktifkan mode pesawat
+WAIT_TIME=5
+
+# Variabel untuk menghitung berapa kali ping gagal
+failed_count=0
+
+# Warna untuk output
+GREEN="\033[0;32m"
+RED="\033[0;31m"
+NC="\033[0m"  # No Color
+
+# Fungsi untuk mengaktifkan mode pesawat
+enable_airplane_mode() {
+    echo -e "$(date +"%Y-%m-%d %H:%M:%S") - ${RED}Mengaktifkan mode pesawat...${NC}"
+    cmd connectivity airplane-mode enable
+    settings put global airplane_mode_on 1
+    am broadcast -a android.intent.action.AIRPLANE_MODE --ez state true
+}
+
+# Fungsi untuk menonaktifkan mode pesawat
+disable_airplane_mode() {
+    echo -e "$(date +"%Y-%m-%d %H:%M:%S") - ${GREEN}Menonaktifkan mode pesawat...${NC}"
+    cmd connectivity airplane-mode disable
+    settings put global airplane_mode_on 0
+    am broadcast -a android.intent.action.AIRPLANE_MODE --ez state false
+}
+
+# Loop untuk melakukan ping dan mengaktifkan/menonaktifkan mode pesawat
+while true; do
+    # Melakukan ping ke host
+    if ping -c 1 -W 2 $HOST > /dev/null; then
+        echo -e "$(date +"%Y-%m-%d %H:%M:%S") - ${GREEN}Host dapat dijangkau${NC}"
+        failed_count=0  # Reset hitungan kegagalan jika host berhasil dijangkau
+    else
+        echo -e "$(date +"%Y-%m-%d %H:%M:%S") - ${RED}Host tidak dapat dijangkau${NC}"
+        failed_count=$((failed_count + 1))  # Tingkatkan hitungan kegagalan
+        
+        # Jika jumlah kegagalan mencapai batas
+        if [ $failed_count -ge $PING_FAIL_LIMIT ]; then
+            echo -e "$(date +"%Y-%m-%d %H:%M:%S") - ${RED}Gagal ping sebanyak $PING_FAIL_LIMIT kali. Mengaktifkan mode pesawat...${NC}"
+            enable_airplane_mode  # Aktifkan mode pesawat
+            sleep $WAIT_TIME  # Tunggu beberapa waktu
+            echo -e "$(date +"%Y-%m-%d %H:%M:%S") - ${GREEN}Menonaktifkan mode pesawat kembali...${NC}"
+            disable_airplane_mode  # Nonaktifkan mode pesawat
+            failed_count=0  # Reset hitungan kegagalan setelah mode pesawat dinonaktifkan
+        fi
+    fi
+    sleep 1  # Tunggu sebelum memeriksa koneksi lagi
+done</code></pre>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <ol>
+                        <li>Salin kode di atas</li>
+                        <li>Buat file baru dengan nama pingloop.sh</li>
+                        <li>Simpan di direktori /data/adb/service.d/</li>
+                        <li>Berikan izin eksekusi: <code>chmod 755 /data/adb/service.d/pingloop.sh</code></li>
+                        <li>Reboot HP lalu cek di Ping Monitor</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+        
+        <div class="card">
+            <p>Terima kasih untuk pembuat BFM dan pembuat script lainnya</p>
+        </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    <script>
+        // Menambahkan tombol copy ke semua blok kode
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeBlocks = document.querySelectorAll('pre');
+            
+            codeBlocks.forEach(function(block) {
+                const copyButton = document.createElement('button');
+                copyButton.className = 'copy-btn';
+                copyButton.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                
+                copyButton.addEventListener('click', function() {
+                    // Dapatkan teks yang akan disalin
+                    const code = block.querySelector('code') || block;
+                    const textToCopy = code.innerText || code.textContent;
+                    
+                    // Metode fallback untuk menyalin
+                    const fallbackCopyTextToClipboard = function(text) {
+                        const textArea = document.createElement('textarea');
+                        textArea.value = text;
+                        textArea.style.position = 'fixed';
+                        textArea.style.top = '0';
+                        textArea.style.left = '0';
+                        textArea.style.width = '2em';
+                        textArea.style.height = '2em';
+                        textArea.style.padding = '0';
+                        textArea.style.border = 'none';
+                        textArea.style.outline = 'none';
+                        textArea.style.boxShadow = 'none';
+                        textArea.style.background = 'transparent';
+                        document.body.appendChild(textArea);
+                        textArea.focus();
+                        textArea.select();
+                        
+                        try {
+                            const successful = document.execCommand('copy');
+                            if (successful) {
+                                copyButton.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                            } else {
+                                copyButton.innerHTML = '<i class="fas fa-times"></i> Error!';
+                            }
+                        } catch (err) {
+                            copyButton.innerHTML = '<i class="fas fa-times"></i> Error!';
+                            console.error('Gagal menyalin teks:', err);
+                        }
+                        
+                        document.body.removeChild(textArea);
+                    };
+                    
+                    // Coba gunakan Clipboard API modern terlebih dahulu
+                    if (navigator.clipboard) {
+                        navigator.clipboard.writeText(textToCopy)
+                            .then(function() {
+                                copyButton.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                                setTimeout(function() {
+                                    copyButton.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                                }, 2000);
+                            })
+                            .catch(function(err) {
+                                console.error('Clipboard API error:', err);
+                                fallbackCopyTextToClipboard(textToCopy);
+                            });
+                    } else {
+                        // Fallback untuk browser yang tidak mendukung Clipboard API
+                        fallbackCopyTextToClipboard(textToCopy);
+                    }
+                });
+                
+                // Pastikan block memiliki posisi relatif untuk penempatan tombol yang tepat
+                if (window.getComputedStyle(block).position === 'static') {
+                    block.style.position = 'relative';
+                }
+                
+                block.insertBefore(copyButton, block.firstChild);
+            });
+        });
+    </script>
 </body>
 </html>

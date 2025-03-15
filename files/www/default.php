@@ -318,6 +318,12 @@ $host = $x[0];
                       </a>
                     </li>
                     <li>
+                    <a href="#" onclick="loadIframe('/tools/pingmonitor.php')">
+                         <span class="sub-item">Ping Monitor</span>
+                       </a>
+                     </li>
+                     <li>
+                     <li>
                       <a href="#" onclick="loadIframe('/tools_default/modpes.php')">
                         <span class="sub-item">Airplane Pilot</span>
                       </a>

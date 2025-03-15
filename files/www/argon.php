@@ -87,6 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <a onclick="loadContent('/tools/smsviewer.php'); closeDropdown(); addUnderline(this)"> SMS Viewer</a>
             <a onclick="loadContent('/tools/ocgen/index.php'); closeDropdown(); addUnderline(this)"> Config Generator</a>
             <a onclick="loadContent('/tools/modpes.php'); closeDropdown(); addUnderline(this)"> Airplane Pilot</a>
+            <a onclick="loadContent('/tools/pingmonitor.php'); closeDropdown(); addUnderline(this)"> Ping Monitor</a>
             <a onclick="loadContent('/tools/speedtest/speedtest.php'); closeDropdown(); addUnderline(this)"> Speed Test</a>
             <a onclick="loadContent('http://<?php echo $p; ?>:3001'); closeDropdown(); addUnderline(this)"> Terminal</a>
           </div>
@@ -126,6 +127,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <li>
           <a onclick="loadContent('/about.php'); closeDropdown(); addUnderline(this)">
             <span class="iconify" data-icon="mdi:timeline-text" style="font-size: 18px; margin-right: 5px; color: #5e72e4;"></span> About
+          </a>
+        </li>
+        <li>
+          <a onclick="loadContent('/article.html'); closeDropdown(); addUnderline(this)">
+            <span class="iconify" data-icon="mdi:file-document-outline" style="font-size: 18px; margin-right: 5px; color: #5e72e4;"></span> Dokumentasi
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/latifangren/webui_bfm_argon_Extended" target="_blank" rel="noopener noreferrer">
+            <span class="iconify" data-icon="mdi:update" style="font-size: 18px; margin-right: 5px; color: #2ecc71;"></span> Update WebUI
           </a>
         </li>
        <li><a href="javascript:void(0);" onclick="logoutAndRefresh()">

@@ -298,6 +298,22 @@ if (LOGIN_ENABLED && !isset($_SESSION['user_id'])) {
                         <span class="tag tag-new">NEW</span>
                         Penambahan fitur Speed Test pada tema default
                     </li>
+                    <li class="change-item">
+                        <span class="tag tag-new">NEW</span>
+                        Implementasi Ping Monitor dengan tampilan yang lebih modern
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-new">NEW</span>
+                        Fitur Dark Mode pada Ping Monitor
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-new">NEW</span>
+                        Penambahan halaman Dokumentasi dengan panduan lengkap
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-new">NEW</span>
+                        Tombol Update WebUI yang mengarah ke repository GitHub
+                    </li>
                 </ul>
 
                 <div class="change-type">🛠️ Perbaikan & Peningkatan</div>
@@ -305,6 +321,38 @@ if (LOGIN_ENABLED && !isset($_SESSION['user_id'])) {
                     <li class="change-item">
                         <span class="tag tag-improvement">IMPROVEMENT</span>
                         Integrasi modul Speed Test dari tema Argon ke tema default
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-improvement">IMPROVEMENT</span>
+                        Tampilan chart statistik ping yang lebih informatif dan menarik
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-improvement">IMPROVEMENT</span>
+                        Tata letak yang lebih compact dan responsif untuk berbagai perangkat
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-improvement">IMPROVEMENT</span>
+                        Integrasi Ping Monitor ke menu tema Default
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-improvement">IMPROVEMENT</span>
+                        Desain halaman dokumentasi yang lebih modern dengan daftar isi
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-improvement">IMPROVEMENT</span>
+                        Perubahan ikon menu Dokumentasi untuk konsistensi visual
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-improvement">IMPROVEMENT</span>
+                        Penambahan fitur copy ke clipboard pada blok kode dokumentasi
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-fix">FIX</span>
+                        Perbaikan tampilan path yang terpotong pada layar mobile
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-fix">FIX</span>
+                        Perbaikan fungsi tombol copy yang tidak berfungsi di beberapa perangkat
                     </li>
                 </ul>
             </div>
