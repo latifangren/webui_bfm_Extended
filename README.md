@@ -1,65 +1,103 @@
+# BOX UI Extended
 
-## Overview
-BOX UI is a web-based interface for managing Box for Android tools. It supports both Magisk and KernelSU modules and provides a comprehensive suite of features to control and monitor your Android device access your device without touch it.
-## login
+## 🌟 Ringkasan
+BOX UI adalah antarmuka berbasis web untuk mengelola perangkat Android tanpa perlu menyentuh perangkat secara langsung. Aplikasi ini mendukung modul Magisk dan KernelSU dengan berbagai fitur komprehensif untuk mengontrol dan memantau perangkat Android.
 
-- **Users**: admin
+## 🎯 Tujuan
+- Menyediakan antarmuka web yang mudah digunakan untuk mengelola perangkat Android
+- Mengintegrasikan berbagai tools manajemen sistem dalam satu dashboard
+- Memungkinkan akses remote ke fungsi-fungsi penting perangkat Android
+- Menyederhanakan pengelolaan konfigurasi jaringan dan sistem
+
+## 👥 Target Pengguna
+- Pengguna Android yang menggunakan Magisk atau KernelSU
+- Administrator sistem Android
+- Pengguna yang membutuhkan akses remote ke perangkat Android
+- Pengguna yang memerlukan manajemen jaringan dan sistem yang komprehensif
+
+## 💻 Persyaratan Sistem
+### Minimum Requirements:
+- Perangkat Android dengan Magisk atau KernelSU terinstal
+- Termux
+- Akses root
+- Koneksi internet untuk fitur-fitur tertentu
+
+## 🔐 Informasi Login
+- **Username**: admin
 - **Password**: 12345
 
-## Features
-### 🚀 Fitur Baru
-- Penambahan hotspot manager
-- Penambahan networktools  
-- Penambahan Cpu monitor
-- Integrasi dengan Clash Dashboard
-- **Clash Dashboard**: Comprehensive interface for managing Clash configurations.
-- **System Info**: View detailed information about your device.
-- **Tiny FM**: File manager for modifying files and configuration files.
-- **TTyd**: Terminal manager that requires Termux and Termux:Boot installed.
-- **BOX Settings**: Manage BFR settings to run core Clash, SingBox, XRay, V2Fly, and select kernel (Mihomo or Premium).
-- **SMS Inbox**: Read Android SMS via the web UI.
-- **Start/Stop Commands**: Execute commands to start or stop BOX settings.
-- **Config Generator**: Generate Clash configurations and import Vmess, Vless, Trojan, and Shadowsocks via the UI.
-- **BOX Logs**: View logs for BOX activities.
-- **Documentation**: Simple and clear documentation.
-- **Reboot Device**: Reboot your device or reboot to TWRP.
-- **Authentication**: Login, logout, and reset password functionalities.
+## 🚀 Fitur Utama
 
+### Manajemen Sistem
+- **Dashboard Clash**: Antarmuka komprehensif untuk manajemen konfigurasi Clash
+- **System Info**: Informasi detail tentang perangkat Anda
+- **Tiny FM**: File manager untuk memodifikasi file dan konfigurasi
+- **TTyd**: Terminal manager (membutuhkan Termux dan Termux:Boot)
+- **BOX Settings**: Pengaturan BFR untuk menjalankan core Clash, SingBox, XRay, V2Fly
+- **SMS Inbox**: Baca SMS Android melalui web UI
+- **Config Generator**: Generate konfigurasi Clash dan import Vmess, Vless, Trojan, Shadowsocks
+- **BOX Logs**: Lihat log aktivitas BOX
+- **Reboot Options**: Reboot perangkat atau reboot ke TWRP
 
-## Installation
+### Fitur Jaringan
+- **Hotspot Manager**: Kelola koneksi hotspot
+- **Network Tools**: Tools untuk analisis jaringan
+- **CPU Monitor**: Pantau kinerja CPU
+- **Speed Test**: Uji kecepatan (lokal dan online)
+- **Clash Integration**: Integrasi penuh dengan Dashboard Clash
 
-- install as Magisk or kernelSU module
+### 📡 Ping Monitor
+- **Status Real-time**: Pantau status koneksi secara real-time
+- **Grafik Interaktif**: Visualisasi status ping dengan grafik dinamis
+- **Mode Pesawat**: Monitor status mode pesawat
+- **Log Aktivitas**: Pantau log aktivitas ping secara detail
+- **Statistik**: 
+  - Total ping
+  - Ping sukses
+  - Ping gagal
+  - Riwayat status koneksi
 
-### Requirements
+### 📱 APN Monitor
+- **Manajemen APN**: Kontrol dan monitor status APN
+- **Auto Switch**: Fitur pergantian APN otomatis
+- **Status Real-time**: Pantau status APN aktif
+- **Log Monitor**: Pantau aktivitas perubahan APN
+- **Statistik APN**:
+  - Jumlah pergantian APN
+  - Status koneksi
+  - Riwayat perubahan
 
-- Termux
-- Magisk or KernelSU
-
-
-
-## Usage
-
-### Accessing BOX UI
-
-Once BOX UI is set up and running, access it via the following addresses:
+## 📱 Cara Mengakses
+Setelah instalasi, akses BOX UI melalui:
 - [http://127.0.0.1:80](http://127.0.0.1:80)
 - [http://127.0.0.1](http://127.0.0.1)
 
-### Our main feature
-### Managing BOX Settings
+### Akses Fitur Monitor
+- Ping Monitor: `http://127.0.0.1/tools/pingmonitor.php`
+- Tampilan Modern dengan Dark Mode
+- Refresh otomatis setiap 5 detik
+- Grafik status ping real-time
+- Panel kontrol untuk start/stop monitoring
 
-Access BOX settings through the web interface to configure BFR settings, select kernels, and manage Clash or SingBox settings.
+## 📥 Panduan Instalasi
+1. Download repositori ini sebagai file zip
+2. Pastikan file download bukan hanya folder, jika ya ekstrak terlebih dahulu
+3. Pilih semua file dalam folder webui_bfm
+4. Zip ulang dan flash modul
+5. Pastikan saat mengunduh modul tidak hanya berupa folder
 
-### SMS Inbox
+### Persyaratan Tambahan
+- Termux
+- Magisk atau KernelSU
 
-Read and manage your Android SMS directly from the web UI.
+## 🔄 Sistem Update
+- Update otomatis melalui Magisk Manager
+- Changelog terstruktur untuk setiap versi
+- Backup konfigurasi sebelum update
 
-### Config Generator
+## 📋 Riwayat Perubahan (Changelog)
 
-Generate Clash configurations and import Vmess, Vless, Trojan, and Shadowsocks through the UI.
-# Riwayat Perubahan (Changelog)
-
-## [1.0.9-Extended] - 2025-03-15
+### [1.0.11-Extended] - 2025-03-17
 
 ### 🚀 Fitur Baru
 - Penambahan fitur Speed Test pada tema default
@@ -67,64 +105,26 @@ Generate Clash configurations and import Vmess, Vless, Trojan, and Shadowsocks t
 ### 🛠️ Perbaikan & Peningkatan
 - Integrasi modul Speed Test dari tema Argon ke tema default
 
-# Riwayat Perubahan (Changelog)
-## [1.0.8-Extended] - 2025-03-15
+## 👨‍💻 Tim Pengembang
 
-### 🚀 Fitur Baru
-- Penambahan sistem update otomatis melalui Magisk Manager
-- Penambahan akses direktori ADB di File Manager
-- Penambahan akses direktori WebUI di File Manager
-
-### 🛠️ Perbaikan & Peningkatan
-- Penyederhanaan nama menu di File Manager
-- Peningkatan navigasi File Manager dengan tab baru
-- Integrasi dengan sistem pembaruan Magisk
-## [1.0.7-Extended] - 2025-03-13
-
-### 🚀 Fitur Baru
-- Penambahan hotspot manager
-- Penambahan networktools  
-- Penambahan Cpu monitor
-- Integrasi dengan Clash Dashboard
-
-### 🛠️ Perbaikan & Peningkatan
-- Optimasi performa sidebar
-- Perbaikan tampilan responsif pada perangkat mobile
-- Peningkatan keamanan sistem
-
-## [1.0.7-Stable] - 2025-01-01
-
-### 📋 Initial Release
-- Rilis versi BOX UI
-- Implementasi fitur dasar sistem
-
-## Credits
-
-### 🌟 Modder Extended Version
+### Modder Extended Version
 - **Developer:** [Latifan_id](https://github.com/latifangren)
 
-### 👨‍💻 Developer & Contributor
+### Developer & Kontributor
 - **WEB UI BFM:** [geeks121/webui_bfm](https://github.com/geeks121/webui_bfm)
 - **ARGON UI:** taamarin, Gondes & Zay's
 - **PHP7 Server:** [nosignals/magisk-php7-webserver](https://github.com/nosignals/magisk-php7-webserver)
 - **BOX Magisk:** [taamarin/box_for_magisk](https://github.com/taamarin/box_for_magisk)
 - **Generator:** [mitralola716/ocgen](https://github.com/mitralola716/ocgen)
 
-### 💝 Special Thanks
-Terima kasih kepada seluruh pengguna dan pendukung yang telah berkontribusi dalam pengembangan proyek ini. 
-### Installation
-- **Download**: download this repo as zip file.
-- **check**: check if your download file is still folder, if yes extract first.
-- **select**: select all files in webui_bfm file folder.
-- **re-zip**: zip again and flash the module.
-- **check again**: make sure when you download the module is not only folder name.
+## 📞 Dukungan dan Bantuan
+- Dokumentasi lengkap tersedia di interface
+- Sistem pelaporan bug melalui GitHub Issues
+- Update berkala untuk peningkatan dan perbaikan
+- Dukungan komunitas aktif
 
+## 📄 Lisensi
+BOX UI dilisensikan di bawah MIT LICENSE terbaru.
 
-
-## License
-
-BOX UI is licensed under the latest MIT LICENSE.
-
-## Contributors
-
-A big thanks to all the contributors who have helped make BOX UI what it is today!
+## 💝 Ucapan Terima Kasih
+Terima kasih kepada seluruh pengguna dan kontributor yang telah membantu mengembangkan BOX UI hingga saat ini!

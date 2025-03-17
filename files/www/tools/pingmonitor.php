@@ -100,27 +100,151 @@ function getScriptDirectory($scriptPath) {
     return dirname($scriptPath);
 }
 
-// Handler untuk permintaan AJAX
-if (isset($_GET['action']) && $_GET['action'] == 'get_status') {
-    $scriptRunning = isScriptRunning();
-    $airplaneMode = getAirplaneMode();
-    $logContent = getLogContent($logFile);
-    $pingData = extractPingData($logContent);
-    $monitoredHost = getMonitoredHost($scriptPath);
-    $scriptDirectory = getScriptDirectory($scriptPath);
+// Tambahkan fungsi baru untuk memeriksa status APN Monitor
+function isApnMonitorRunning() {
+    $output = [];
+    exec("ps -ef | grep autoswitchapn.sh | grep -v grep", $output);
+    if (!empty($output)) return true;
     
-    header('Content-Type: application/json');
-    echo json_encode([
-        'scriptRunning' => $scriptRunning,
-        'airplaneMode' => $airplaneMode,
-        'logContent' => $logContent,
-        'pingData' => $pingData,
-        'monitoredHost' => $monitoredHost,
-        'scriptDirectory' => $scriptDirectory,
-        'scriptPath' => $scriptPath,
-        'timestamp' => date('Y-m-d H:i:s')
-    ]);
-    exit;
+    $output = [];
+    exec("ps | grep autoswitchapn.sh | grep -v grep", $output);
+    if (!empty($output)) return true;
+    
+    $output = [];
+    exec("pgrep -f autoswitchapn.sh", $output);
+    
+    return !empty($output);
+}
+
+// Fungsi untuk mendapatkan current APN
+function getCurrentApn() {
+    $output = [];
+    exec("su -c 'content query --uri content://telephony/carriers/preferapn'", $output);
+    $apnInfo = implode("\n", $output);
+    
+    // Format output agar lebih mudah dibaca
+    if (empty($apnInfo)) {
+        return "Tidak dapat membaca informasi APN";
+    }
+    
+    // Parse dan format APN info
+    $formatted = "APN Info:\n";
+    $formatted .= str_replace(" Row: ", "\n", $apnInfo);
+    return $formatted;
+}
+
+// Fungsi untuk memulai APN Monitor
+function startApnMonitor() {
+    // Pastikan script ada dan executable
+    $scriptPath = "/data/adb/service.d/autoswitchapn.sh";
+    if (!file_exists($scriptPath)) {
+        return "Error: Script autoswitchapn.sh tidak ditemukan";
+    }
+    
+    // Jalankan script dengan su untuk mendapatkan akses root
+    exec("su -c '/system/bin/sh $scriptPath > /data/local/tmp/apnmonitor.log 2>&1 &'");
+    sleep(1); // Tunggu sebentar untuk memastikan script berjalan
+    
+    // Verifikasi apakah script berjalan
+    if (isApnMonitorRunning()) {
+        return "APN Monitor berhasil dijalankan";
+    } else {
+        return "Error: Gagal menjalankan APN Monitor";
+    }
+}
+
+// Fungsi untuk menghentikan APN Monitor
+function stopApnMonitor() {
+    exec("su -c 'pkill -f autoswitchapn.sh'");
+    sleep(1); // Tunggu sebentar untuk memastikan script berhenti
+    
+    if (!isApnMonitorRunning()) {
+        return "APN Monitor berhasil dihentikan";
+    } else {
+        return "Error: Gagal menghentikan APN Monitor";
+    }
+}
+
+// Fungsi untuk mendapatkan log APN Monitor
+function getApnMonitorLog($lines = 20) {
+    $logFile = "/data/local/tmp/apnmonitor.log";
+    if (!file_exists($logFile)) {
+        return "File log APN Monitor tidak ditemukan";
+    }
+    
+    $output = [];
+    exec("tail -n $lines $logFile", $output);
+    return implode("\n", $output);
+}
+
+// Fungsi untuk mengekstrak data statistik APN
+function extractApnStats($logContent) {
+    $stats = [
+        'switches' => 0,
+        'success' => 0,
+        'failed' => 0,
+        'lastSwitch' => '',
+        'events' => []
+    ];
+    
+    $lines = explode("\n", $logContent);
+    foreach ($lines as $line) {
+        if (strpos($line, "Mengaktifkan mode APN") !== false) {
+            $stats['switches']++;
+            if (preg_match('/(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})/', $line, $matches)) {
+                $stats['lastSwitch'] = $matches[1];
+                $stats['events'][] = ['time' => $matches[1], 'type' => 'switch'];
+            }
+        }
+        if (strpos($line, "Host dapat dijangkau") !== false) {
+            $stats['success']++;
+            if (preg_match('/(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})/', $line, $matches)) {
+                $stats['events'][] = ['time' => $matches[1], 'type' => 'success'];
+            }
+        }
+        if (strpos($line, "Host tidak dapat dijangkau") !== false) {
+            $stats['failed']++;
+            if (preg_match('/(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})/', $line, $matches)) {
+                $stats['events'][] = ['time' => $matches[1], 'type' => 'failed'];
+            }
+        }
+    }
+    
+    return $stats;
+}
+
+// Handler untuk permintaan AJAX
+if (isset($_GET['action'])) {
+    switch($_GET['action']) {
+        case 'get_status':
+            $scriptRunning = isScriptRunning();
+            $airplaneMode = getAirplaneMode();
+            $logContent = getLogContent($logFile);
+            $pingData = extractPingData($logContent);
+            $monitoredHost = getMonitoredHost($scriptPath);
+            $scriptDirectory = getScriptDirectory($scriptPath);
+            $apnMonitorRunning = isApnMonitorRunning();
+            $currentApn = getCurrentApn();
+            $apnMonitorLog = getApnMonitorLog();
+            $apnStats = extractApnStats($apnMonitorLog);
+            
+            header('Content-Type: application/json');
+            echo json_encode([
+                'scriptRunning' => $scriptRunning,
+                'airplaneMode' => $airplaneMode,
+                'logContent' => $logContent,
+                'pingData' => $pingData,
+                'monitoredHost' => $monitoredHost,
+                'scriptDirectory' => $scriptDirectory,
+                'scriptPath' => $scriptPath,
+                'timestamp' => date('Y-m-d H:i:s'),
+                'apnMonitorRunning' => $apnMonitorRunning,
+                'currentApn' => $currentApn,
+                'apnMonitorLog' => $apnMonitorLog,
+                'apnStats' => $apnStats
+            ]);
+            exit;
+    }
 }
 
 // Menangani permintaan aksi
@@ -137,6 +261,26 @@ if (isset($_POST['action'])) {
             stopScript();
             sleep(1);
             $message = startScript($scriptPath);
+            break;
+        case 'start_apn':
+            $message = startApnMonitor();
+            // Tambahkan header untuk response AJAX
+            if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+                strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+                header('Content-Type: application/json');
+                echo json_encode(['message' => $message]);
+                exit;
+            }
+            break;
+        case 'stop_apn':
+            $message = stopApnMonitor();
+            // Tambahkan header untuk response AJAX
+            if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+                strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+                header('Content-Type: application/json');
+                echo json_encode(['message' => $message]);
+                exit;
+            }
             break;
     }
 }
@@ -635,6 +779,138 @@ $scriptDirectory = getScriptDirectory($scriptPath);
             opacity: 0.8;
             border-bottom: 1px solid #FECA0A;
         }
+
+        .apn-monitor-section {
+            margin: 10px 0;
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, #000000, #1a1a1a);
+            border-bottom: 2px solid #FECA0A;
+            padding: 8px 10px;
+            color: #FECA0A;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-header h2 {
+            margin: 0;
+            font-size: 16px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .apn-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 15px;
+        }
+
+        .apn-btn {
+            background-color: #1a1a1a;
+            color: #F1F1F1;
+            border: 1px solid #FECA0A;
+            border-radius: 20px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .apn-btn:hover {
+            background-color: #FECA0A;
+            color: #000000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(254, 202, 10, 0.3);
+        }
+
+        .apn-info {
+            padding: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .current-apn {
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .apn-status {
+            font-size: 14px;
+            padding: 4px 10px;
+            border-radius: 15px;
+            background-color: var(--card-bg);
+            border: 1px solid #FECA0A;
+        }
+
+        .statistics-section {
+            margin: 10px 0;
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            overflow: hidden;
+        }
+
+        .stats-container {
+            padding: 15px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .stats-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .stats-title {
+            font-size: 14px;
+            color: var(--subtitle-color);
+            margin-bottom: 8px;
+        }
+
+        .stats-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .stats-value.success {
+            color: #FECA0A;
+        }
+
+        .stats-value.failed {
+            color: #F1F1F1;
+        }
+
+        #apn-log-container {
+            height: 200px;
+            overflow-y: auto;
+            background: var(--log-bg);
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        #apn-log-content {
+            font-family: monospace;
+            font-size: 12px;
+            line-height: 1.4;
+            color: var(--text-color);
+        }
     </style>
 </head>
 <body>
@@ -735,7 +1011,71 @@ $scriptDirectory = getScriptDirectory($scriptPath);
                 <pre id="log-content"><?php echo $logContent; ?></pre>
             </div>
         </div>
-        
+
+        <!-- Dalam bagian HTML, tambahkan tab untuk APN Monitor setelah log section -->
+        <div class="apn-monitor-section">
+            <div class="section-header">
+                <h2>APN Monitor</h2>
+                <div class="apn-status" id="apn-monitor-status">
+                    Status: Menunggu...
+                </div>
+            </div>
+            <div class="apn-controls">
+                <form method="post" id="start-apn-form">
+                    <input type="hidden" name="action" value="start_apn">
+                    <button type="submit" class="apn-btn start-apn-btn">
+                        <span class="button-icon">▶️</span> Mulai APN Monitor
+                    </button>
+                </form>
+                
+                <form method="post" id="stop-apn-form">
+                    <input type="hidden" name="action" value="stop_apn">
+                    <button type="submit" class="apn-btn stop-apn-btn">
+                        <span class="button-icon">⏹️</span> Hentikan APN Monitor
+                    </button>
+                </form>
+            </div>
+            <div class="apn-info">
+                <div class="current-apn" id="current-apn">
+                    APN Saat Ini: Memuat...
+                </div>
+            </div>
+        </div>
+
+        <!-- Tambahkan setelah section APN Monitor dan sebelum timestamp -->
+        <div class="statistics-section">
+            <div class="section-header">
+                <h2>Statistik Monitoring</h2>
+            </div>
+            <div class="stats-container">
+                <div class="stats-grid">
+                    <div class="stats-card">
+                        <div class="stats-title">Total Ping</div>
+                        <div class="stats-value" id="total-ping">0</div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-title">Ping Sukses</div>
+                        <div class="stats-value success" id="success-ping">0</div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-title">Ping Gagal</div>
+                        <div class="stats-value failed" id="failed-ping">0</div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-title">Pergantian APN</div>
+                        <div class="stats-value" id="apn-switches">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="log-section">
+            <h2>Log APN Monitor</h2>
+            <div class="log-container" id="apn-log-container">
+                <pre id="apn-log-content">Memuat log...</pre>
+            </div>
+        </div>
+
         <div class="timestamp" id="timestamp">
             Terakhir diperbarui: <?php echo date('Y-m-d H:i:s'); ?>
         </div>
@@ -958,6 +1298,40 @@ $scriptDirectory = getScriptDirectory($scriptPath);
                         document.getElementById('script-directory-value').textContent = data.scriptDirectory;
                         document.getElementById('script-path-value').textContent = data.scriptPath;
                     }
+
+                    // Update APN Monitor status
+                    const apnStatus = document.getElementById('apn-monitor-status');
+                    if (data.apnMonitorRunning) {
+                        apnStatus.textContent = 'Status: Aktif';
+                        apnStatus.style.color = '#FECA0A';
+                    } else {
+                        apnStatus.textContent = 'Status: Tidak Aktif';
+                        apnStatus.style.color = '#F1F1F1';
+                    }
+                    
+                    // Update current APN info
+                    document.getElementById('current-apn').textContent = 
+                        'APN Saat Ini:\n' + data.currentApn;
+
+                    // Update statistik
+                    const pingStats = {
+                        total: data.pingData.data.length,
+                        success: data.pingData.data.filter(x => x === 1).length,
+                        failed: data.pingData.data.filter(x => x === 0).length
+                    };
+                    
+                    document.getElementById('total-ping').textContent = pingStats.total;
+                    document.getElementById('success-ping').textContent = pingStats.success;
+                    document.getElementById('failed-ping').textContent = pingStats.failed;
+                    document.getElementById('apn-switches').textContent = data.apnStats.switches;
+                    
+                    // Update log APN
+                    const apnLogContent = document.getElementById('apn-log-content');
+                    apnLogContent.innerHTML = formatLog(data.apnMonitorLog);
+                    
+                    // Auto-scroll log ke bawah
+                    const apnLogContainer = document.getElementById('apn-log-container');
+                    apnLogContainer.scrollTop = apnLogContainer.scrollHeight;
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -1021,6 +1395,91 @@ $scriptDirectory = getScriptDirectory($scriptPath);
             // Auto-scroll log ke bawah
             const logContainer = document.getElementById('log-container');
             logContainer.scrollTop = logContainer.scrollHeight;
+
+            // Tambahkan event listener untuk form APN Monitor
+            document.getElementById('start-apn-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const form = this;
+                const formData = new FormData(form);
+                
+                // Disable buttons sementara request berjalan
+                const buttons = document.querySelectorAll('.apn-btn');
+                buttons.forEach(btn => btn.disabled = true);
+                
+                fetch('', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        // Tampilkan pesan
+                        const message = document.createElement('div');
+                        message.className = 'message';
+                        message.textContent = data.message;
+                        form.appendChild(message);
+                        
+                        // Hapus pesan setelah 3 detik
+                        setTimeout(() => {
+                            message.remove();
+                        }, 3000);
+                    }
+                    // Update status
+                    updateStatus();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                })
+                .finally(() => {
+                    // Enable kembali buttons
+                    buttons.forEach(btn => btn.disabled = false);
+                });
+            });
+            
+            document.getElementById('stop-apn-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const form = this;
+                const formData = new FormData(form);
+                
+                // Disable buttons sementara request berjalan
+                const buttons = document.querySelectorAll('.apn-btn');
+                buttons.forEach(btn => btn.disabled = true);
+                
+                fetch('', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        // Tampilkan pesan
+                        const message = document.createElement('div');
+                        message.className = 'message';
+                        message.textContent = data.message;
+                        form.appendChild(message);
+                        
+                        // Hapus pesan setelah 3 detik
+                        setTimeout(() => {
+                            message.remove();
+                        }, 3000);
+                    }
+                    // Update status
+                    updateStatus();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                })
+                .finally(() => {
+                    // Enable kembali buttons
+                    buttons.forEach(btn => btn.disabled = false);
+                });
+            });
         });
         
         // Dark Mode
@@ -1054,6 +1513,22 @@ $scriptDirectory = getScriptDirectory($scriptPath);
                 .getPropertyValue('--chart-grid');
             pingChart.update();
         });
+
+        // Fungsi untuk format log dengan highlight
+        function formatLog(logContent) {
+            if (!logContent) return 'Tidak ada log...';
+            
+            return logContent.split('\n').map(line => {
+                if (line.includes('Host dapat dijangkau')) {
+                    return `<span style="color: #FECA0A">${escapeHtml(line)}</span>`;
+                } else if (line.includes('Host tidak dapat dijangkau')) {
+                    return `<span style="color: #F1F1F1">${escapeHtml(line)}</span>`;
+                } else if (line.includes('Mengaktifkan mode APN')) {
+                    return `<span style="color: #FECA0A">${escapeHtml(line)}</span>`;
+                }
+                return escapeHtml(line);
+            }).join('\n');
+        }
     </script>
 </body>
 </html> 
