@@ -157,7 +157,7 @@ $scriptDirectory = getScriptDirectory($scriptPath);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pemantau Ping</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="\kaiadmin\assets\js\plugin\chart.js\chart.min.js"></script>
     <style>
         :root {
             --bg-color: #000000;

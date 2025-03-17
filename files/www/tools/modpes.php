@@ -1,11 +1,36 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <title>Airplane BOX UI</title>
+    <title>Modpes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="../webui/css/materialize.min.css" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'Material Icons';
+            font-style: normal;
+            font-weight: 400;
+            src: url('../webui/fonts/MaterialIcons-Regular.woff2') format('woff2'),
+                 url('../webui/fonts/MaterialIcons-Regular.woff') format('woff');
+        }
+
+        .material-icons {
+            font-family: 'Material Icons';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            font-feature-settings: 'liga';
+        }
+
         :root {
             --bg-color: #F1F1F1;
             --text-color: #000000;
@@ -409,7 +434,7 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="../webui/js/materialize.min.js"></script>
     <script>
         // Menentukan tema berdasarkan preferensi pengguna
         const getCookie = (name) => {

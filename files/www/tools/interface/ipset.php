@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interface Management</title>
-    <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+    <script src="../../../webui/js/iconify/iconify.min.js"></script>
     <style>
 body {
     font-family: Arial, sans-serif;
@@ -32,7 +32,7 @@ body {
     min-height: 2vh;
 }
         .edit-form {
-            display: block; /* Make the form visible by default */
+            display: block;
             position: fixed;
             z-index: 2;
             left: 50%;
@@ -40,11 +40,12 @@ body {
             transform: translate(-50%, -50%);
             width: 300px;
             height: auto;
-            background-color: white;
+            background-color: #1a1a1a;
             padding: 20px;
             box-sizing: border-box;
             border-radius: 8px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid #FECA0A;
         }
 
         .edit-form h3 {
@@ -52,6 +53,7 @@ body {
             text-align: center;
             font-size: 1.2em;
             font-weight: 550;
+            color: #FECA0A;
         }
 
         .edit-form p {
@@ -59,23 +61,26 @@ body {
             text-align: left;
             font-size: 0.9em;
             font-weight: 500;
+            color: #FECA0A;
         }
 
         .edit-form textarea {
             width: 93%;
             padding: 8px;
             border-radius: 3px;
-            border: 1px solid #ccc;
+            border: 1px solid #FECA0A;
             font-size: 14px;
             margin-bottom: 1px;
             height: 20px;
+            background-color: #000000;
+            color: #F1F1F1;
         }
 
         .edit-form button {
             width: 100%;
             padding: 10px;
-            background-color: #007bff;
-            color: white;
+            background-color: #FECA0A;
+            color: #000000;
             border: none;
             border-radius: 3px;
             cursor: pointer;
@@ -87,7 +92,9 @@ body {
         }
 
         .edit-form button:hover {
-            background-color: #0056b3; /* Darker blue on hover */
+            background-color: #e0b600;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         .feedback {
@@ -95,34 +102,44 @@ body {
             text-align: center;
             font-size: 1em;
             font-weight: 500;
+            color: #F1F1F1;
         }
 
         .success {
-            color: green;
+            color: #FECA0A;
         }
 
         .error {
-            color: red;
+            color: #fb6340;
         }
+        
         @media (prefers-color-scheme: dark) {
-    body {
-        background-color: transparent;
-        color: #e0e0e0;
-    }
+            body {
+                background-color: transparent;
+                color: #F1F1F1;
+            }
 
-    .edit-form {
-        background-color: #333;
-        color: #e0e0e0;
-    }
+            .edit-form {
+                background-color: #1a1a1a;
+                color: #F1F1F1;
+                border: 1px solid #FECA0A;
+            }
 
-    .edit-form button {
-        background-color: #006bb3;
-    }
+            .edit-form button {
+                background-color: #FECA0A;
+                color: #000000;
+            }
 
-    .edit-form button:hover {
-        background-color: #0056b3;
-    }
-}
+            .edit-form button:hover {
+                background-color: #e0b600;
+            }
+            
+            .edit-form textarea {
+                background-color: #000000;
+                color: #F1F1F1;
+                border: 1px solid #FECA0A;
+            }
+        }
     </style>
 </head>
 <body>

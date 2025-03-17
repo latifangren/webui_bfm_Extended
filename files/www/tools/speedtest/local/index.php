@@ -9,7 +9,7 @@ $version = "1.0";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $pageTitle; ?></title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../../../webui/css/fontawesome/all.min.css">
     <style>
         :root {
             --primary-color: #000000;
@@ -24,7 +24,7 @@ $version = "1.0";
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, sans-serif;
             margin: 0;
             padding: 0;
             background: var(--gradient-bg);
@@ -390,6 +390,27 @@ $version = "1.0";
             .colorful-text {
                 text-shadow: 0 1px 3px rgba(0,0,0,0.2);
             }
+        }
+        
+        @font-face {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 400;
+            src: url('../../../../webui/fonts/Roboto-Regular.woff2') format('woff2');
+        }
+        
+        @font-face {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 500;
+            src: url('../../../../webui/fonts/Roboto-Medium.woff2') format('woff2');
+        }
+        
+        @font-face {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 700;
+            src: url('../../../../webui/fonts/Roboto-Bold.woff2') format('woff2');
         }
     </style>
 </head>

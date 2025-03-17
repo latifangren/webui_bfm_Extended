@@ -1,5 +1,13 @@
 # Riwayat Perubahan (Changelog)
 
+## [1.0.11-Extended] - 2025-03-17
+
+### 🚀 Optimasi & Peningkatan
+- Migrasi Font Awesome dari CDN ke file lokal untuk mengurangi ketergantungan internet
+- Implementasi font Roboto lokal untuk konsistensi tampilan di semua halaman
+- Migrasi Iconify dari CDN ke file lokal di modul
+- Optimasi performa dengan mengurangi ketergantungan pada CDN eksternal
+
 ## [1.0.10-Extended] - 2025-03-16
 
 ### 🚀 Fitur Baru

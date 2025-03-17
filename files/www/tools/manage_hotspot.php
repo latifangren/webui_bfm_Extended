@@ -205,9 +205,34 @@ if (isset($_POST['unlimit']) && isset($_POST['ip'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perangkat Terkoneksi ke Hotspot</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Manage Hotspot</title>
     <style>
+        @font-face {
+            font-family: 'Material Icons';
+            font-style: normal;
+            font-weight: 400;
+            src: url('../webui/fonts/MaterialIcons-Regular.woff2') format('woff2'),
+                 url('../webui/fonts/MaterialIcons-Regular.woff') format('woff');
+        }
+
+        .material-icons {
+            font-family: 'Material Icons';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            font-feature-settings: 'liga';
+        }
+
         body {
             font-family: 'Poppins', Arial, sans-serif;
             background-color: #FFFFFF;

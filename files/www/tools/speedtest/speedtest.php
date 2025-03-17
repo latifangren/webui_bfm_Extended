@@ -14,8 +14,28 @@ $localSpeedTestUrl = "./local/index.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SpeedTest Extended</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 400;
+            src: url('../../webui/fonts/Poppins-Regular.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 500;
+            src: url('../../webui/fonts/Poppins-Medium.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 600;
+            src: url('../../webui/fonts/Poppins-SemiBold.woff2') format('woff2');
+        }
+
         :root {
             --primary-color: #FECA0A;
             --secondary-color: #FECA0A;

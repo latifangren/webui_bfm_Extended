@@ -34,13 +34,90 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <meta name="theme-color" content="#5e72e4">
   <title>Theme Luci</title>
  <link rel="icon" href="webui/assets/luci.ico" type="image/x-icon">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-  <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+  <script src="webui/js/iconify.min.js"></script>
   <link rel="stylesheet" href="webui/css/styles.css">
   <style>
-   .decorative-img::before,
-   .decorative-img-sidebar::before {
+    @font-face {
+      font-family: 'Material Icons';
+      font-style: normal;
+      font-weight: 400;
+      src: url('webui/fonts/MaterialIcons-Regular.woff2') format('woff2'),
+           url('webui/fonts/MaterialIcons-Regular.woff') format('woff');
+    }
+
+    @font-face {
+      font-family: 'Orbitron';
+      font-style: normal;
+      font-weight: 400;
+      src: url('webui/fonts/Orbitron-Regular.woff2') format('woff2'),
+           url('webui/fonts/Orbitron-Regular.woff') format('woff');
+    }
+
+    @font-face {
+      font-family: 'Orbitron';
+      font-style: normal;
+      font-weight: 500;
+      src: url('webui/fonts/Orbitron-Medium.woff2') format('woff2'),
+           url('webui/fonts/Orbitron-Medium.woff') format('woff');
+    }
+
+    @font-face {
+      font-family: 'Orbitron';
+      font-style: normal;
+      font-weight: 700;
+      src: url('webui/fonts/Orbitron-Bold.woff2') format('woff2'),
+           url('webui/fonts/Orbitron-Bold.woff') format('woff');
+    }
+
+    @font-face {
+      font-family: 'Orbitron';
+      font-style: normal;
+      font-weight: 900;
+      src: url('webui/fonts/Orbitron-Black.woff2') format('woff2'),
+           url('webui/fonts/Orbitron-Black.woff') format('woff');
+    }
+
+    @font-face {
+      font-family: 'Rajdhani';
+      font-style: normal;
+      font-weight: 500;
+      src: url('webui/fonts/Rajdhani-Medium.woff2') format('woff2'),
+           url('webui/fonts/Rajdhani-Medium.woff') format('woff');
+    }
+
+    @font-face {
+      font-family: 'Rajdhani';
+      font-style: normal;
+      font-weight: 600;
+      src: url('webui/fonts/Rajdhani-SemiBold.woff2') format('woff2'),
+           url('webui/fonts/Rajdhani-SemiBold.woff') format('woff');
+    }
+
+    @font-face {
+      font-family: 'Rajdhani';
+      font-style: normal;
+      font-weight: 700;
+      src: url('webui/fonts/Rajdhani-Bold.woff2') format('woff2'),
+           url('webui/fonts/Rajdhani-Bold.woff') format('woff');
+    }
+
+    .material-icons {
+      font-family: 'Material Icons';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    .decorative-img::before,
+    .decorative-img-sidebar::before {
       content: 'BOX UI'; /* Menghapus teks "by Latifan_id" */
       white-space: pre; /* Preserve the line break */
       font-family: 'Orbitron', sans-serif;

@@ -429,8 +429,29 @@ $chartDataJson = json_encode([
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Network Usage Monitor</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="../webui/js/chart/chart.min.js"></script>
     <style>
+        @font-face {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 400;
+            src: url('../webui/fonts/Roboto-Regular.woff2') format('woff2');
+        }
+        
+        @font-face {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 500;
+            src: url('../webui/fonts/Roboto-Medium.woff2') format('woff2');
+        }
+        
+        @font-face {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 700;
+            src: url('../webui/fonts/Roboto-Bold.woff2') format('woff2');
+        }
+
         body {
             background-color: #000000;
             color: #F1F1F1;

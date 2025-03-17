@@ -115,6 +115,79 @@ if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUE
     $swap_used_gb = $swap_total_gb - $swap_free_gb;
     $swap_percent = round(($swap_used_gb / ($swap_total_gb ?: 1)) * 100);
 
+    // Get Internal Storage info
+    function getStorageInfo() {
+        $storage = [
+            'total' => 'N/A',
+            'used' => 'N/A',
+            'available' => 'N/A',
+            'percentage' => 0,
+            'filesystem' => 'N/A',
+            'system_partition' => 'N/A',
+            'data_partition' => 'N/A'
+        ];
+        
+        // Dapatkan info partisi sistem
+        $system_info = shell_exec("df -h /system 2>/dev/null | grep -v Filesystem");
+        if (preg_match('/(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\d+)%\s+(\S+)/', $system_info, $matches)) {
+            $storage['system_partition'] = $matches[2];
+        }
+        
+        // Dapatkan info partisi data
+        $data_info = shell_exec("df -h /data 2>/dev/null | grep -v Filesystem");
+        if (preg_match('/(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\d+)%\s+(\S+)/', $data_info, $matches)) {
+            $storage['data_partition'] = $matches[2];
+        }
+        
+        // Coba dapatkan info storage menggunakan df
+        $df = shell_exec("df -h 2>/dev/null | grep -E '^/dev/'");
+        $lines = explode("\n", trim($df));
+        
+        foreach ($lines as $line) {
+            if (preg_match('/^\/dev\/\S+\s+(\S+)\s+(\S+)\s+(\S+)\s+(\d+)%\s+(\S+)/', $line, $matches)) {
+                if (strpos($matches[5], 'data') !== false || 
+                    ($storage['total'] === 'N/A' || convertToBytes($matches[1]) > convertToBytes($storage['total']))) {
+                    $storage['total'] = $matches[1];
+                    $storage['used'] = $matches[2];
+                    $storage['available'] = $matches[3];
+                    $storage['percentage'] = intval($matches[4]);
+                    $storage['mount_point'] = $matches[5];
+                }
+            }
+        }
+        
+        return $storage;
+    }
+
+    // Helper function untuk mengkonversi ukuran storage ke bytes
+    function convertToBytes($size) {
+        $size = trim($size);
+        $unit = strtoupper(substr($size, -1));
+        $value = floatval($size);
+        
+        switch ($unit) {
+            case 'T': return $value * 1024 * 1024 * 1024 * 1024;
+            case 'G': return $value * 1024 * 1024 * 1024;
+            case 'M': return $value * 1024 * 1024;
+            case 'K': return $value * 1024;
+            default: return $value;
+        }
+    }
+
+    // Helper function untuk memformat kecepatan IO
+    function formatIOSpeed($speed_kb) {
+        if ($speed_kb > 1024) {
+            return round($speed_kb / 1024, 2) . ' MB/s';
+        }
+        return round($speed_kb, 2) . ' KB/s';
+    }
+
+    // Get storage info (cached)
+    $storageInfo = getCachedData('storage_info', 'getStorageInfo');
+
+    // Pastikan nilai persentase adalah angka
+    $storageInfo['percentage'] = is_numeric($storageInfo['percentage']) ? intval($storageInfo['percentage']) : 0;
+    
     header('Content-Type: application/json');
     echo json_encode([
         'cpuFreq' => round($cpuFreq),
@@ -125,7 +198,13 @@ if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUE
         'memoryPercent' => $memory_percent,
         'swapTotal' => $swap_total_gb . ' GB',
         'swapUsed' => $swap_used_gb . ' GB',
-        'swapPercent' => $swap_percent
+        'swapPercent' => $swap_percent,
+        'storageTotal' => $storageInfo['total'],
+        'storageUsed' => $storageInfo['used'],
+        'storageAvailable' => $storageInfo['available'],
+        'storagePercent' => $storageInfo['percentage'],
+        'systemPartition' => $storageInfo['system_partition'],
+        'dataPartition' => $storageInfo['data_partition']
     ]);
     exit;
 }
@@ -398,407 +477,33 @@ if (preg_match_all('/CellSignalStrengthLte: rssi=([-\d]+) rsrp=([-\d]+) rsrq=([-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>System Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
-  <link rel="stylesheet" href="css/styles.css">
   <style>
-    :root {
-      --bg-primary: #E0E0E0;
-      --bg-secondary: #FFFFFF;
-      --text-primary: #333333;
-      --text-secondary: #666666;
-      --text-info: #333333;
-      --text-purple: #FECA0A;
-      --primary-color: #FECA0A;
-      --secondary-color: #FECA0A;
-      --chart-color: #FECA0A;
-      --accent-color: #FECA0A;
-      --shadow-color: rgba(0, 0, 0, 0.1);
-      --border-radius: 12px;
-      --transition: all 0.3s ease;
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 400;
+      src: url('../fonts/Roboto-Regular.woff2') format('woff2'),
+           url('../fonts/Roboto-Regular.woff') format('woff');
     }
 
-    [data-theme="dark"] {
-      --bg-primary: #000000;
-      --bg-secondary: #111111;
-      --text-primary: #F1F1F1;
-      --text-secondary: #BBBBBB;
-      --text-info: #F1F1F1;
-      --text-purple: #FECA0A;
-      --primary-color: #FECA0A;
-      --secondary-color: #FECA0A;
-      --chart-color: #FECA0A;
-      --accent-color: #FECA0A;
-      --shadow-color: rgba(0, 0, 0, 0.3);
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 500;
+      src: url('../fonts/Roboto-Medium.woff2') format('woff2'),
+           url('../fonts/Roboto-Medium.woff') format('woff');
     }
 
-    body {
-      font-family: 'Roboto', sans-serif;
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      margin: 0;
-      padding: 0;
-      transition: var(--transition);
-    }
-
-    .dashboard-header {
-      text-align: center;
-      margin-bottom: 40px;
-      padding: 20px;
-      background: var(--bg-secondary);
-      border-radius: var(--border-radius);
-      box-shadow: 0 4px 20px var(--shadow-color);
-    }
-
-    .dashboard-header h1 {
-      margin: 0;
-      font-size: 32px;
-      color: var(--text-info);
+    @font-face {
+      font-family: 'Roboto';
+      font-style: normal;
       font-weight: 700;
-      letter-spacing: -0.5px;
-    }
-
-    .device-info {
-      color: var(--text-teal);
-      margin-top: 10px;
-      font-size: 16px;
-      font-weight: 500;
-    }
-
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 25px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .chart-card,
-    .network-card {
-      background: var(--bg-secondary);
-      border-radius: var(--border-radius);
-      padding: 25px;
-      box-shadow: 0 8px 30px var(--shadow-color);
-      transition: var(--transition);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-    }
-
-    .chart-card:hover,
-    .network-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px var(--shadow-color);
-    }
-
-    .section-title {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--text-purple);
-      padding-bottom: 15px;
-      border-bottom: 2px solid var(--primary-color);
-      margin-bottom: 25px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .section-title .iconify {
-      font-size: 24px;
-      color: var(--text-info);
-    }
-
-    .status-info {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-
-    .status-item {
-      display: flex;
-      align-items: center;
-      padding: 20px;
-      background: var(--bg-secondary);
-      border-radius: var(--border-radius);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: var(--transition);
-    }
-
-    .status-item:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px var(--shadow-color);
-    }
-
-    .status-item .iconify {
-      font-size: 28px;
-      color: var(--primary-color);
-      margin-right: 15px;
-    }
-
-    .status-details {
-      flex: 1;
-    }
-
-    .status-label {
-      display: block;
-      font-size: 14px;
-      color: var(--text-secondary);
-      margin-bottom: 5px;
-      font-weight: 500;
-    }
-
-    .status-value {
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-
-    .chart {
-      width: 200px;
-      height: 200px;
-      margin: 0 auto 30px;
-      border-radius: 50%;
-      background: var(--bg-secondary);
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: inset 0 0 20px var(--shadow-color);
-    }
-
-    .chart::before {
-      content: attr(data-value);
-      position: absolute;
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--text-primary);
-      z-index: 1;
-    }
-
-    .chart::after {
-      content: attr(data-label);
-      position: absolute;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-secondary);
-      margin-top: 35px;
-      z-index: 1;
-    }
-
-    .chart-ring {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      position: absolute;
-      border: 15px solid var(--bg-primary);
-      border-top-color: var(--primary-color);
-      border-right-color: var(--primary-color);
-      border-bottom-color: var(--primary-color);
-      transition: transform 0.3s ease;
-    }
-
-    #memoryChart .chart-ring {
-      border-top-color: var(--info-color);
-      border-right-color: var(--info-color);
-      border-bottom-color: var(--info-color);
-    }
-
-    #cpuChart .chart-ring {
-      border-top-color: var(--danger-color);
-      border-right-color: var(--danger-color);
-      border-bottom-color: var(--danger-color);
-    }
-
-    .progress-bar,
-    .cpu-progress-bar {
-      background-color: var(--bg-secondary);
-      padding: 20px;
-      border-radius: var(--border-radius);
-      margin-bottom: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: var(--transition);
-    }
-
-    .progress-bar:hover,
-    .cpu-progress-bar:hover {
-      transform: translateX(5px);
-    }
-
-    .bar-label,
-    .cpu-bar-label {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      font-size: 16px;
-      color: var(--text-primary);
-      font-weight: 500;
-    }
-
-    .bar,
-    .cpu-bar {
-      height: 12px;
-      background-color: var(--bg-primary);
-      border-radius: 6px;
-      overflow: hidden;
-      margin-bottom: 10px;
-    }
-
-    .bar-inner {
-      height: 100%;
-      background: linear-gradient(90deg, var(--primary-color), #73b4ff);
-      border-radius: 6px;
-      transition: width 0.5s ease;
-    }
-
-    .cpu-bar-inner {
-      height: 100%;
-      background: linear-gradient(90deg, var(--danger-color), #ff9f9f);
-      border-radius: 6px;
-      transition: width 0.5s ease;
-    }
-
-    .network-mobile-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 25px;
-    }
-
-    .compact-network-item {
-      background: var(--bg-secondary);
-      border-radius: var(--border-radius);
-      padding: 20px;
-      margin-bottom: 15px;
-      transition: var(--transition);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .compact-network-item:hover {
-      transform: translateX(5px);
-      box-shadow: 0 5px 15px var(--shadow-color);
-    }
-
-    .network-item-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-
-    .network-item-header .iconify {
-      font-size: 24px;
-      color: var(--primary-color);
-    }
-
-    .network-item-name {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text-info);
-    }
-
-    .network-item-ip {
-      margin-left: auto;
-      font-size: 14px;
-      color: var(--text-purple);
-      font-weight: 500;
-    }
-
-    .network-stats {
-      display: flex;
-      justify-content: space-between;
-      font-size: 14px;
-      color: var(--text-secondary);
-      font-weight: 500;
-    }
-
-    .signal-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .signal-item {
-      background: var(--bg-secondary);
-      padding: 15px;
-      border-radius: var(--border-radius);
-      text-align: center;
-      transition: var(--transition);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .signal-item:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px var(--shadow-color);
-    }
-
-    .signal-item small {
-      display: block;
-      color: var(--text-secondary);
-      font-size: 12px;
-      margin-bottom: 5px;
-      font-weight: 500;
-    }
-
-    .signal-item span {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-
-    .theme-switch-wrapper {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      display: flex;
-      align-items: center;
-      background: var(--bg-secondary);
-      padding: 10px;
-      border-radius: 50%;
-      box-shadow: 0 4px 15px var(--shadow-color);
-      z-index: 1000;
-      width: 40px;
-      height: 40px;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .theme-switch-wrapper:hover {
-      transform: scale(1.1);
-    }
-
-    .theme-switch-wrapper .iconify {
-      font-size: 20px;
-      color: var(--text-primary);
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        grid-template-columns: 1fr;
-      }
-
-      .status-info {
-        grid-template-columns: 1fr;
-      }
-
-      .signal-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .chart {
-        width: 120px;
-        height: 120px;
-      }
-
-      .dashboard-header h1 {
-        font-size: 24px;
-      }
-
-      .device-info {
-        font-size: 14px;
-      }
+      src: url('../fonts/Roboto-Bold.woff2') format('woff2'),
+           url('../fonts/Roboto-Bold.woff') format('woff');
     }
   </style>
+  <script src="../js/iconify.min.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <div class="theme-switch-wrapper" id="darkModeToggle">
@@ -925,6 +630,48 @@ if (preg_match_all('/CellSignalStrengthLte: rssi=([-\d]+) rsrp=([-\d]+) rsrq=([-
         </div>
       </div>
     </div>
+
+    <!-- Storage Status -->
+    <div class="chart-card">
+      <div class="section-title">
+        <span class="iconify" data-icon="mdi:harddisk"></span>
+        <span>Penyimpanan Internal</span>
+      </div>
+      <div class="chart" id="storageChart" data-value="0%" data-label="Storage">
+        <div class="chart-ring"></div>
+      </div>
+      <div class="storage-details">
+        <div class="progress-bar">
+          <div class="bar-label">
+            <span>Penggunaan Storage</span>
+            <span class="storage-percent">0%</span>
+          </div>
+          <div class="bar">
+            <div class="bar-inner" style="width: 0%"></div>
+          </div>
+          <div class="storage-info">
+            <span>Total: <span class="storage-total">0 GB</span></span> |
+            <span>Tersedia: <span class="storage-available">0 GB</span></span>
+          </div>
+        </div>
+        <div class="storage-io-stats">
+          <div class="io-stat">
+            <span class="iconify" data-icon="mdi:folder-outline"></span>
+            <div class="io-details">
+                <span class="io-label">Partisi Sistem</span>
+                <span class="system-partition">N/A</span>
+            </div>
+          </div>
+          <div class="io-stat">
+            <span class="iconify" data-icon="mdi:folder-data-outline"></span>
+            <div class="io-details">
+                <span class="io-label">Partisi Data</span>
+                <span class="data-partition">N/A</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Network Status & Mobile Network (Combined) -->
@@ -1044,36 +791,52 @@ domElements.darkModeToggle.addEventListener('click', () => {
 function updateChartDonut(element, value) {
     if (!element) return;
     
-    // Update the data-value attribute
+    // Pastikan value adalah angka dan dalam rentang 0-100
+    value = Math.min(Math.max(parseFloat(value) || 0, 0), 100);
+    
+    // Update nilai persentase untuk tampilan
     element.setAttribute('data-value', `${Math.round(value)}%`);
     
-    // Calculate the rotation degree based on percentage
-    const rotation = (value / 100) * 360;
-    
-    // Get the ring element
+    // Update chart ring dengan nilai persentase baru
     const ring = element.querySelector('.chart-ring');
-    if (ring) {
-        // Reset border colors
-        ring.style.borderTopColor = '';
-        ring.style.borderRightColor = '';
-        ring.style.borderBottomColor = '';
-        ring.style.borderLeftColor = 'var(--bg-primary)';
-        
-        // Apply rotation transform
-        ring.style.transform = `rotate(${rotation}deg)`;
-        
-        // If value is greater than 75%, adjust right border
-        if (value > 75) {
-            ring.style.borderRightColor = 'var(--bg-primary)';
-        }
-        // If value is greater than 50%, adjust bottom border
-        if (value > 50) {
-            ring.style.borderBottomColor = 'var(--bg-primary)';
-        }
-        // If value is greater than 25%, adjust top border
-        if (value > 25) {
-            ring.style.borderTopColor = 'var(--bg-primary)';
-        }
+    if (!ring) return;
+    
+    // Set CSS custom property untuk animasi
+    ring.style.setProperty('--progress-value', value + '%');
+    
+    // Tambahkan kelas untuk memicu animasi ulang
+    ring.classList.remove('animate');
+    void ring.offsetWidth; // Trigger reflow
+    ring.classList.add('animate');
+}
+
+function updateAllCharts(data) {
+    // Update CPU Chart
+    const cpuChart = document.querySelector('#cpuChart');
+    if (cpuChart) {
+        updateChartDonut(cpuChart, data.cpuLoad);
+        const cpuLoad = document.querySelector('.cpu-load');
+        if (cpuLoad) cpuLoad.textContent = `${data.cpuLoad}%`;
+        const cpuBar = document.querySelector('.cpu-bar-inner');
+        if (cpuBar) cpuBar.style.width = `${data.cpuLoad}%`;
+    }
+    
+    // Update Memory Chart
+    const memoryChart = document.querySelector('#memoryChart');
+    if (memoryChart) {
+        updateChartDonut(memoryChart, data.memoryPercent);
+        const memoryPercent = document.querySelector('.used-memory-percent');
+        if (memoryPercent) memoryPercent.textContent = `${data.memoryPercent}%`;
+    }
+    
+    // Update Storage Chart
+    const storageChart = document.querySelector('#storageChart');
+    if (storageChart) {
+        updateChartDonut(storageChart, data.storagePercent);
+        const storagePercent = document.querySelector('.storage-percent');
+        if (storagePercent) storagePercent.textContent = `${data.storagePercent}%`;
+        const storageBar = document.querySelector('.storage-details .bar-inner');
+        if (storageBar) storageBar.style.width = `${data.storagePercent}%`;
     }
 }
 
@@ -1085,20 +848,26 @@ function updateSystemStatus() {
     })
     .then(response => response.json())
     .then(data => {
-        // Update CPU info
+        // Update semua chart dan nilai terkait
+        updateAllCharts(data);
+        
+        // Update nilai-nilai lainnya
         if (domElements.cpuFreq) domElements.cpuFreq.textContent = `${data.cpuFreq} MHz`;
-        if (domElements.cpuLoad) domElements.cpuLoad.textContent = `${data.cpuLoad}%`;
         if (domElements.cpuTemp) domElements.cpuTemp.textContent = `${data.cpuTemp}°C`;
-        if (domElements.cpuChart) updateChartDonut(domElements.cpuChart, data.cpuLoad);
-        if (domElements.cpuBarInner) domElements.cpuBarInner.style.width = `${data.cpuLoad}%`;
-
-        // Update Memory info
         if (domElements.totalMemory) domElements.totalMemory.textContent = `(${data.memoryTotal})`;
-        if (domElements.usedMemoryPercent) domElements.usedMemoryPercent.textContent = `${data.memoryPercent}%`;
         if (domElements.totalSwap) domElements.totalSwap.textContent = `(${data.swapTotal})`;
-        if (domElements.usedSwapPercent) domElements.usedSwapPercent.textContent = `${data.swapPercent}%`;
-        if (domElements.memoryChart) updateChartDonut(domElements.memoryChart, data.memoryPercent);
-
+        
+        // Update storage info
+        const storageTotal = document.querySelector('.storage-total');
+        const storageAvailable = document.querySelector('.storage-available');
+        const systemPartition = document.querySelector('.system-partition');
+        const dataPartition = document.querySelector('.data-partition');
+        
+        if (storageTotal) storageTotal.textContent = data.storageTotal;
+        if (storageAvailable) storageAvailable.textContent = data.storageAvailable;
+        if (systemPartition) systemPartition.textContent = data.systemPartition;
+        if (dataPartition) dataPartition.textContent = data.dataPartition;
+        
         // Update memory bars
         if (domElements.barElements.length >= 2) {
             domElements.barElements[0].style.width = `${data.memoryPercent}%`;

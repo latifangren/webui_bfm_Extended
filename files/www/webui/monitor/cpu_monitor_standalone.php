@@ -128,8 +128,32 @@ if (isset($_GET['action']) && $_GET['action'] === 'get_data') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monitor CPU Realtime</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+    <style>
+        @font-face {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 400;
+            src: url('../fonts/Roboto-Regular.woff2') format('woff2'),
+                 url('../fonts/Roboto-Regular.woff') format('woff');
+        }
+
+        @font-face {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 500;
+            src: url('../fonts/Roboto-Medium.woff2') format('woff2'),
+                 url('../fonts/Roboto-Medium.woff') format('woff');
+        }
+
+        @font-face {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 700;
+            src: url('../fonts/Roboto-Bold.woff2') format('woff2'),
+                 url('../fonts/Roboto-Bold.woff') format('woff');
+        }
+    </style>
+    <script src="../js/iconify.min.js"></script>
     <style>
         body {
             font-family: 'Roboto', sans-serif;

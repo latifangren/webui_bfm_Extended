@@ -14,19 +14,19 @@ body {
     width: 100%;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 15px;
+    padding: 10px;
     box-sizing: border-box;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
 }
 
 .chart-card {
     width: 100%;
-    min-height: 280px;
+    min-height: 260px;
     background: var(--bg-card);
     border-radius: var(--border-radius);
-    padding: 20px;
+    padding: 15px;
     box-shadow: 0 8px 30px var(--shadow-color);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -36,6 +36,7 @@ body {
     flex-direction: column;
     position: relative;
     overflow: hidden;
+    margin-bottom: 10px;
 }
 
 .chart-card:hover {
@@ -70,9 +71,10 @@ body {
 }
 
 .chart {
-    width: 160px;
-    height: 160px;
-    margin: 0 auto 20px;
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 15px;
+    padding: 10px;
     border-radius: 50%;
     background: var(--bg-secondary);
     position: relative;
@@ -82,6 +84,7 @@ body {
     box-shadow: inset 0 0 20px var(--shadow-color),
                 0 5px 15px var(--shadow-color);
     transition: all 0.4s ease;
+    box-sizing: border-box;
 }
 
 .chart:hover {
@@ -93,14 +96,14 @@ body {
 .chart::before {
     content: attr(data-value);
     position: absolute;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 700;
-    background: linear-gradient(45deg, var(--text-primary), var(--text-info));
+    background: linear-gradient(45deg, var(--primary-color), #fede6a);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    z-index: 1;
-    transition: all 0.3s ease;
+    z-index: 2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .chart::after {
@@ -110,34 +113,109 @@ body {
     font-weight: 500;
     color: var(--text-secondary);
     margin-top: 35px;
-    z-index: 1;
-    opacity: 0.8;
-    transition: all 0.3s ease;
+    z-index: 2;
+    opacity: 0.9;
+    letter-spacing: 1px;
 }
 
 .chart-ring {
-    width: 100%;
-    height: 100%;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     position: absolute;
-    border: 15px solid var(--bg-primary);
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    background: conic-gradient(
+        from -90deg,
+        var(--primary-color) var(--chart-percentage, 0%),
+        rgba(255, 255, 255, 0.1) var(--chart-percentage, 0%)
+    );
+    transform: rotate(-90deg);
+    transition: all 0.3s ease-out;
+    filter: drop-shadow(0 0 8px var(--primary-color));
+}
+
+.chart-ring::before {
+    content: '';
+    position: absolute;
+    inset: 10px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 #memoryChart .chart-ring {
-    border-top-color: var(--primary-color);
-    border-right-color: var(--primary-color);
-    border-bottom-color: var(--primary-color);
-    border-left-color: var(--bg-primary);
-    filter: drop-shadow(0 0 5px var(--primary-color));
+    background: conic-gradient(
+        from -90deg,
+        #FECA0A var(--chart-percentage, 0%),
+        rgba(255, 255, 255, 0.1) var(--chart-percentage, 0%)
+    );
+    filter: drop-shadow(0 0 8px #FECA0A);
 }
 
 #cpuChart .chart-ring {
-    border-top-color: var(--primary-color);
-    border-right-color: var(--primary-color);
-    border-bottom-color: var(--primary-color);
-    border-left-color: var(--bg-primary);
-    filter: drop-shadow(0 0 5px var(--primary-color));
+    background: conic-gradient(
+        from -90deg,
+        #FECA0A var(--chart-percentage, 0%),
+        rgba(255, 255, 255, 0.1) var(--chart-percentage, 0%)
+    );
+    filter: drop-shadow(0 0 8px #FECA0A);
+}
+
+#storageChart .chart-ring {
+    background: conic-gradient(
+        from -90deg,
+        #FECA0A var(--chart-percentage, 0%),
+        rgba(255, 255, 255, 0.1) var(--chart-percentage, 0%)
+    );
+    filter: drop-shadow(0 0 8px #FECA0A);
+}
+
+@property --chart-percentage {
+    syntax: '<percentage>';
+    initial-value: 0%;
+    inherits: false;
+}
+
+.chart-ring.animate {
+    animation: progress 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes progress {
+    0% {
+        --chart-percentage: 0%;
+    }
+    100% {
+        --chart-percentage: var(--progress-value, 0%);
+    }
+}
+
+/* Tambahkan efek hover untuk chart ring */
+.chart:hover .chart-ring {
+    filter: drop-shadow(0 0 12px var(--primary-color));
+    transform: rotate(-90deg) scale(1.02);
+}
+
+/* Tambahkan efek pulse untuk nilai persentase */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.chart[data-value*="100"]::before {
+    animation: pulse 1s infinite;
+    color: #FECA0A;
+}
+
+#memoryChart .chart-ring,
+#cpuChart .chart-ring,
+#storageChart .chart-ring {
+    box-shadow: 0 0 10px var(--primary-color);
 }
 
 .details {
@@ -148,8 +226,8 @@ body {
 }
 
 .progress-bar, .cpu-progress-bar {
-    padding: 15px;
-    margin-bottom: 15px;
+    padding: 12px;
+    margin-bottom: 10px;
     background-color: var(--bg-secondary);
     border-radius: var(--border-radius);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -164,16 +242,18 @@ body {
 }
 
 .bar-label, .cpu-bar-label {
-    font-size: 14px;
-    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
 }
 
 .bar, .cpu-bar {
-    height: 10px;
+    height: 8px;
     background-color: var(--bg-primary);
     border-radius: 6px;
     overflow: hidden;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     position: relative;
 }
 
@@ -212,23 +292,23 @@ body {
 }
 
 .network-mobile-grid {
+    display: grid;
     grid-template-columns: 1fr;
-    gap: 15px;
+    gap: 12px;
 }
 
 .compact-network-grid {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
 }
 
 .compact-network-item {
+    margin-bottom: 0;
     width: 100%;
     background: var(--bg-secondary);
     border-radius: var(--border-radius);
     padding: 15px;
-    margin-bottom: 10px;
     box-sizing: border-box;
     transition: var(--transition);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -252,13 +332,14 @@ body {
 }
 
 .signal-grid {
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 8px;
     margin-top: 15px;
 }
 
 .signal-item {
-    padding: 12px;
+    padding: 10px;
     width: 100%;
     background: var(--bg-secondary);
     border-radius: var(--border-radius);
@@ -308,24 +389,30 @@ body {
 
 @media (max-width: 768px) {
     body {
-        padding: 10px;
+        padding: 5px;
     }
 
     .container {
-        padding: 10px;
-        grid-template-columns: 1fr;
-        gap: 15px;
+        padding: 5px;
+        gap: 8px;
     }
 
     .chart-card {
-        min-height: 260px;
-        padding: 15px;
+        min-height: 220px;
+        padding: 10px;
+        margin-bottom: 8px;
     }
 
     .chart {
-        width: 140px;
-        height: 140px;
-        margin-bottom: 15px;
+        width: 110px;
+        height: 110px;
+        margin: 0 auto 10px;
+        padding: 8px;
+    }
+
+    .chart-ring {
+        width: 90px;
+        height: 90px;
     }
 
     .chart::before {
@@ -334,95 +421,67 @@ body {
 
     .chart::after {
         font-size: 12px;
-        margin-top: 30px;
-    }
-
-    .chart-ring {
-        border-width: 12px;
-    }
-
-    .progress-bar, .cpu-progress-bar {
-        padding: 12px;
-        margin-bottom: 12px;
-    }
-
-    .status-info {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .status-item {
-        padding: 12px;
-    }
-
-    .section-title {
-        font-size: 16px;
-        padding-bottom: 10px;
-        margin-bottom: 15px;
-    }
-
-    .section-title .iconify {
-        font-size: 18px;
-    }
-}
-
-@media (max-width: 480px) {
-    body {
-        padding: 8px;
-    }
-
-    .container {
-        padding: 8px;
-        gap: 12px;
-    }
-
-    .chart-card {
-        min-height: 240px;
-        padding: 12px;
-    }
-
-    .chart {
-        width: 120px;
-        height: 120px;
-        margin-bottom: 12px;
-    }
-
-    .chart::before {
-        font-size: 18px;
-    }
-
-    .chart::after {
-        font-size: 11px;
         margin-top: 25px;
     }
 
-    .chart-ring {
-        border-width: 10px;
+    .section-title {
+        font-size: 14px;
+        padding-bottom: 8px;
+        margin-bottom: 10px;
+    }
+
+    .section-title .iconify {
+        font-size: 16px;
     }
 
     .progress-bar, .cpu-progress-bar {
-        padding: 10px;
-        margin-bottom: 10px;
+        padding: 8px;
+        margin-bottom: 8px;
     }
 
     .bar-label, .cpu-bar-label {
         font-size: 12px;
+        margin-bottom: 4px;
     }
 
     .bar, .cpu-bar {
-        height: 8px;
+        height: 6px;
+        margin-bottom: 4px;
     }
 
+    .storage-io-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin-top: 10px;
+    }
+
+    .io-stat {
+        padding: 8px;
+    }
+
+    .io-stat .iconify {
+        font-size: 18px;
+    }
+
+    .io-label {
+        font-size: 11px;
+        margin-bottom: 2px;
+    }
+
+    .storage-read-speed,
+    .storage-write-speed {
+        font-size: 12px;
+    }
+
+    /* Status info grid */
     .status-info {
-        grid-template-columns: 1fr;
-        gap: 10px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
     }
 
     .status-item {
-        padding: 10px;
-    }
-
-    .status-item .iconify {
-        font-size: 20px;
+        padding: 8px;
     }
 
     .status-label {
@@ -430,25 +489,112 @@ body {
     }
 
     .status-value {
-        font-size: 14px;
+        font-size: 12px;
+    }
+
+    /* Network section */
+    .network-mobile-grid {
+        gap: 8px;
+    }
+
+    .compact-network-item {
+        padding: 8px;
+    }
+
+    .network-item-name {
+        font-size: 12px;
+    }
+
+    .network-item-ip {
+        font-size: 11px;
+    }
+
+    .network-stats {
+        font-size: 11px;
+    }
+
+    /* Signal grid */
+    .signal-grid {
+        gap: 6px;
+        margin-top: 8px;
+    }
+
+    .signal-item {
+        padding: 6px;
+    }
+
+    .signal-item small {
+        font-size: 10px;
+    }
+
+    .signal-item span {
+        font-size: 12px;
     }
 }
 
-/* Dark mode adjustments */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg-primary: #000000;
-        --bg-secondary: #111111;
-        --bg-card: #111111;
-        --text-primary: #F1F1F1;
-        --text-secondary: #BBBBBB;
-        --shadow-color: rgba(0, 0, 0, 0.3);
+@media (max-width: 360px) {
+    body {
+        padding: 3px;
+    }
+
+    .container {
+        padding: 3px;
+        gap: 6px;
+    }
+
+    .chart-card {
+        min-height: 200px;
+        padding: 8px;
+    }
+
+    .chart {
+        width: 100px;
+        height: 100px;
+    }
+
+    .chart-ring {
+        width: 80px;
+        height: 80px;
+    }
+
+    .chart::before {
+        font-size: 18px;
+    }
+
+    .chart::after {
+        font-size: 11px;
+        margin-top: 22px;
+    }
+
+    .status-info {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+
+    .storage-io-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .signal-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
-/* Tambahkan variabel warna yang diperlukan */
+/* Variabel CSS yang disatukan */
 :root {
+    --bg-primary: #E0E0E0;
+    --bg-secondary: #FFFFFF;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --text-info: #333333;
+    --text-purple: #FECA0A;
     --primary-color: #FECA0A;
+    --secondary-color: #FECA0A;
+    --chart-color: #FECA0A;
+    --accent-color: #FECA0A;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --border-radius: 12px;
+    --transition: all 0.3s ease;
     --danger-color: #FECA0A;
     --success-color: #FECA0A;
     --warning-color: #FECA0A;
@@ -456,50 +602,113 @@ body {
     --purple-color: #FECA0A;
     --orange-color: #FECA0A;
     --teal-color: #FECA0A;
-    
-    --text-primary: #333333;
-    --text-secondary: #666666;
-    --text-success: var(--success-color);
-    --text-danger: var(--danger-color);
-    --text-warning: var(--warning-color);
-    --text-info: var(--info-color);
-    --text-purple: var(--purple-color);
-    --text-orange: var(--orange-color);
-    --text-teal: var(--teal-color);
-    
-    --bg-primary: #E0E0E0;
-    --bg-secondary: #FFFFFF;
     --bg-card: #FFFFFF;
-    --shadow-color: rgba(0, 0, 0, 0.1);
-    --border-radius: 16px;
-    --transition: all 0.3s ease;
+    
+    /* Font styles */
+    --font-size-h1: 32px;
+    --font-size-h2: 24px;
+    --font-size-body: 16px;
+    --font-size-small: 14px;
+    --font-size-xs: 12px;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+    --line-height-normal: 1.5;
+    --letter-spacing-wide: -0.5px;
 }
 
-/* Dark mode styles */
-body.dark-mode {
-    --text-primary: #F1F1F1;
-    --text-secondary: #BBBBBB;
+/* Dark mode menggunakan data-theme */
+[data-theme="dark"] {
     --bg-primary: #000000;
     --bg-secondary: #111111;
-    --bg-card: #111111;
+    --text-primary: #F1F1F1;
+    --text-secondary: #BBBBBB;
+    --text-info: #F1F1F1;
+    --text-purple: #FECA0A;
+    --primary-color: #FECA0A;
+    --secondary-color: #FECA0A;
+    --chart-color: #FECA0A;
+    --accent-color: #FECA0A;
     --shadow-color: rgba(0, 0, 0, 0.3);
+    --bg-card: #111111;
 }
 
-body.dark-mode .chart::before {
-    background: linear-gradient(45deg, #F1F1F1, var(--primary-color));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+/* Typography styles */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-normal);
 }
 
-body.dark-mode .chart {
-    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5),
-                0 4px 12px rgba(0, 0, 0, 0.3);
+.dashboard-header h1 {
+    font-size: var(--font-size-h1);
+    letter-spacing: var(--letter-spacing-wide);
+    margin: 0;
 }
 
-body.dark-mode .chart:hover {
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6),
-                0 6px 15px rgba(0, 0, 0, 0.4);
+.device-info {
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-teal);
+}
+
+.section-title {
+    font-size: var(--font-size-h2);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-purple);
+}
+
+.status-label {
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-secondary);
+}
+
+.status-value {
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+}
+
+.network-item-name {
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-info);
+}
+
+.network-item-ip {
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-purple);
+}
+
+.network-stats {
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-secondary);
+}
+
+.signal-item small {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-secondary);
+}
+
+.signal-item span {
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+}
+
+/* Responsive typography */
+@media (max-width: 768px) {
+    :root {
+        --font-size-h1: 24px;
+        --font-size-h2: 20px;
+        --font-size-body: 14px;
+        --font-size-small: 12px;
+        --font-size-xs: 11px;
+    }
 }
 
 /* Animation optimizations for better performance */
@@ -515,5 +724,201 @@ body.dark-mode .chart:hover {
     .bar-inner::after,
     .cpu-bar-inner::after {
         animation: none;
+    }
+}
+
+/* Storage styles */
+.storage-details {
+    margin-top: 20px;
+}
+
+.storage-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: var(--font-size-small);
+    color: var(--text-secondary);
+}
+
+.storage-io-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.io-stat {
+    background: var(--bg-secondary);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: var(--transition);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.io-stat:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.io-stat .iconify {
+    font-size: 24px;
+    color: var(--primary-color);
+}
+
+.io-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.io-label {
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.storage-read-speed,
+.storage-write-speed {
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+    .storage-io-stats {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .io-stat {
+        padding: 12px;
+    }
+
+    .io-stat .iconify {
+        font-size: 20px;
+    }
+}
+
+/* Connected Devices Popup */
+.connected-devices-list {
+    position: absolute;
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    padding: 10px;
+    box-shadow: 0 5px 15px var(--shadow-color);
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    width: 90%;
+    max-width: 300px;
+}
+
+.status-item:hover .connected-devices-list {
+    display: block;
+}
+
+.device-item {
+    padding: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.device-item:last-child {
+    border-bottom: none;
+}
+
+/* Touch-friendly hover states */
+@media (hover: none) {
+    .chart-card:hover {
+        transform: none;
+    }
+
+    .progress-bar:hover,
+    .cpu-progress-bar:hover,
+    .io-stat:hover {
+        transform: none;
+    }
+
+    .status-item .connected-devices-list {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 320px;
+    }
+}
+
+/* Loading states */
+.chart-card.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* Smooth transitions */
+.chart-ring,
+.bar-inner,
+.cpu-bar-inner {
+    transition: all 0.3s ease-out;
+}
+
+/* Better touch targets */
+.status-item,
+.io-stat,
+.network-item-header {
+    min-height: 44px;
+}
+
+/* Dashboard header */
+.dashboard-header {
+    padding: 10px;
+}
+
+@media (max-width: 768px) {
+    .dashboard-header {
+        padding: 8px;
+    }
+
+    .dashboard-header h1 {
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+
+    .device-info {
+        font-size: 12px;
+    }
+}
+
+/* Connected devices popup for mobile */
+@media (max-width: 768px) {
+    .connected-devices-list {
+        max-height: 180px;
+        padding: 8px;
+    }
+
+    .device-item {
+        padding: 6px;
+        font-size: 11px;
+    }
+}
+
+/* Optimize animations for mobile */
+@media (max-width: 768px) {
+    .chart-card:hover {
+        transform: none;
+    }
+
+    .progress-bar:hover,
+    .cpu-progress-bar:hover,
+    .io-stat:hover {
+        transform: none;
+    }
+
+    .chart-ring,
+    .bar-inner,
+    .cpu-bar-inner {
+        transition: all 0.2s ease-out;
     }
 }

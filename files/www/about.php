@@ -14,8 +14,33 @@ if (LOGIN_ENABLED && !isset($_SESSION['user_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Changelog</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'Material Icons';
+            font-style: normal;
+            font-weight: 400;
+            src: url('webui/fonts/MaterialIcons-Regular.woff2') format('woff2'),
+                 url('webui/fonts/MaterialIcons-Regular.woff') format('woff');
+        }
+
+        .material-icons {
+            font-family: 'Material Icons';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            font-feature-settings: 'liga';
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
@@ -307,6 +332,32 @@ if (LOGIN_ENABLED && !isset($_SESSION['user_id'])) {
 
         <div id="changelog" class="tab-content active">
             <h1 style="text-align: center; color: #FECA0A; margin-bottom: 30px;">Changelog</h1>
+
+            <div class="version">
+                <div class="version-header">
+                    <span class="version-number">Version 1.0.11 (Extended)</span>
+                    <span class="version-date">17 Maret 2025</span>
+                </div>
+                <div class="change-type">🚀 Optimasi & Peningkatan</div>
+                <ul class="change-list">
+                    <li class="change-item">
+                        <span class="tag tag-improvement">IMPROVEMENT</span>
+                        Migrasi Font Awesome dari CDN ke file lokal untuk mengurangi ketergantungan internet
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-improvement">IMPROVEMENT</span>
+                        Implementasi font Roboto lokal untuk konsistensi tampilan di semua halaman
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-improvement">IMPROVEMENT</span>
+                        Migrasi Iconify dari CDN ke file lokal di modul
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-improvement">IMPROVEMENT</span>
+                        Optimasi performa dengan mengurangi ketergantungan pada CDN eksternal
+                    </li>
+                </ul>
+            </div>
 
             <div class="version">
                 <div class="version-header">

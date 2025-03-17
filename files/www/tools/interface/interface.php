@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interface Management</title>
-    <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+    <script src="../../../webui/js/iconify/iconify.min.js"></script>
     <style>
 body {
     font-family: Arial, sans-serif;

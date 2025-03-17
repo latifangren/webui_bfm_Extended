@@ -59,13 +59,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Login</title>
+    <title>Login - Network Tools</title>
     <link rel="icon" href="../webui/assets/luci.ico" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Icons&display=swap" rel="stylesheet">
     <!-- Font Awesome untuk logo social media -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../webui/css/fontawesome/all.min.css">
     <style>
+        @font-face {
+            font-family: 'Material Icons';
+            font-style: normal;
+            font-weight: 400;
+            src: url('../webui/fonts/MaterialIcons-Regular.woff2') format('woff2'),
+                 url('../webui/fonts/MaterialIcons-Regular.woff') format('woff');
+        }
+
+        @font-face {
+            font-family: 'Orbitron';
+            font-style: normal;
+            font-weight: 400;
+            src: url('../webui/fonts/Orbitron-Medium.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Orbitron';
+            font-style: normal;
+            font-weight: 700;
+            src: url('../webui/fonts/Orbitron-Bold.woff2') format('woff2');
+        }
+
         :root {
             --neon-yellow: #FECA0A;
             --dark-bg: #000000;
@@ -407,8 +427,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             white-space: nowrap;
             word-wrap: normal;
             direction: ltr;
-            -webkit-font-feature-settings: 'liga';
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            font-feature-settings: 'liga';
         }
         
         .icon-right {
@@ -668,6 +690,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
 
+    <script src="../webui/js/fontawesome/all.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const inputs = document.querySelectorAll('input');

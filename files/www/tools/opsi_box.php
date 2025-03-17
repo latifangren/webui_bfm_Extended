@@ -9,13 +9,21 @@ $host = $x[0];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <title>Box For Root</title>
+    <title>Box Options</title>
     <style>
         @font-face {
-      font-family: 'LemonMilkProRegular';
-      src: url('../webui/fonts/LemonMilkProRegular.otf') format('opentype');
-    }
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 400;
+            src: url('../webui/fonts/Roboto-Regular.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 500;
+            src: url('../webui/fonts/Roboto-Medium.woff2') format('woff2');
+        }
         body {
             font-family: 'LemonMilkProRegular';
             background-color: transparent;

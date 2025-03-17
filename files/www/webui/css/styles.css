@@ -1,11 +1,52 @@
-/* Font-face */
+/* Font definitions */
 @font-face {
-  font-family: 'LemonMilkProRegular';
-  src: url('../fonts/LemonMilkProRegular.otf') format('opentype');
+    font-family: 'Orbitron';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/Orbitron-Medium.woff2') format('woff2');
 }
 
-/* Import font cyberpunk dari Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@500;600;700&display=swap');
+@font-face {
+    font-family: 'Orbitron';
+    font-style: normal;
+    font-weight: 500;
+    src: url('../fonts/Orbitron-Medium.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Orbitron';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../fonts/Orbitron-Bold.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Orbitron';
+    font-style: normal;
+    font-weight: 900;
+    src: url('../fonts/Orbitron-Black.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Rajdhani';
+    font-style: normal;
+    font-weight: 500;
+    src: url('../fonts/Rajdhani-Medium.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Rajdhani';
+    font-style: normal;
+    font-weight: 600;
+    src: url('../fonts/Rajdhani-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Rajdhani';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../fonts/Rajdhani-Bold.woff2') format('woff2');
+}
 
 /* Default (Light mode) styles */
 .decorative-img {
@@ -97,7 +138,7 @@ body, html {
   text-decoration: none;
   font-size: 12px;
   margin-bottom: 3px;
-  font-family: 'LemonMilkProRegular';
+  font-family: 'Orbitron', sans-serif;
   color: #F1F1F1;
   display: block;
   transition: 0.3s;
@@ -196,7 +237,7 @@ iframe {
 /* Dropdown styles */
 .dropdown-btn {
   padding: 10px 14px;
-  font-family: 'LemonMilkProRegular';
+  font-family: 'Orbitron', sans-serif;
   color: #F1F1F1;
   font-size: 12px;
   margin-bottom: 3px;
