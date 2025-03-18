@@ -956,6 +956,28 @@ $scriptDirectory = getScriptDirectory($scriptPath);
         .tab-content.active {
             display: block;
         }
+
+        /* Style untuk tombol tutorial */
+        .tutorial-btn {
+            margin-left: auto; /* Mendorong tombol ke kanan */
+            padding: 10px 20px;
+            border: none;
+            background: #FECA0A;
+            color: #000000;
+            cursor: pointer;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .tutorial-btn:hover {
+            background: #FFD700;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(254, 202, 10, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -968,6 +990,9 @@ $scriptDirectory = getScriptDirectory($scriptPath);
         <div class="tab-buttons">
             <button class="tab-button active" data-tab="airplane">Auto AirplaneMode</button>
             <button class="tab-button" data-tab="apn">Auto APN Switch</button>
+            <button class="tutorial-btn" onclick="window.open('tutorial/readme.php', '_blank')">
+                <span class="button-icon">📖</span> Tutorial
+            </button>
         </div>
 
         <?php if (!empty($message)): ?>
