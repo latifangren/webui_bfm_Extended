@@ -1,4 +1,7 @@
 <?php
+// Tambahkan ini di bagian atas file setelah tag PHP
+date_default_timezone_set('Asia/Jakarta');
+
 // Script pingmonitor.php untuk memantau pingloop.sh
 // Dibuat untuk lingkungan Android
 
@@ -304,55 +307,46 @@ $scriptDirectory = getScriptDirectory($scriptPath);
     <script src="\kaiadmin\assets\js\plugin\chart.js\chart.min.js"></script>
     <style>
         :root {
-            --bg-color: #000000;
-            --card-bg: #1a1a1a;
-            --text-color: #F1F1F1;
-            --header-color: #FECA0A;
+            /* Warna Utama */
+            --primary-color: #FECA0A;     /* Kuning untuk highlight dan status aktif */
+            --secondary-color: #F1F1F1;   /* Putih untuk teks umum */
+            
+            /* Warna Background */
+            --bg-primary: #000000;        /* Hitam untuk background utama */
+            --bg-secondary: #1a1a1a;      /* Abu gelap untuk card dan elemen sekunder */
+            --bg-tertiary: #111111;       /* Abu lebih gelap untuk log container */
+            
+            /* Warna Status */
+            --success-color: #4CAF50;     /* Hijau untuk status sukses */
+            --warning-color: #FFA726;     /* Oranye untuk peringatan */
+            --error-color: #F44336;       /* Merah untuk error/gagal */
+            --info-color: #2196F3;        /* Biru untuk informasi */
+            
+            /* Warna Teks */
+            --text-primary: #F1F1F1;      /* Putih untuk teks utama */
+            --text-secondary: #aaaaaa;    /* Abu-abu untuk teks sekunder */
+            --text-muted: #666666;        /* Abu-abu gelap untuk teks tersier */
+            
+            /* Warna Border & Shadow */
+            --border-color: #333333;
             --shadow-color: rgba(0,0,0,0.2);
-            --border-color: #333;
-            --subtitle-color: #aaa;
-            --running-bg: #1a1a1a;
-            --running-color: #FECA0A;
-            --stopped-bg: #1a1a1a;
-            --stopped-color: #F1F1F1;
-            --airplane-on-bg: #1a1a1a;
-            --airplane-on-color: #FECA0A;
-            --airplane-off-bg: #1a1a1a;
-            --airplane-off-color: #F1F1F1;
-            --log-bg: #111;
-            --success-color: #FECA0A;
-            --error-color: #F1F1F1;
+            
+            /* Warna Chart */
+            --chart-success: rgba(76, 175, 80, 0.5);
+            --chart-error: rgba(244, 67, 54, 0.5);
             --chart-grid: rgba(255, 255, 255, 0.08);
-        }
-
-        .dark-mode {
-            --bg-color: #000000;
-            --card-bg: #1a1a1a;
-            --text-color: #F1F1F1;
-            --header-color: #FECA0A;
-            --shadow-color: rgba(0,0,0,0.2);
-            --border-color: #333;
-            --subtitle-color: #aaa;
-            --running-bg: #1a1a1a;
-            --running-color: #FECA0A;
-            --stopped-bg: #1a1a1a;
-            --stopped-color: #F1F1F1;
-            --airplane-on-bg: #1a1a1a;
-            --airplane-on-color: #FECA0A;
-            --airplane-off-bg: #1a1a1a;
-            --airplane-off-color: #F1F1F1;
-            --log-bg: #111;
-            --success-color: #FECA0A;
-            --error-color: #F1F1F1;
-            --chart-grid: rgba(255, 255, 255, 0.08);
+            
+            /* Warna Status */
+            --status-success: #00E676;    /* Hijau terang untuk sukses */
+            --status-error: #FF1744;      /* Merah terang untuk gagal */
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             transition: background-color 0.3s, color 0.3s;
         }
         
@@ -360,7 +354,7 @@ $scriptDirectory = getScriptDirectory($scriptPath);
         .container {
             max-width: 900px;
             margin: 10px auto;
-            background: var(--card-bg);
+            background: var(--bg-secondary);
             padding: 12px;
             border-radius: 8px;
             box-shadow: 0 2px 10px var(--shadow-color);
@@ -373,7 +367,7 @@ $scriptDirectory = getScriptDirectory($scriptPath);
             justify-content: space-between;
             align-items: center;
             padding: 8px 15px;
-            background: var(--card-bg);
+            background: var(--bg-secondary);
             border-radius: 10px;
             box-shadow: 0 2px 8px var(--shadow-color);
             margin-bottom: 10px;
@@ -414,7 +408,7 @@ $scriptDirectory = getScriptDirectory($scriptPath);
         }
         
         .credit-text {
-            color: var(--text-color);
+            color: var(--text-primary);
             opacity: 0.8;
         }
         
@@ -450,7 +444,7 @@ $scriptDirectory = getScriptDirectory($scriptPath);
             cursor: pointer;
             background: none;
             border: none;
-            color: var(--text-color);
+            color: var(--text-primary);
             transition: transform 0.3s, color 0.3s;
         }
         
@@ -472,7 +466,8 @@ $scriptDirectory = getScriptDirectory($scriptPath);
             text-align: center;
             transition: all 0.3s ease;
             box-shadow: 0 1px 5px var(--shadow-color);
-            background-color: var(--card-bg);
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -487,7 +482,7 @@ $scriptDirectory = getScriptDirectory($scriptPath);
         .status-title {
             font-size: 12px;
             margin-bottom: 4px;
-            color: var(--subtitle-color);
+            color: var(--text-secondary);
         }
         
         .status-value {
@@ -526,17 +521,17 @@ $scriptDirectory = getScriptDirectory($scriptPath);
         /* Chart section lebih compact */
         .chart-section {
             margin: 10px 0;
-            background: var(--card-bg);
+            background: var(--bg-secondary);
             border-radius: 8px;
             box-shadow: 0 2px 10px var(--shadow-color);
             overflow: hidden;
         }
         
         .chart-header {
-            background: linear-gradient(135deg, #000000, #1a1a1a);
-            border-bottom: 2px solid #FECA0A;
+            background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+            border-bottom: 2px solid var(--primary-color);
             padding: 8px 10px;
-            color: #FECA0A;
+            color: var(--primary-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -566,18 +561,18 @@ $scriptDirectory = getScriptDirectory($scriptPath);
         /* Log section lebih compact */
         .log-section {
             margin: 10px 0;
-            background: var(--card-bg);
+            background: var(--bg-secondary);
             border-radius: 8px;
             box-shadow: 0 2px 10px var(--shadow-color);
             overflow: hidden;
         }
         
         .log-section h2 {
-            background: linear-gradient(135deg, #000000, #1a1a1a);
-            border-bottom: 2px solid #FECA0A;
+            background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+            border-bottom: 2px solid var(--primary-color);
             margin: 0;
             padding: 8px 10px;
-            color: #FECA0A;
+            color: var(--primary-color);
             font-size: 16px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
@@ -586,7 +581,7 @@ $scriptDirectory = getScriptDirectory($scriptPath);
             height: 200px; /* Reduced height */
             overflow-y: auto;
             padding: 8px;
-            background-color: var(--log-bg);
+            background-color: var(--bg-tertiary);
             font-family: 'Courier New', monospace;
             font-size: 11px;
             border: none;
@@ -605,7 +600,7 @@ $scriptDirectory = getScriptDirectory($scriptPath);
         .timestamp {
             text-align: center;
             font-size: 11px;
-            color: var(--subtitle-color);
+            color: var(--text-secondary);
             margin-top: 5px;
         }
         
@@ -618,8 +613,8 @@ $scriptDirectory = getScriptDirectory($scriptPath);
             margin: 10px 0;
             padding: 8px;
             border-radius: 6px;
-            background-color: var(--running-bg);
-            color: var(--running-color);
+            background-color: var(--bg-secondary);
+            color: var(--primary-color);
             text-align: center;
             opacity: 1;
             transition: opacity 1s ease-out;
@@ -627,31 +622,33 @@ $scriptDirectory = getScriptDirectory($scriptPath);
         
         /* Status colors */
         .running {
-            background-color: var(--running-bg);
-            color: var(--running-color);
+            background-color: var(--bg-secondary);
+            color: var(--success-color);
+            border-color: var(--success-color);
         }
         .stopped {
-            background-color: var(--stopped-bg);
-            color: var(--stopped-color);
+            background-color: var(--bg-secondary);
+            color: var(--error-color);
+            border-color: var(--error-color);
         }
         .airplane-on {
-            background-color: var(--airplane-on-bg);
-            color: var(--airplane-on-color);
+            background-color: var(--bg-secondary);
+            color: var(--warning-color);
+            border-color: var(--warning-color);
         }
         .airplane-off {
-            background-color: var(--airplane-off-bg);
-            color: var(--airplane-off-color);
+            background-color: var(--bg-secondary);
+            color: var(--info-color);
+            border-color: var(--info-color);
         }
         .success-ping {
-            background-color: #FECA0A;
-            color: #000000;
-            box-shadow: 0 2px 5px rgba(254, 202, 10, 0.4);
+            background-color: var(--success-color);
+            color: var(--bg-primary);
         }
         .failed-ping {
-            background-color: #1a1a1a;
-            color: #F1F1F1;
-            border: 1px solid #FECA0A;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+            background-color: var(--bg-secondary);
+            color: var(--error-color);
+            border: 1px solid var(--error-color);
         }
         
         /* Animation */
@@ -664,12 +661,20 @@ $scriptDirectory = getScriptDirectory($scriptPath);
             100% { box-shadow: 0 0 0 0 rgba(254, 202, 10, 0); }
         }
         
-        /* Log highlight */
+        /* Log Highlights */
         .log-line-success {
-            color: var(--success-color);
+            color: var(--status-success) !important;  /* Hijau untuk ping sukses */
         }
         .log-line-error {
-            color: var(--error-color);
+            color: var(--status-error) !important;   /* Merah untuk ping gagal */
+        }
+        
+        /* Statistics Cards */
+        .stats-value.success {
+            color: var(--status-success) !important;  /* Hijau untuk statistik sukses */
+        }
+        .stats-value.failed {
+            color: var(--status-error) !important;   /* Merah untuk statistik gagal */
         }
         
         /* Responsive adjustments */
@@ -695,10 +700,10 @@ $scriptDirectory = getScriptDirectory($scriptPath);
             }
         }
         
-        .start-btn, .stop-btn, .restart-btn {
-            background-color: #1a1a1a;
-            color: #F1F1F1;
-            border: 1px solid #FECA0A;
+        .start-btn, .stop-btn, .restart-btn, .apn-btn {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--primary-color);
             border-radius: 20px;
             padding: 10px 15px;
             cursor: pointer;
@@ -709,15 +714,17 @@ $scriptDirectory = getScriptDirectory($scriptPath);
         }
         
         .start-btn:hover, .restart-btn:hover {
-            background-color: #FECA0A;
-            color: #000000;
+            background-color: var(--success-color);
+            color: var(--bg-primary);
+            border-color: var(--success-color);
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(254, 202, 10, 0.3);
         }
         
         .stop-btn:hover {
-            background-color: #FECA0A;
-            color: #000000;
+            background-color: var(--error-color);
+            color: var(--bg-primary);
+            border-color: var(--error-color);
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(254, 202, 10, 0.3);
         }
@@ -782,17 +789,17 @@ $scriptDirectory = getScriptDirectory($scriptPath);
 
         .apn-monitor-section {
             margin: 10px 0;
-            background: var(--card-bg);
+            background: var(--bg-secondary);
             border-radius: 8px;
             box-shadow: 0 2px 10px var(--shadow-color);
             overflow: hidden;
         }
 
         .section-header {
-            background: linear-gradient(135deg, #000000, #1a1a1a);
-            border-bottom: 2px solid #FECA0A;
+            background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+            border-bottom: 2px solid var(--primary-color);
             padding: 8px 10px;
-            color: #FECA0A;
+            color: var(--primary-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -812,9 +819,9 @@ $scriptDirectory = getScriptDirectory($scriptPath);
         }
 
         .apn-btn {
-            background-color: #1a1a1a;
-            color: #F1F1F1;
-            border: 1px solid #FECA0A;
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--primary-color);
             border-radius: 20px;
             padding: 10px 15px;
             cursor: pointer;
@@ -825,8 +832,8 @@ $scriptDirectory = getScriptDirectory($scriptPath);
         }
 
         .apn-btn:hover {
-            background-color: #FECA0A;
-            color: #000000;
+            background-color: var(--success-color);
+            color: var(--bg-primary);
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(254, 202, 10, 0.3);
         }
@@ -847,13 +854,13 @@ $scriptDirectory = getScriptDirectory($scriptPath);
             font-size: 14px;
             padding: 4px 10px;
             border-radius: 15px;
-            background-color: var(--card-bg);
-            border: 1px solid #FECA0A;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--primary-color);
         }
 
         .statistics-section {
             margin: 10px 0;
-            background: var(--card-bg);
+            background: var(--bg-secondary);
             border-radius: 8px;
             box-shadow: 0 2px 10px var(--shadow-color);
             overflow: hidden;
@@ -870,7 +877,7 @@ $scriptDirectory = getScriptDirectory($scriptPath);
         }
 
         .stats-card {
-            background: var(--card-bg);
+            background: var(--bg-secondary);
             border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 15px;
@@ -879,28 +886,28 @@ $scriptDirectory = getScriptDirectory($scriptPath);
 
         .stats-title {
             font-size: 14px;
-            color: var(--subtitle-color);
+            color: var(--text-secondary);
             margin-bottom: 8px;
         }
 
         .stats-value {
             font-size: 24px;
             font-weight: bold;
-            color: var(--text-color);
+            color: var(--text-primary);
         }
 
         .stats-value.success {
-            color: #FECA0A;
+            color: var(--status-success) !important;
         }
 
         .stats-value.failed {
-            color: #F1F1F1;
+            color: var(--status-error) !important;
         }
 
         #apn-log-container {
             height: 200px;
             overflow-y: auto;
-            background: var(--log-bg);
+            background: var(--bg-tertiary);
             padding: 10px;
             border-radius: 4px;
         }
@@ -909,7 +916,45 @@ $scriptDirectory = getScriptDirectory($scriptPath);
             font-family: monospace;
             font-size: 12px;
             line-height: 1.4;
-            color: var(--text-color);
+            color: var(--text-primary);
+        }
+
+        /* Tambahkan style untuk tab */
+        .tab-container {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .tab-buttons {
+            display: flex;
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 5px;
+            gap: 5px;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            border: none;
+            background: none;
+            color: #F1F1F1;
+            cursor: pointer;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+            background: #FECA0A;
+            color: #000000;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
         }
     </style>
 </head>
@@ -917,162 +962,200 @@ $scriptDirectory = getScriptDirectory($scriptPath);
     <div class="container">
         <div class="app-header">
             <span class="app-emoji">📡</span>
-            <h1 class="app-title">Ping Monitor</h1>
+            <h1 class="app-title">Network Monitor</h1>
         </div>
         
+        <div class="tab-buttons">
+            <button class="tab-button active" data-tab="airplane">Auto AirplaneMode</button>
+            <button class="tab-button" data-tab="apn">Auto APN Switch</button>
+        </div>
+
         <?php if (!empty($message)): ?>
             <div class="message" id="message"><?php echo $message; ?></div>
         <?php endif; ?>
         
-        <!-- Status cards dalam grid layout -->
-        <div class="status-panel">
-            <div class="status-card <?php echo $scriptRunning ? 'running pulse' : 'stopped'; ?>" id="script-status">
-                <div class="card-icon"><?php echo $scriptRunning ? '⚙️' : '⛔'; ?></div>
-                <div class="status-title">Status Script</div>
-                <div class="status-value" id="script-status-value">
-                    <?php echo $scriptRunning ? 'Berjalan' : 'Berhenti'; ?>
+        <!-- Bungkus konten Auto AirplaneMode dalam tab -->
+        <div class="tab-content active" id="airplane-tab">
+            <!-- Status cards dalam grid layout -->
+            <div class="status-panel">
+                <div class="status-card <?php echo $scriptRunning ? 'running pulse' : 'stopped'; ?>" id="script-status">
+                    <div class="card-icon"><?php echo $scriptRunning ? '⚙️' : '⛔'; ?></div>
+                    <div class="status-title">Status Script</div>
+                    <div class="status-value" id="script-status-value">
+                        <?php echo $scriptRunning ? 'Berjalan' : 'Berhenti'; ?>
+                    </div>
+                </div>
+                
+                <div class="status-card <?php echo $airplaneMode ? 'airplane-on pulse' : 'airplane-off'; ?>" id="airplane-status">
+                    <div class="card-icon"><?php echo $airplaneMode ? '✈️' : '📱'; ?></div>
+                    <div class="status-title">Mode Pesawat</div>
+                    <div class="status-value" id="airplane-status-value">
+                        <?php echo $airplaneMode ? 'Aktif' : 'Tidak Aktif'; ?>
+                    </div>
+                </div>
+                
+                <div class="status-card" id="host-status">
+                    <div class="card-icon">🌐</div>
+                    <div class="status-title">Host</div>
+                    <div class="status-value" id="host-status-value">
+                        <?php echo $monitoredHost; ?>
+                    </div>
+                </div>
+                
+                <div class="status-card" id="script-directory">
+                    <div class="card-icon">📁</div>
+                    <div class="status-title">Direktori</div>
+                    <div class="status-value path-text" id="script-directory-value">
+                        <?php echo $scriptDirectory; ?>
+                    </div>
+                </div>
+                
+                <div class="status-card" id="script-path">
+                    <div class="card-icon">📄</div>
+                    <div class="status-title">Path Script</div>
+                    <div class="status-value path-text" id="script-path-value">
+                        <?php echo $scriptPath; ?>
+                    </div>
                 </div>
             </div>
             
-            <div class="status-card <?php echo $airplaneMode ? 'airplane-on pulse' : 'airplane-off'; ?>" id="airplane-status">
-                <div class="card-icon"><?php echo $airplaneMode ? '✈️' : '📱'; ?></div>
-                <div class="status-title">Mode Pesawat</div>
-                <div class="status-value" id="airplane-status-value">
-                    <?php echo $airplaneMode ? 'Aktif' : 'Tidak Aktif'; ?>
-                </div>
-            </div>
-            
-            <div class="status-card" id="host-status">
-                <div class="card-icon">🌐</div>
-                <div class="status-title">Host</div>
-                <div class="status-value" id="host-status-value">
-                    <?php echo $monitoredHost; ?>
-                </div>
-            </div>
-            
-            <div class="status-card" id="script-directory">
-                <div class="card-icon">📁</div>
-                <div class="status-title">Direktori</div>
-                <div class="status-value path-text" id="script-directory-value">
-                    <?php echo $scriptDirectory; ?>
-                </div>
-            </div>
-            
-            <div class="status-card" id="script-path">
-                <div class="card-icon">📄</div>
-                <div class="status-title">Path Script</div>
-                <div class="status-value path-text" id="script-path-value">
-                    <?php echo $scriptPath; ?>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Tombol kontrol dalam grid layout -->
-        <div class="controls">
-            <form method="post" id="start-form">
-                <input type="hidden" name="action" value="start">
-                <button type="submit" class="start-btn" <?php echo $scriptRunning ? 'disabled' : ''; ?>>
-                    <span class="button-icon">▶️</span> Mulai
-                </button>
-            </form>
-            
-            <form method="post" id="stop-form">
-                <input type="hidden" name="action" value="stop">
-                <button type="submit" class="stop-btn" <?php echo !$scriptRunning ? 'disabled' : ''; ?>>
-                    <span class="button-icon">⏹️</span> Berhenti
-                </button>
-            </form>
-            
-            <form method="post" id="restart-form">
-                <input type="hidden" name="action" value="restart">
-                <button type="submit" class="restart-btn">
-                    <span class="button-icon">🔄</span> Mulai Ulang
-                </button>
-            </form>
-        </div>
-
-        <!-- Chart section -->
-        <div class="chart-section">
-            <div class="chart-header">
-                <h2>Statistik Ping</h2>
-                <div class="last-ping-status" id="last-ping-status">
-                    Ping Terakhir: Menunggu data...
-                </div>
-            </div>
-            <div class="chart-wrapper">
-                <canvas id="pingChart"></canvas>
-            </div>
-        </div>
-
-        <!-- Log section -->
-        <div class="log-section">
-            <h2>Log Aktivitas</h2>
-            <div class="log-container" id="log-container">
-                <pre id="log-content"><?php echo $logContent; ?></pre>
-            </div>
-        </div>
-
-        <!-- Dalam bagian HTML, tambahkan tab untuk APN Monitor setelah log section -->
-        <div class="apn-monitor-section">
-            <div class="section-header">
-                <h2>APN Monitor</h2>
-                <div class="apn-status" id="apn-monitor-status">
-                    Status: Menunggu...
-                </div>
-            </div>
-            <div class="apn-controls">
-                <form method="post" id="start-apn-form">
-                    <input type="hidden" name="action" value="start_apn">
-                    <button type="submit" class="apn-btn start-apn-btn">
-                        <span class="button-icon">▶️</span> Mulai APN Monitor
+            <div class="controls">
+                <form method="post" id="start-form">
+                    <input type="hidden" name="action" value="start">
+                    <button type="submit" class="start-btn" <?php echo $scriptRunning ? 'disabled' : ''; ?>>
+                        <span class="button-icon">▶️</span> Mulai
                     </button>
                 </form>
                 
-                <form method="post" id="stop-apn-form">
-                    <input type="hidden" name="action" value="stop_apn">
-                    <button type="submit" class="apn-btn stop-apn-btn">
-                        <span class="button-icon">⏹️</span> Hentikan APN Monitor
+                <form method="post" id="stop-form">
+                    <input type="hidden" name="action" value="stop">
+                    <button type="submit" class="stop-btn" <?php echo !$scriptRunning ? 'disabled' : ''; ?>>
+                        <span class="button-icon">⏹️</span> Berhenti
+                    </button>
+                </form>
+                
+                <form method="post" id="restart-form">
+                    <input type="hidden" name="action" value="restart">
+                    <button type="submit" class="restart-btn">
+                        <span class="button-icon">🔄</span> Mulai Ulang
                     </button>
                 </form>
             </div>
-            <div class="apn-info">
-                <div class="current-apn" id="current-apn">
-                    APN Saat Ini: Memuat...
+
+            <div class="chart-section">
+                <div class="chart-header">
+                    <h2>Statistik Ping</h2>
+                    <div class="last-ping-status" id="last-ping-status">
+                        Ping Terakhir: Menunggu data...
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="pingChart"></canvas>
+                </div>
+            </div>
+
+            <div class="log-section">
+                <h2>Log Aktivitas</h2>
+                <div class="log-container" id="log-container">
+                    <pre id="log-content"><?php echo $logContent; ?></pre>
                 </div>
             </div>
         </div>
 
-        <!-- Tambahkan setelah section APN Monitor dan sebelum timestamp -->
-        <div class="statistics-section">
-            <div class="section-header">
-                <h2>Statistik Monitoring</h2>
-            </div>
-            <div class="stats-container">
-                <div class="stats-grid">
-                    <div class="stats-card">
-                        <div class="stats-title">Total Ping</div>
-                        <div class="stats-value" id="total-ping">0</div>
+        <!-- Bungkus konten Auto APN Switch dalam tab -->
+        <div class="tab-content" id="apn-tab">
+            <!-- Status cards untuk APN -->
+            <div class="status-panel">
+                <div class="status-card <?php echo isApnMonitorRunning() ? 'running pulse' : 'stopped'; ?>" id="apn-monitor-status-card">
+                    <div class="card-icon"><?php echo isApnMonitorRunning() ? '⚙️' : '⛔'; ?></div>
+                    <div class="status-title">Status Script</div>
+                    <div class="status-value" id="apn-monitor-status-value">
+                        <?php echo isApnMonitorRunning() ? 'Berjalan' : 'Berhenti'; ?>
                     </div>
-                    <div class="stats-card">
-                        <div class="stats-title">Ping Sukses</div>
-                        <div class="stats-value success" id="success-ping">0</div>
+                </div>
+                
+                <div class="status-card" id="apn-host-status">
+                    <div class="card-icon">🌐</div>
+                    <div class="status-title">Host</div>
+                    <div class="status-value" id="apn-host-status-value">
+                        <?php echo $monitoredHost; ?>
                     </div>
-                    <div class="stats-card">
-                        <div class="stats-title">Ping Gagal</div>
-                        <div class="stats-value failed" id="failed-ping">0</div>
+                </div>
+                
+                <div class="status-card" id="apn-script-directory">
+                    <div class="card-icon">📁</div>
+                    <div class="status-title">Direktori</div>
+                    <div class="status-value path-text" id="apn-script-directory-value">
+                        /data/adb/service.d
                     </div>
-                    <div class="stats-card">
-                        <div class="stats-title">Pergantian APN</div>
-                        <div class="stats-value" id="apn-switches">0</div>
+                </div>
+                
+                <div class="status-card" id="apn-script-path">
+                    <div class="card-icon">📄</div>
+                    <div class="status-title">Path Script</div>
+                    <div class="status-value path-text" id="apn-script-path-value">
+                        /data/adb/service.d/autoswitchapn.sh
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="log-section">
-            <h2>Log APN Monitor</h2>
-            <div class="log-container" id="apn-log-container">
-                <pre id="apn-log-content">Memuat log...</pre>
+            <div class="apn-monitor-section">
+                <div class="section-header">
+                    <h2>Auto APN Switch</h2>
+                </div>
+                <div class="apn-controls">
+                    <form method="post" id="start-apn-form">
+                        <input type="hidden" name="action" value="start_apn">
+                        <button type="submit" class="apn-btn start-apn-btn" <?php echo isApnMonitorRunning() ? 'disabled' : ''; ?>>
+                            <span class="button-icon">▶️</span> Mulai Auto APN Switch
+                        </button>
+                    </form>
+                    
+                    <form method="post" id="stop-apn-form">
+                        <input type="hidden" name="action" value="stop_apn">
+                        <button type="submit" class="apn-btn stop-apn-btn" <?php echo !isApnMonitorRunning() ? 'disabled' : ''; ?>>
+                            <span class="button-icon">⏹️</span> Hentikan Auto APN Switch
+                        </button>
+                    </form>
+                </div>
+                <div class="apn-info">
+                    <div class="current-apn" id="current-apn">
+                        APN Saat Ini: Memuat...
+                    </div>
+                </div>
+            </div>
+
+            <div class="statistics-section">
+                <div class="section-header">
+                    <h2>Statistik Monitoring</h2>
+                </div>
+                <div class="stats-container">
+                    <div class="stats-grid">
+                        <div class="stats-card">
+                            <div class="stats-title">Total Ping</div>
+                            <div class="stats-value" id="total-ping">0</div>
+                        </div>
+                        <div class="stats-card">
+                            <div class="stats-title">Ping Sukses</div>
+                            <div class="stats-value success" id="success-ping">0</div>
+                        </div>
+                        <div class="stats-card">
+                            <div class="stats-title">Ping Gagal</div>
+                            <div class="stats-value failed" id="failed-ping">0</div>
+                        </div>
+                        <div class="stats-card">
+                            <div class="stats-title">Pergantian APN</div>
+                            <div class="stats-value" id="apn-switches">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="log-section">
+                <h2>Log APN Monitor</h2>
+                <div class="log-container" id="apn-log-container">
+                    <pre id="apn-log-content">Memuat log...</pre>
+                </div>
             </div>
         </div>
 
@@ -1100,10 +1183,10 @@ $scriptDirectory = getScriptDirectory($scriptPath);
         
         // Siapkan warna dan border dari data ping
         const backgroundColors = data.map(status => 
-            status === 1 ? 'rgba(254, 202, 10, 0.5)' : 'rgba(26, 26, 26, 0.5)'
+            status === 1 ? 'rgba(0, 230, 118, 0.5)' : 'rgba(255, 23, 68, 0.5)'  // Hijau untuk sukses, Merah untuk gagal
         );
         const borderColors = data.map(status => 
-            status === 1 ? '#FECA0A' : '#F1F1F1'
+            status === 1 ? '#00E676' : '#FF1744'  // Hijau solid untuk sukses, Merah solid untuk gagal
         );
         
         // Buat chart baru dengan animasi dan styling yang lebih menarik
@@ -1219,10 +1302,10 @@ $scriptDirectory = getScriptDirectory($scriptPath);
             // Persiapkan label dan warna
             const labels = times.map(time => time.substr(11, 5));
             const backgroundColors = data.map(status => 
-                status === 1 ? 'rgba(254, 202, 10, 0.5)' : 'rgba(26, 26, 26, 0.5)'
+                status === 1 ? 'rgba(0, 230, 118, 0.5)' : 'rgba(255, 23, 68, 0.5)'
             );
             const borderColors = data.map(status => 
-                status === 1 ? '#FECA0A' : '#F1F1F1'
+                status === 1 ? '#00E676' : '#FF1744'
             );
             
             // Update chart data
@@ -1286,8 +1369,19 @@ $scriptDirectory = getScriptDirectory($scriptPath);
                     const logContainerDiv = document.getElementById('log-container');
                     logContainerDiv.scrollTop = logContainerDiv.scrollHeight;
                     
-                    // Update timestamp
-                    document.getElementById('timestamp').textContent = 'Terakhir diperbarui: ' + data.timestamp;
+                    // Update timestamp menggunakan waktu lokal
+                    const timestamp = new Date(data.timestamp);
+                    const options = {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit',
+                        hour12: false
+                    };
+                    document.getElementById('timestamp').textContent = 
+                        'Terakhir diperbarui: ' + timestamp.toLocaleString('id-ID', options);
                     
                     // Update chart data jika ada data baru
                     if (data.pingData.times.length > 0) {
@@ -1300,15 +1394,29 @@ $scriptDirectory = getScriptDirectory($scriptPath);
                     }
 
                     // Update APN Monitor status
-                    const apnStatus = document.getElementById('apn-monitor-status');
-                    if (data.apnMonitorRunning) {
-                        apnStatus.textContent = 'Status: Aktif';
-                        apnStatus.style.color = '#FECA0A';
-                    } else {
-                        apnStatus.textContent = 'Status: Tidak Aktif';
-                        apnStatus.style.color = '#F1F1F1';
-                    }
+                    const apnMonitorRunning = data.apnMonitorRunning;
+                    const apnStatusCard = document.getElementById('apn-monitor-status-card');
+                    const apnStatusValue = document.getElementById('apn-monitor-status-value');
+                    const apnStatusIcon = apnStatusCard.querySelector('.card-icon');
                     
+                    // Update status card
+                    apnStatusCard.className = `status-card ${apnMonitorRunning ? 'running pulse' : 'stopped'}`;
+                    apnStatusValue.textContent = apnMonitorRunning ? 'Berjalan' : 'Berhenti';
+                    apnStatusIcon.textContent = apnMonitorRunning ? '⚙️' : '⛔';
+                    
+                    // Update host dan path
+                    document.getElementById('apn-host-status-value').textContent = data.monitoredHost;
+                    document.getElementById('apn-script-directory-value').textContent = '/data/adb/service.d';
+                    document.getElementById('apn-script-path-value').textContent = '/data/adb/service.d/autoswitchapn.sh';
+
+                    // Update button states
+                    const startApnBtn = document.querySelector('.start-apn-btn');
+                    const stopApnBtn = document.querySelector('.stop-apn-btn');
+                    if (startApnBtn && stopApnBtn) {
+                        startApnBtn.disabled = apnMonitorRunning;
+                        stopApnBtn.disabled = !apnMonitorRunning;
+                    }
+
                     // Update current APN info
                     document.getElementById('current-apn').textContent = 
                         'APN Saat Ini:\n' + data.currentApn;
@@ -1480,6 +1588,23 @@ $scriptDirectory = getScriptDirectory($scriptPath);
                     buttons.forEach(btn => btn.disabled = false);
                 });
             });
+
+            // Tambahkan script untuk handling tab
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons and contents
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked button and corresponding content
+                    button.classList.add('active');
+                    const tabId = button.getAttribute('data-tab');
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                });
+            });
         });
         
         // Dark Mode
@@ -1520,11 +1645,13 @@ $scriptDirectory = getScriptDirectory($scriptPath);
             
             return logContent.split('\n').map(line => {
                 if (line.includes('Host dapat dijangkau')) {
-                    return `<span style="color: #FECA0A">${escapeHtml(line)}</span>`;
+                    return `<span style="color: var(--status-success)">${escapeHtml(line)}</span>`;
                 } else if (line.includes('Host tidak dapat dijangkau')) {
-                    return `<span style="color: #F1F1F1">${escapeHtml(line)}</span>`;
+                    return `<span style="color: var(--status-error)">${escapeHtml(line)}</span>`;
                 } else if (line.includes('Mengaktifkan mode APN')) {
-                    return `<span style="color: #FECA0A">${escapeHtml(line)}</span>`;
+                    return `<span style="color: var(--apn-warning)">${escapeHtml(line)}</span>`;
+                } else if (line.includes('Status APN')) {
+                    return `<span style="color: var(--apn-primary)">${escapeHtml(line)}</span>`;
                 }
                 return escapeHtml(line);
             }).join('\n');
