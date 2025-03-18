@@ -1,5 +1,17 @@
 # Riwayat Perubahan (Changelog)
 
+## [2.0.0-Extended] - 2025-03-18
+
+### 🚀 Fitur Baru
+- Implementasi sistem auto apn switch di menu ping monitor
+
+### 🛠️ Perbaikan & Peningkatan
+- Peningkatan performa dashboard dengan optimasi database
+- Redesign antarmuka pengguna untuk pengalaman yang lebih baik
+- Optimasi penggunaan RAM dan CPU
+- Perbaikan bug pada sistem notifikasi
+- Perbaikan masalah kompatibilitas dengan Android 14
+
 ## [1.0.11-Extended] - 2025-03-17
 
 ### 🚀 Optimasi & Peningkatan
