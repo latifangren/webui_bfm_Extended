@@ -335,6 +335,44 @@ if (LOGIN_ENABLED && !isset($_SESSION['user_id'])) {
 
             <div class="version">
                 <div class="version-header">
+                    <span class="version-number">Version 2.0.0 (Extended)</span>
+                    <span class="version-date">18 Maret 2025</span>
+                </div>
+                <div class="change-type">🚀 Fitur Baru</div>
+                <ul class="change-list">
+                    <li class="change-item">
+                        <span class="tag tag-new">NEW</span>
+                        Implementasi sistem auto apn switch di menu ping monitor
+                    </li>
+                </ul>
+
+                <div class="change-type">🛠️ Perbaikan & Peningkatan</div>
+                <ul class="change-list">
+                    <li class="change-item">
+                        <span class="tag tag-improvement">IMPROVEMENT</span>
+                        Peningkatan performa dashboard dengan optimasi database
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-improvement">IMPROVEMENT</span>
+                        Redesign antarmuka pengguna untuk pengalaman yang lebih baik
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-improvement">IMPROVEMENT</span>
+                        Optimasi penggunaan RAM dan CPU
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-fix">FIX</span>
+                        Perbaikan bug pada sistem notifikasi
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-fix">FIX</span>
+                        Perbaikan masalah kompatibilitas dengan Android 14
+                    </li>
+                </ul>
+            </div>
+
+            <div class="version">
+                <div class="version-header">
                     <span class="version-number">Version 1.0.11 (Extended)</span>
                     <span class="version-date">17 Maret 2025</span>
                 </div>

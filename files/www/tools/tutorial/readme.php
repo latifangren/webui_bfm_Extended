@@ -91,6 +91,10 @@
                 <span class="icon">📡</span>
                 <span>Ping Monitor</span>
             </a>
+            <a href="/article.html" class="navbar-item">
+                <span class="icon">📚</span>
+                <span>Tutorial Lengkap</span>
+            </a>
         </div>
     </nav>
 
@@ -107,6 +111,7 @@
     .navbar-menu {
         display: flex;
         align-items: center;
+        gap: 1rem;
     }
 
     .navbar-item {
