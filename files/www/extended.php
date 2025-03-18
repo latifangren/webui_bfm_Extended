@@ -101,6 +101,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
            url('webui/fonts/Rajdhani-Bold.woff') format('woff');
     }
 
+    @font-face {
+      font-family: 'Rovelink';
+      font-style: normal;
+      font-weight: normal;
+      src: url('webui/fonts/Rovelink.otf') format('opentype');
+    }
+
+    @font-face {
+      font-family: 'Cyberpunk';
+      font-style: normal;
+      font-weight: normal;
+      src: url('webui/fonts/Cyberpunk.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'SpaceArmor';
+      font-style: normal;
+      font-weight: normal;
+      src: url('webui/fonts/SPACE ARMOR.otf') format('opentype');
+    }
+
     .material-icons {
       font-family: 'Material Icons';
       font-weight: normal;
@@ -116,14 +137,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       -webkit-font-smoothing: antialiased;
     }
     
+    /* Hapus semua efek glow */
     .decorative-img::before,
     .decorative-img-sidebar::before {
-      content: 'BOX UI'; /* Menghapus teks "by Latifan_id" */
-      white-space: pre; /* Preserve the line break */
-      font-family: 'Orbitron', sans-serif;
-      text-shadow: 0 0 5px #FECA0A, 0 0 10px #FECA0A;
-      font-weight: 900;
-      letter-spacing: 1px;
+      content: 'BOX UI';
+      white-space: pre;
+      font-family: 'SpaceArmor', sans-serif;
+      font-weight: normal;
+      letter-spacing: 2px;
+      font-size: 24px;
+      color: #FECA0A;
+      text-shadow: none; /* Hapus text-shadow */
     }
     
     /* Media query untuk tampilan mobile */
@@ -134,56 +158,75 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       
       /* Menyesuaikan posisi untuk tampilan mobile */
       .decorative-img::before {
-        font-size: 90%; /* Ukuran font lebih kecil di mobile */
+        font-size: 20px;
       }
       
       /* Menyembunyikan extended-text pada mobile jika masih tumpang tindih */
       .extended-text {
-        font-size: 18px;
+        font-size: 22px;
         letter-spacing: 2px;
       }
     }
     
-    /* Tambahkan style untuk extended text */
+    /* Extended text style */
     .extended-text {
       position: absolute;
       top: 15px;
-      left: 50%;
+      left: 45%;
       transform: translateX(-50%);
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 22px;
-      font-weight: 700;
+      font-family: 'SpaceArmor', sans-serif;
+      font-size: 26px;
+      font-weight: normal;
       color: #FECA0A;
       z-index: 1;
       text-transform: uppercase;
       letter-spacing: 3px;
-      text-shadow: 0 0 5px #FECA0A, 0 0 10px rgba(254, 202, 10, 0.5);
-      border-bottom: 2px solid #FECA0A;
       padding-bottom: 2px;
+      display: inline-block;
     }
 
-    /* Efek glowing untuk font cyberpunk */
-    @keyframes pulse {
-      0% {
-        text-shadow: 0 0 5px #FECA0A, 0 0 10px rgba(254, 202, 10, 0.5);
-      }
-      50% {
-        text-shadow: 0 0 10px #FECA0A, 0 0 15px rgba(254, 202, 10, 0.7), 0 0 20px rgba(254, 202, 10, 0.3);
-      }
-      100% {
-        text-shadow: 0 0 5px #FECA0A, 0 0 10px rgba(254, 202, 10, 0.5);
-      }
+    /* Version text */
+    .version-text {
+      position: absolute;
+      top: 20px;
+      left: calc(45% + 65px);
+      font-family: 'SpaceArmor', sans-serif;
+      font-size: 14px;
+      font-weight: normal;
+      color: #FECA0A;
+      z-index: 1;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: inline-block;
+      margin-left: 10px;
     }
 
-    .extended-text {
-      animation: pulse 2s infinite;
+    /* Media query untuk tampilan mobile */
+    @media screen and (max-width: 768px) {
+      .extended-text {
+        font-size: 22px;
+        top: 12px;
+        left: 45%;
+      }
+      
+      .version-text {
+        font-size: 12px;
+        top: 17px;
+        left: calc(45% + 55px);
+      }
+      
+      .decorative-img::before {
+        font-size: 20px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="wrapper">
     <!-- Extended Text in the middle -->
-    <div class="extended-text">ExTended</div>
+    <div class="extended-text">XTD</div>
+    <!-- Version text -->
+    <div class="version-text">v2.0</div>
     
     <!-- Sidebar -->
     <div id="mySidebar" class="sidebar">
