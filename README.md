@@ -95,20 +95,6 @@ Setelah instalasi, akses BOX UI melalui:
 - Changelog terstruktur untuk setiap versi
 - Backup konfigurasi sebelum update
 
-## 📋 Riwayat Perubahan (Changelog)
-
-### [1.0.11-Extended] - 2025-03-17
-#### 🚀 Optimasi & Peningkatan
-- Migrasi Font Awesome dari CDN ke file lokal untuk mengurangi ketergantungan internet
-- Implementasi font Roboto lokal untuk konsistensi tampilan di semua halaman  
-- Migrasi Iconify dari CDN ke file lokal di modul
-- Optimasi performa dengan mengurangi ketergantungan pada CDN eksternal
-
-### [1.0.10-Extended] - 2025-03-16
-#### 🚀 Fitur Baru
-- Implementasi tema warna baru dengan kombo hitam (#000000), kuning (#FECA0A), dan putih (#F1F1F1)
-- Penyederhanaan tampilan antarmuka untuk pengalaman pengguna yang lebih baik
-
 #### 🛠️ Perbaikan & Peningkatan
 - Penyederhanaan tombol dark mode untuk tampilan yang lebih bersih
 - Mengoptimalkan tampilan di perangkat mobile dengan mengatasi masalah tumpang tindih teks "BOX UI"
