@@ -1,0 +1,3 @@
+#!/system/bin/sh
+sleep 60
+ip address add 192.168.43.1/24 dev wlan0
