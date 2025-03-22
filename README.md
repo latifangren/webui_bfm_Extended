@@ -72,13 +72,6 @@ Setelah instalasi, akses BOX UI melalui:
 - [http://127.0.0.1:80](http://127.0.0.1:80)
 - [http://127.0.0.1](http://127.0.0.1)
 
-### Akses Fitur Monitor
-- Ping Monitor: `http://127.0.0.1/tools/pingmonitor.php`
-- Tampilan Modern dengan Dark Mode
-- Refresh otomatis setiap 5 detik
-- Grafik status ping real-time
-- Panel kontrol untuk start/stop monitoring
-
 ## 📥 Panduan Instalasi
 1. Download repositori ini sebagai file zip
 2. Pastikan file download bukan hanya folder, jika ya ekstrak terlebih dahulu
