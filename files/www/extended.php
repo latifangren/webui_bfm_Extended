@@ -274,6 +274,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </button>
           <div class="dropdown-container">
             <a onclick="loadContent('/tools/smsviewer.php'); closeDropdown(); addUnderline(this)"> SMS Viewer</a>
+            <a onclick="loadContent('/tools/sidompul.php'); closeDropdown(); addUnderline(this)"> Sidompul</a>
             <a onclick="loadContent('/tools/adguard.php'); closeDropdown(); addUnderline(this)"> AdGuard</a>
             <a onclick="loadContent('/tools/ocgen/index.php'); closeDropdown(); addUnderline(this)"> Config Generator</a>
             <a onclick="loadContent('/tools/modpes.php'); closeDropdown(); addUnderline(this)"> Airplane Pilot</a>
