@@ -166,6 +166,7 @@ p.active-tab::after {
         <p onclick="showTab('Storage path')">Storage</p>
         <p onclick="showTab('ADB path')">ADB</p>
         <p onclick="showTab('WebUI path')">WebUI</p>
+        <p onclick="showTab('Clash path')">Clash</p>
     </div>
     <div class="header-top">
         <h1>o</h1>
@@ -187,6 +188,9 @@ p.active-tab::after {
     </div>
     <div id="WebUI path" class="tab-content">
         <iframe id="webuiFrame" loading="lazy"></iframe>
+    </div>
+    <div id="Clash path" class="tab-content">
+        <iframe id="clashFrame" loading="lazy"></iframe>
     </div>
 </div>
 
@@ -228,6 +232,9 @@ function showTab(tabName) {
     }
     if (tabName === 'WebUI path' && !document.getElementById('webuiFrame').src) {
         document.getElementById('webuiFrame').src = 'http://<?php echo $host; ?>/tiny/index.php?p=data/adb/php7/files/www';
+    }
+    if (tabName === 'Clash path' && !document.getElementById('clashFrame').src) {
+        document.getElementById('clashFrame').src = 'http://<?php echo $host; ?>/tiny/index.php?p=data/adb/box/clash';
     }
 }
 
