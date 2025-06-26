@@ -8,7 +8,8 @@
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
-            background-color: transparent;
+            background-color: #000000;
+            color: #F1F1F1;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -17,12 +18,12 @@
         }
         h1 {
             text-align: center;
-            color: #000;
+            color: #F1F1F1;
             font-size: 20px;
         }
         .note {
             text-align: center;
-            color: #777;
+            color: #aaa;
             font-size: 12px;
         }
 
@@ -33,17 +34,17 @@
       width: 100%;
     }
     .header-top {
-      background-color: #transparent;
+      background-color: #000000;
       padding: 5px;
     }
     .header-bottom {
-      background-color: transparent;
+      background-color: #000000;
       padding: 5px;
     }
     header h1 {
       margin: 0;
       font-size: 0.8em;
-      color: #transparent;
+      color: #F1F1F1;
     }
     .new-container {
       position: absolute;
@@ -56,15 +57,15 @@
       height: 100%;
       padding: 10px;
       box-sizing: border-box;
-      background-color: #ffffff;
-      color: #000;
+      background-color: #1a1a1a;
+      color: #F1F1F1;
       text-align: center;
       z-index: 2;
     }
     .new-container p {
       text-align: left;
       font-size: 1em;
-      color: #555;
+      color: #FECA0A;
       margin-top: 5px;
       margin-left: 10px;
       font-weight: bold;
@@ -76,26 +77,29 @@
       margin-top: 30px;
       width: 85%;
       height: 100%;
-      background-color: #fff;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      background-color: #1a1a1a;
+      color: #F1F1F1;
+      box-shadow: 0 4px 20px rgba(254, 202, 10, 0.1);
     }
         label {
             margin-top: 5px;
             display: block;
             font-weight: bold;
             font-size: 12px;
-            color: #555;
+            color: #FECA0A;
         }
         input[type="text"], input[type="password"] {
             width: 93%;
             padding: 12px;
             margin-top: 5px;
-            border: 1px solid #ccc;
+            border: 1px solid #FECA0A;
             border-radius: 10px;
+            background-color: #222;
+            color: #F1F1F1;
         }
         input[type="submit"] {
-            background-color: #5cb85c;
-            color: white;
+            background-color: #FECA0A;
+            color: #000;
             border: none;
             padding: 12px;
             border-radius: 3px;
@@ -107,15 +111,15 @@
             transition: background-color 0.3s;
         }
         input[type="submit"]:hover {
-            background-color: #4cae4c;
+            background-color: #e5b609;
         }
         .result {
             margin-top: 15px;
             padding: 8px;
-            background-color: #e7f3fe;
-            border: 1px solid #b3d7ff;
+            background-color: #222;
+            border: 1px solid #FECA0A;
             border-radius: 3px;
-            color: #31708f;
+            color: #FECA0A;
             display: none;
         }
         
@@ -126,10 +130,10 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: rgba(0, 0, 0, 0.8);
-            color: #ffffff;
+            color: #FECA0A;
             padding: 12px;
             border-radius: 5px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 6px rgba(254,202,10,0.2);
             z-index: 2;
             display: flex;
             align-items: center;
@@ -145,67 +149,23 @@
             top: 56%; 
             transform: translateY(-50%);
             cursor: pointer;
-            color: silver;
+            color: #FECA0A;
         }
 
 /* Dark Mode Styles */
 @media (prefers-color-scheme: dark) {
-    body {
-        background-color: transparent;
-        color: #fff;
-    }
-
-    h1 {
-        color: #fff;
-    }
-
-    .note {
-        color: #aaa;
-    }
-
-    .new-container, .new-container p {
-        background-color: #2a2a2a;
-        color: #e0e0e0;
-    }
-
-    .container {
-        background-color: #2a2a2a;
-        color: #fff;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    }
-
-    label {
-        color: #ccc;
-    }
-
-    input[type="text"], input[type="password"] {
-        background-color: #444;
-        color: #fff;
-        border: 1px solid #666;
-    }
-
-    input[type="submit"] {
-        background-color: #388e3c;
-    }
-
-    input[type="submit"]:hover {
-        background-color: #2c6e2c;
-    }
-
-    .result {
-        background-color: #333;
-        border: 1px solid #444;
-        color: #9e9e9e;
-    }
-
-    .loading-indicator {
-        background-color: rgba(0, 0, 0, 0.8);
-        color: #fff;
-    }
-
-    .toggle-password {
-        color: #ccc;
-    }
+    body {}
+    h1 {}
+    .note {}
+    .new-container, .new-container p {}
+    .container {}
+    label {}
+    input[type="text"], input[type="password"] {}
+    input[type="submit"] {}
+    input[type="submit"]:hover {}
+    .result {}
+    .loading-indicator {}
+    .toggle-password {}
 }
 
     </style>

@@ -226,7 +226,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Extended Text in the middle -->
     <div class="extended-text">XTD</div>
     <!-- Version text -->
-    <div class="version-text">v2.0</div>
+    <div class="version-text">v2.1.1</div>
     
     <!-- Sidebar -->
     <div id="mySidebar" class="sidebar">
@@ -250,8 +250,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <span class="dropdown-icon iconify" data-icon="ci:caret-right-sm" style="font-size: 25px;"></span> <!-- Dropdown icon -->
           </button>
           <div class="dropdown-container">
-            <a onclick="loadContent('/webui/monitor/index.php'); closeDropdown(); addUnderline(this)">Overview</a>
-			<a onclick="loadContent('/webui/monitor/cpu_monitor_standalone.php'); closeDropdown(); addUnderline(this)">Cpu Monitor</a>
+            <a onclick="loadContent('/webui/monitor/Overview.php'); closeDropdown(); addUnderline(this)">Overview</a>
+			<a onclick="loadContent('/webui/monitor/CpuMonitor.php'); closeDropdown(); addUnderline(this)">Cpu Monitor</a>
+      <a onclick="loadContent('/webui/monitor/BatteryMonitor.php'); closeDropdown(); addUnderline(this)">Battery Monitor</a>
+			<a onclick="loadContent('/webui/monitor/RamMonitor.php'); closeDropdown(); addUnderline(this)">Ram Monitor</a>
+      <a onclick="loadContent('/webui/monitor/StorageMonitor.php'); closeDropdown(); addUnderline(this)">Storage Monitor</a>
             <a onclick="loadContent('/tools/logs.php'); closeDropdown(); addUnderline(this)">Magisk Log</a>
           </div>
         </li>
@@ -264,7 +267,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <a onclick="loadContent('/tiny/opsi.php'); closeDropdown(); addUnderline(this)"> File Manager</a>
             <a onclick="loadContent('/auth/change_password.php'); closeDropdown(); addUnderline(this)"> Administration</a>
             <a onclick="loadContent('/auth/manage_login.php'); closeDropdown(); addUnderline(this)"> Manage Login</a>
-            <a onclick="loadContent('tools/reboot.php'); closeDropdown(); addUnderline(this)"> Reboot</a>
+            <a onclick="loadContent('tools/powermanager.php'); closeDropdown(); addUnderline(this)"> Power Manager</a>
           </div>
         </li>
         <li>
@@ -273,12 +276,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <span class="dropdown-icon iconify" data-icon="ci:caret-right-sm" style="font-size: 25px;"></span> <!-- Dropdown icon -->
           </button>
           <div class="dropdown-container">
+            <a onclick="loadContent('/tools/ad_block_test.php'); closeDropdown(); addUnderline(this)"> AdBlock Test</a>
+            <a onclick="loadContent('/tools/dns_leak_test.php'); closeDropdown(); addUnderline(this)"> DNS Leak Test</a>
             <a onclick="loadContent('/tools/smsviewer.php'); closeDropdown(); addUnderline(this)"> SMS Viewer</a>
             <a onclick="loadContent('/tools/sidompul.php'); closeDropdown(); addUnderline(this)"> Sidompul</a>
-            <a onclick="loadContent('/tools/adguard.php'); closeDropdown(); addUnderline(this)"> AdGuard</a>
             <a onclick="loadContent('/tools/ocgen/index.php'); closeDropdown(); addUnderline(this)"> Config Generator</a>
             <a onclick="loadContent('/tools/modpes.php'); closeDropdown(); addUnderline(this)"> Airplane Pilot</a>
-            <a onclick="loadContent('/tools/pingmonitor.php'); closeDropdown(); addUnderline(this)"> Ping Monitor</a>
             <a onclick="loadContent('/tools/speedtest/speedtest.php'); closeDropdown(); addUnderline(this)"> Speed Test</a>
             <a onclick="loadContent('http://<?php echo $p; ?>:3001'); closeDropdown(); addUnderline(this)"> Terminal</a>   
           </div>
@@ -290,6 +293,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </button>
           <div class="dropdown-container">
             <a onclick="loadContent('/tools/opsi_box.php'); closeDropdown(); addUnderline(this)"> BFR</a>
+            <a onclick="loadContent('/libernet/index.php'); closeDropdown(); addUnderline(this)"> Libernet Plus</a>
           </div>
         </li>
         <li>
@@ -298,11 +302,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <span class="dropdown-icon iconify" data-icon="ci:caret-right-sm" style="font-size: 25px;"></span> <!-- Dropdown icon -->
           </button>
           <div class="dropdown-container">
+            <a onclick="loadContent('/tools/vnstat.php'); closeDropdown(); addUnderline(this)">Bandwith Monitor</a>
             <a onclick="loadContent('/tools/opsi_interface.php'); closeDropdown(); addUnderline(this)">Interface</a>
+            <a onclick="loadContent('/tools/net_limiter_control.php'); closeDropdown(); addUnderline(this)">NetLimiter Control</a>
+            <a onclick="loadContent('/tools/network_monitor.php'); closeDropdown(); addUnderline(this)"> Network Monitor</a>
             <a onclick="loadContent('/tools/networktools.php'); closeDropdown(); addUnderline(this)">Network Tools</a>
-            <a onclick="loadContent('/tools/hotspot/hotspot.php'); closeDropdown(); addUnderline(this)">Wireless</a>
-            <a onclick="loadContent('/tools/vnstat.php'); closeDropdown(); addUnderline(this)">Bandwith</a>
-            <a onclick="loadContent('/tools/manage_hotspot.php'); closeDropdown(); addUnderline(this)">Hotspot manager</a>
+            <a onclick="loadContent('/tools/hotspot/hotspot.php'); closeDropdown(); addUnderline(this)">Wireless Hotspot</a>
           </div>
         </li>
         <li>
@@ -486,7 +491,7 @@ function adjustIframeHeight(iframe) {
 
   // Load "System Info" content automatically when the page loads
   window.onload = function() {
-    loadContent('/webui/monitor/index.php'); // Automatically load System Info
+    loadContent('/webui/monitor/Overview.php'); // Automatically load System Info
   }
 
   // Close dropdown if clicked outside the sidebar or dropdown

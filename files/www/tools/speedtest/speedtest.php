@@ -40,24 +40,14 @@ $localSpeedTestUrl = "./local/index.php";
             --primary-color: #FECA0A;
             --secondary-color: #FECA0A;
             --accent-color: #FECA0A;
-            --background-color: #E0E0E0;
-            --card-bg: #FFFFFF;
-            --text-color: #333333;
-            --border-radius: 12px;
-            --button-radius: 50px;
-            --shadow: 0 4px 20px rgba(0,0,0,0.08);
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-        }
-
-        body.dark-mode {
-            --primary-color: #FECA0A;
-            --secondary-color: #FECA0A;
-            --accent-color: #FECA0A;
             --background-color: #000000;
             --card-bg: #111111;
             --text-color: #F1F1F1;
-            --shadow: 0 4px 20px rgba(254, 202, 10, 0.2);
+            --border-radius: 12px;
+            --button-radius: 50px;
+            --shadow: 0 4px 20px rgba(254,202,10,0.2);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
         }
 
         body {
@@ -67,7 +57,7 @@ $localSpeedTestUrl = "./local/index.php";
             background-color: var(--background-color);
             color: var(--text-color);
             transition: var(--transition);
-            background-image: radial-gradient(circle at 10% 20%, rgba(254, 202, 10, 0.05) 0%, rgba(254, 202, 10, 0.05) 90%);
+            background-image: none;
         }
 
         .header {
@@ -442,13 +432,6 @@ $localSpeedTestUrl = "./local/index.php";
         <button class="tab" data-tab="local">SpeedTest Local</button>
         
         <div class="controls">
-            <div class="theme-switch">
-                <label class="switch">
-                    <input type="checkbox" id="dark-mode-toggle">
-                    <span class="slider"></span>
-                </label>
-                <span class="theme-icon"></span>
-            </div>
             <button id="fullscreen-btn"><span class="icon icon-fullscreen"></span> <span class="text-label">Layar Penuh</span></button>
             <button id="reload-btn" class="alternate"><span class="icon icon-reload"></span> <span class="text-label">Muat Ulang</span></button>
         </div>
@@ -530,26 +513,6 @@ $localSpeedTestUrl = "./local/index.php";
                     console.log("Tidak dapat menambahkan event listener ke iframe karena kebijakan same-origin");
                 }
             });
-        });
-
-        // Fungsi Dark Mode
-        const darkModeToggle = document.getElementById('dark-mode-toggle');
-        
-        // Periksa preferensi dark mode yang tersimpan
-        if(localStorage.getItem('darkMode') === 'enabled') {
-            document.body.classList.add('dark-mode');
-            darkModeToggle.checked = true;
-        }
-        
-        // Menambahkan event listener untuk toggle dark mode
-        darkModeToggle.addEventListener('change', function() {
-            if(this.checked) {
-                document.body.classList.add('dark-mode');
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                document.body.classList.remove('dark-mode');
-                localStorage.setItem('darkMode', 'disabled');
-            }
         });
     </script>
 </body>

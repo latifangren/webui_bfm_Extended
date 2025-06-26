@@ -32,33 +32,19 @@
         }
 
         :root {
-            --bg-color: #F1F1F1;
-            --text-color: #000000;
-            --card-bg: #ffffff;
-            --hover-color: #e0e0e0;
-            --accent-color: #FECA0A;
-            --header-height: 60px;
-        }
-        
-        body {
-            visibility: hidden;
-        }
-
-        body[data-theme="dark"] {
             --bg-color: #000000;
             --text-color: #F1F1F1;
             --card-bg: #121212;
             --hover-color: #1a1a1a;
             --accent-color: #FECA0A;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            padding-top: var(--header-height);
+            --header-height: 60px;
         }
-
-        body[data-theme="light"] {
+        
+        body {
             background-color: var(--bg-color);
             color: var(--text-color);
             padding-top: var(--header-height);
+            visibility: visible;
         }
 
         .header {
@@ -242,12 +228,9 @@
         }
     </style>
 </head>
-<body <?php echo isset($_COOKIE['theme']) && $_COOKIE['theme'] === 'dark' ? 'data-theme="dark"' : ''; ?>>
+<body data-theme="dark">
     <header class="header">
         <div class="logo">Airplane BOX UI</div>
-        <button id="theme-toggle" class="theme-toggle">
-            <i class="material-icons theme-icon" id="theme-icon">dark_mode</i>
-        </button>
     </header>
 
     <div class="container">
@@ -435,66 +418,5 @@
     </div>
 
     <script src="../webui/js/materialize.min.js"></script>
-    <script>
-        // Menentukan tema berdasarkan preferensi pengguna
-        const getCookie = (name) => {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(';').shift();
-            return null;
-        };
-
-        // Set cookie untuk tema
-        const setCookie = (name, value, days) => {
-            const date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
-        };
-
-        // Fungsi untuk mengalihkan tema
-        const toggleTheme = () => {
-            const currentTheme = document.body.getAttribute('data-theme') || 'light';
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            document.body.setAttribute('data-theme', newTheme);
-            updateThemeIcon(newTheme);
-            setCookie('theme', newTheme, 365);
-        };
-
-        // Perbarui ikon tema
-        const updateThemeIcon = (theme) => {
-            const themeIcon = document.getElementById('theme-icon');
-            themeIcon.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
-        };
-
-        // Set tema awal berdasarkan cookie atau preferensi sistem
-        const savedTheme = getCookie('theme');
-        const userPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        let currentTheme;
-        if (savedTheme) {
-            currentTheme = savedTheme;
-        } else {
-            currentTheme = userPrefersDark ? 'dark' : 'light';
-        }
-        
-        document.body.setAttribute('data-theme', currentTheme);
-        updateThemeIcon(currentTheme);
-
-        // Setelah tema diterapkan, tampilkan konten
-        document.body.style.visibility = 'visible';
-
-        // Tambahkan event listener untuk tombol toggle tema
-        document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
-
-        // Menangani perubahan preferensi tema sistem
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-            if (!getCookie('theme')) {
-                const newTheme = e.matches ? 'dark' : 'light';
-                document.body.setAttribute('data-theme', newTheme);
-                updateThemeIcon(newTheme);
-            }
-        });
-    </script>
 </body>
 </html>

@@ -335,6 +335,52 @@ if (LOGIN_ENABLED && !isset($_SESSION['user_id'])) {
 
             <div class="version">
                 <div class="version-header">
+                    <span class="version-number">Version 2.1.1 (Extended)</span>
+                    <span class="version-date">26 Juni 2025</span>
+                </div>
+                <div class="change-type">🚀 Fitur Baru</div>
+                <ul class="change-list">
+                    <li class="change-item">
+                        <span class="tag tag-new">NEW</span>
+                        Penambahan fitur dns leak test
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-new">NEW</span>
+                        Integrasi monitoring cpu, ram, battery dan storage secara realtime
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-new">NEW</span>
+                        Penambahan fitur adblock test
+                     </li>
+                    <li class="change-item">
+                        <span class="tag tag-new">NEW</span>
+                        Penambahan fitur Libernet Plus
+                    </li>
+                </ul>
+
+                <div class="change-type">🛠️ Perbaikan & Peningkatan</div>
+                <ul class="change-list">
+                    <li class="change-item">
+                        <span class="tag tag-improvement">IMPROVEMENT</span>
+                        Optimalisasi kecepatan loading halaman utama WebUI
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-improvement">IMPROVEMENT</span>
+                        Perubahan dashboard overview menjadi lebih simple dan ringan
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-fix">FIX</span>
+                        Perbaikan bug pada fitur auto APN switch di menu network monitor
+                    </li>
+                    <li class="change-item">
+                        <span class="tag tag-fix">FIX</span>
+                        Perbaikan tampilan pada mode gelap di beberapa halaman
+                    </li>
+                </ul>
+            </div>
+
+            <div class="version">
+                <div class="version-header">
                     <span class="version-number">Version 2.0.0 (Extended)</span>
                     <span class="version-date">18 Maret 2025</span>
                 </div>
@@ -652,7 +698,16 @@ if (LOGIN_ENABLED && !isset($_SESSION['user_id'])) {
                     <h3>💝 Special Thanks</h3>
                     <div class="credits-list">
                         <div class="credits-item">
-                            <p style="margin: 0; color: #525f7f;">Terima kasih kepada seluruh pengguna dan pendukung yang telah berkontribusi dalam pengembangan proyek ini.</p>
+                            <p style="margin: 0; color: #525f7f;">Terima kasih kepada seluruh pengguna dan pendukung yang telah berkontribusi dalam pengembangan proyek ini dan credit inspirasi fitur fitur lain yang tidak bisa saya sebut 1 per 1
+                        </div>
+                        <div class="credits-item">
+                            <a href="https://t.me/On_Progressss" target="_blank" style="color: #0088cc;">Sogek1ng__</a>
+                        </div>
+                        <div class="credits-item">
+                            <a href="https://t.me/liqui001" target="_blank" style="color: #0088cc;">0xNemesis</a>
+                        </div>
+                        <div class="credits-item">
+                            <a href="https://t.me/qyubisanz14" target="_blank" style="color: #0088cc;">Qyubisanz14™</a>
                         </div>
                     </div>
                 </div>
