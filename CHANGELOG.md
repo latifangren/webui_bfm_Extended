@@ -1,5 +1,19 @@
 # Riwayat Perubahan (Changelog)
 
+## [2.1.1-Extended] - 2025-06-26
+
+### 🚀 Fitur Baru
+- Penambahan fitur dns leak test
+- Integrasi monitoring cpu, ram, battery dan storage secara realtime
+- Penambahan fitur adblock test
+- Penambahan fitur Libernet Plus
+
+### 🛠️ Perbaikan & Peningkatan
+- Optimalisasi kecepatan loading halaman utama WebUI
+- Perubahan dashboard overview menjadi lebih simple dan ringan
+- Perbaikan bug pada fitur auto APN switch di menu network monitor
+- Perbaikan tampilan pada mode gelap di beberapa halaman
+
 ## [2.0.0-Extended] - 2025-03-18
 
 ### 🚀 Fitur Baru
