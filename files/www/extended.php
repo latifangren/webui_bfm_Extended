@@ -276,6 +276,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <span class="dropdown-icon iconify" data-icon="ci:caret-right-sm" style="font-size: 25px;"></span> <!-- Dropdown icon -->
           </button>
           <div class="dropdown-container">
+            <a onclick="loadContent('/tools/adb_tools.php'); closeDropdown(); addUnderline(this)">ADB Tools Android</a>
             <a onclick="loadContent('/tools/ad_block_test.php'); closeDropdown(); addUnderline(this)"> AdBlock Test</a>
             <a onclick="loadContent('/tools/dns_leak_test.php'); closeDropdown(); addUnderline(this)"> DNS Leak Test</a>
             <a onclick="loadContent('/tools/smsviewer.php'); closeDropdown(); addUnderline(this)"> SMS Viewer</a>
