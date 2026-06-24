@@ -95,18 +95,23 @@ class AuthService
 
     /**
      * Change password (hashes and saves).
+     * Optionally update username — keeps existing if not provided.
      */
-    public static function changePassword(string $newPassword): bool
+    public static function changePassword(string $newPassword, string $newUsername = null): bool
     {
+        $creds = self::loadCredentials();
+        $username = $newUsername ?? $creds['username'];
+
         $hash = password_hash($newPassword, PASSWORD_BCRYPT);
         $configPath = dirname(__DIR__, 2) . '/auth/credentials.php';
+        $username_esc = addslashes($username);
         $content = '<?php
 if (basename(__FILE__) == basename($_SERVER[\'PHP_SELF\'])) {
     header(\'Location: /\');
     exit;
 }
 return [
-    \'username\' => \'admin\',
+    \'username\' => \'' . $username_esc . '\',
     \'hashed_password\' => \'' . $hash . '\',
 ];
 ';

@@ -11,13 +11,7 @@ $form_keys = BoxService::formKeys();
 $dropdown_keys = BoxService::dropdownKeys();
 $ini_path = BoxService::settingsPath();
 
-$save_msg = '';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
-    $result = BoxService::saveSettings($_POST);
-    $save_msg = $result;
-    $settings = BoxService::parseSettings();
-}
+$save_msg = isset($_GET['msg']) ? html_entity_decode($_GET['msg']) : '';
 ?>
 <div class="container">
     <div class="header">
@@ -29,12 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 
     <?php if ($save_msg): ?>
     <div style="padding:12px 16px;margin-bottom:15px;border-radius:8px;background:rgba(76,175,80,0.15);color:#4CAF50;border:1px solid rgba(76,175,80,0.3);font-size:13px;">
-        <i class="fas fa-check-circle"></i> <?= $save_msg ?>
+        <i class="fas fa-check-circle"></i> <?= boxui_e($save_msg) ?>
     </div>
     <?php endif; ?>
 
     <div style="background:var(--bg-secondary,#1a1a1a);border-radius:12px;padding:20px;border:1px solid var(--border,#333);">
-        <form method="POST">
+        <form method="POST" action="/tools/box_settings_handler.php">
             <input type="hidden" name="type_comment" value="comment">
 
             <!-- Toggle (bool) settings -->
@@ -42,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
             <?php $val = isset($settings[$key]) ? $settings[$key] : 'false'; ?>
             <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #222;">
                 <div>
-                    <span style="font-size:13px;color:#ddd;"><?= htmlspecialchars($key) ?></span>
+                    <span style="font-size:13px;color:#ddd;"><?= boxui_e($key) ?></span>
                 </div>
                 <label style="position:relative;display:inline-block;width:44px;height:24px;">
                     <input type="hidden" name="type_<?= $key ?>" value="bool">
@@ -60,11 +54,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
             <?php foreach ($dropdown_keys as $key => $options): ?>
             <?php $val = $settings[$key] ?? $options[0]; ?>
             <div style="padding:10px 0;border-bottom:1px solid #222;">
-                <label style="display:block;font-size:12px;color:#888;margin-bottom:4px;"><?= htmlspecialchars($key) ?></label>
+                <label style="display:block;font-size:12px;color:#888;margin-bottom:4px;"><?= boxui_e($key) ?></label>
                 <input type="hidden" name="type_<?= $key ?>" value="dropdown">
                 <select name="<?= $key ?>" style="width:100%;padding:8px;border-radius:6px;border:1px solid var(--border,#333);background:var(--bg-primary,#0d0d0d);color:#fff;font-size:13px;">
                     <?php foreach ($options as $opt): ?>
-                    <option value="<?= htmlspecialchars($opt) ?>" <?= $val === $opt ? 'selected' : '' ?>><?= htmlspecialchars($opt) ?></option>
+                    <option value="<?= boxui_e($opt) ?>" <?= $val === $opt ? 'selected' : '' ?>><?= boxui_e($opt) ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -74,9 +68,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
             <?php foreach ($form_keys as $key): ?>
             <?php $val = $settings[$key] ?? ''; ?>
             <div style="padding:10px 0;border-bottom:1px solid #222;">
-                <label style="display:block;font-size:12px;color:#888;margin-bottom:4px;"><?= htmlspecialchars($key) ?></label>
+                <label style="display:block;font-size:12px;color:#888;margin-bottom:4px;"><?= boxui_e($key) ?></label>
                 <input type="hidden" name="type_<?= $key ?>" value="form">
-                <input type="text" name="<?= $key ?>" value="<?= htmlspecialchars($val) ?>"
+                <input type="text" name="<?= $key ?>" value="<?= boxui_e($val) ?>"
                        style="width:100%;padding:8px;border-radius:6px;border:1px solid var(--border,#333);background:var(--bg-primary,#0d0d0d);color:#fff;font-size:13px;">
             </div>
             <?php endforeach; ?>

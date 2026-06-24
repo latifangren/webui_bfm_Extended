@@ -7,20 +7,6 @@ use BoxUI\Features\Box\BoxService;
 
 $status = BoxService::status();
 $logs = BoxService::getLogs(50);
-
-// Handle POST actions via AJAX
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
-    $action = $_POST['action'];
-    $result = '';
-    switch ($action) {
-        case 'start': $result = BoxService::start(); break;
-        case 'stop': $result = BoxService::stop(); break;
-        case 'restart': $result = BoxService::restart(); break;
-    }
-    header('Content-Type: text/plain');
-    echo "OK: {$action}";
-    exit;
-}
 ?>
 <div class="container">
     <div class="header">
@@ -77,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         btns.forEach(b => b.disabled = true);
 
         try {
-            const r = await fetch('', { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:'action='+action });
+            const r = await fetch('/tools/box_exec_handler.php', { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:'action='+action });
             if (r.ok) setTimeout(() => location.reload(), 1500);
         } catch(e) {
             console.error(e);

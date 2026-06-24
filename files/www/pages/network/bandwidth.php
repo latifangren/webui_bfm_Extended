@@ -9,20 +9,6 @@ $available = NetworkService::vnstatAvailable();
 $daily = $available ? NetworkService::vnstatDaily() : '';
 $monthly = $available ? NetworkService::vnstatMonthly() : '';
 $top = $available ? NetworkService::vnstatTop() : '';
-
-// Handle POST actions here via AJAX
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['reset_vnstat'])) {
-        NetworkService::vnstatReset();
-        echo '<meta http-equiv="refresh" content="0">';
-        exit;
-    }
-    if (isset($_POST['start_vnstat'])) {
-        NetworkService::vnstatStart();
-        echo '<meta http-equiv="refresh" content="2">';
-        exit;
-    }
-}
 ?>
 <div class="container">
     <div class="header">
@@ -36,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div style="background:var(--bg-secondary,#1a1a1a);border-radius:12px;padding:20px;border:1px solid var(--border,#333);text-align:center;">
         <p style="color:#ff9800;font-size:15px;margin-bottom:15px;">vnStat tidak terinstall</p>
         <p style="font-size:13px;color:#888;margin-bottom:20px;">Install vnStat via Termux:<br><code style="background:#111;padding:4px 8px;border-radius:4px;">pkg install vnstat</code></p>
-        <form method="POST">
+        <form method="POST" action="/tools/bandwidth_handler.php">
             <button type="submit" name="start_vnstat"
                     style="padding:10px 20px;border:none;border-radius:8px;background:var(--accent,#FECA0A);color:#000;font-weight:600;cursor:pointer;">
                 Start vnStat Service
@@ -45,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     <?php else: ?>
     <div style="display:flex;gap:10px;margin-bottom:15px;flex-wrap:wrap;">
-        <form method="POST" style="display:inline;" onsubmit="return confirm('Reset all vnStat data?')">
+        <form method="POST" action="/tools/bandwidth_handler.php" style="display:inline;" onsubmit="return confirm('Reset all vnStat data?')">
             <button type="submit" name="reset_vnstat"
                     style="padding:8px 16px;border:none;border-radius:6px;background:#d32f2f;color:#fff;font-size:12px;cursor:pointer;">
                 Reset Data

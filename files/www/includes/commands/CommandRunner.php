@@ -14,10 +14,12 @@ class CommandRunner
 {
     /**
      * Run a shell command via su (root) and return output.
+     * Uses escapeshellarg() to prevent shell injection — safe for
+     * arbitrary command strings containing quotes or special chars.
      */
     public static function su(string $command): string
     {
-        return shell_exec("su -c '" . static::escape($command) . "'") ?? '';
+        return shell_exec("su -c " . escapeshellarg($command)) ?? '';
     }
 
     /**
@@ -45,7 +47,7 @@ class CommandRunner
     {
         $output = [];
         $exit_code = 0;
-        exec("su -c '" . static::escape($command) . "' 2>&1", $output, $exit_code);
+        exec("su -c " . escapeshellarg($command) . " 2>&1", $output, $exit_code);
         return ['output' => $output, 'exit_code' => $exit_code];
     }
 
@@ -190,11 +192,6 @@ class CommandRunner
     }
 
     // ── Private Helpers ───────────────────────────────────
-
-    private static function escape(string $command): string
-    {
-        return addslashes($command);
-    }
 
     /**
      * Sanitize hostname/IP for ping — only allow safe chars.

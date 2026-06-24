@@ -12,13 +12,16 @@ AuthService::requireAuth();
 $message = '';
 $error = '';
 
+$creds = require __DIR__ . '/credentials.php';
+$current_username = $creds['username'] ?? 'admin';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $current = $_POST['current_password'] ?? '';
     $new = $_POST['new_password'] ?? '';
     $confirm = $_POST['confirm_password'] ?? '';
+    $new_username = $_POST['new_username'] ?? $current_username;
 
     // Verify current password
-    $creds = require __DIR__ . '/credentials.php';
     if (!password_verify($current, $creds['hashed_password'])) {
         $error = 'Password saat ini tidak sesuai.';
     } elseif (strlen($new) < 4) {
@@ -26,7 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($new !== $confirm) {
         $error = 'Konfirmasi password tidak cocok.';
     } else {
-        AuthService::changePassword($new);
+        AuthService::changePassword($new, $new_username);
+        $current_username = $new_username;
         $message = 'Password berhasil diubah!';
     }
 }
@@ -54,10 +58,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <div class="card">
-        <h1>🔑 Ganti Password</h1>
-        <?php if ($message): ?><div class="msg success"><?= htmlspecialchars($message) ?></div><?php endif; ?>
-        <?php if ($error): ?><div class="msg error"><?= htmlspecialchars($error) ?></div><?php endif; ?>
+        <h1>&#128273; Ganti Password</h1>
+        <?php if ($message): ?><div class="msg success"><?= boxui_e($message) ?></div><?php endif; ?>
+        <?php if ($error): ?><div class="msg error"><?= boxui_e($error) ?></div><?php endif; ?>
         <form method="POST">
+            <div class="field">
+                <label for="new_username">Username</label>
+                <input type="text" id="new_username" name="new_username" value="<?= boxui_e($current_username) ?>" required>
+            </div>
             <div class="field">
                 <label for="current_password">Password Saat Ini</label>
                 <input type="password" id="current_password" name="current_password" required>

@@ -88,8 +88,8 @@ class ServicesService
     public static function getSmsMessages(int $limit = 20): array
     {
         $cmd = '/data/data/com.termux/files/home/go/bin/sms';
-        $output = [];
-        exec("su -c \"{$cmd}\"", $output);
+        $result = CommandRunner::su_exec($cmd);
+        $output = $result['output'];
         $messages = [];
 
         foreach ($output as $line) {
@@ -121,11 +121,15 @@ class ServicesService
 
     public static function sidompulEndpoints(): array
     {
-        return [
+        $configPath = __DIR__ . '/../../config/services.php';
+        $config = file_exists($configPath) ? require $configPath : [];
+        $sidompul = $config['sidompul'] ?? [];
+
+        return array_merge([
             'url' => 'https://apigw.kmsp-store.com/sidompul/v3/cek_kuota',
-            'api_key' => '4352ff7d-f4e6-48c6-89dd-21c811621b1c',
+            'api_key' => '',
             'description' => 'Telco balance check via Sidompul API',
-        ];
+        ], $sidompul);
     }
 
     // ── About ─────────────────────────────────────────────
