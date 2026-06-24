@@ -67,8 +67,11 @@ class AuthService
     {
         $creds = self::loadCredentials();
         if ($username === $creds['username'] && password_verify($password, $creds['hashed_password'])) {
+            session_regenerate_id(true); // Prevent session fixation
             $_SESSION['user_id'] = session_id();
             $_SESSION['username'] = $username;
+            $_SESSION['login_time'] = time();
+            $_SESSION['last_activity'] = time();
             return true;
         }
         return false;

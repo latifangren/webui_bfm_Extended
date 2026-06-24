@@ -27,8 +27,15 @@ if (AuthService::isAuthenticated()) {
     exit;
 }
 
-// Handle login POST
+// Check for expired session
 $error = '';
+if (isset($_GET['expired'])) {
+    $error = 'Sesi telah berakhir. Silakan login kembali.';
+} elseif (isset($_GET['loggedout'])) {
+    $error = 'Anda telah berhasil logout.';
+}
+
+// Handle login POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';

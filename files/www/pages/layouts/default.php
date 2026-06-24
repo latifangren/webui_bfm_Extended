@@ -84,7 +84,7 @@ use BoxUI\Module\ModuleRegistry;
   <!-- Overlay -->
   <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
 
-  <!-- Loading Spinner -->
+    <!-- Loading Spinner -->
   <div id="loading" class="loading-spinner" style="display:none;">
     <svg width="50" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <style>.spinner_9y7u{animation:spinner_fUkk 2.4s linear infinite;animation-delay:-2.4s;fill:var(--accent,#FECA0A)}.spinner_9y7u:nth-child(2n){animation-delay:-2.14s}.spinner_9y7u:nth-child(3n){animation-delay:-1.88s}.spinner_9y7u:nth-child(4n){animation-delay:-1.62s}.spinner_9y7u:nth-child(5n){animation-delay:-1.36s}.spinner_9y7u:nth-child(6n){animation-delay:-1.1s}.spinner_9y7u:nth-child(7n){animation-delay:-.84s}.spinner_9y7u:nth-child(8n){animation-delay:-.58s}.spinner_9y7u:nth-child(9n){animation-delay:-.32s}.spinner_9y7u:nth-child(10n){animation-delay:-.06s}@keyframes spinner_fUkk{0%,60%,100%{opacity:0}10%{opacity:1}}</style>
@@ -109,56 +109,103 @@ use BoxUI\Module\ModuleRegistry;
       <rect class="spinner_9y7u" x="11.5" y="11.5" rx="1" width="3" height="3"/>
       <rect class="spinner_9y7u" x="15" y="11.5" rx="1" width="3" height="3"/>
     </svg>
+    <p id="loading-text" style="margin-top:12px;color:var(--accent,#FECA0A);font-size:14px;">Memuat...</p>
+  </div>
+
+  <!-- Error fallback (hidden by default) -->
+  <div id="load-error" style="display:none;padding:40px;text-align:center;">
+    <p style="font-size:1.2rem;color:var(--accent,#FECA0A);">Gagal memuat halaman</p>
+    <p style="font-size:0.9rem;color:#888;margin-top:8px;" id="load-error-detail"></p>
+    <button onclick="location.reload()" style="margin-top:16px;padding:8px 20px;background:var(--accent,#FECA0A);color:#000;border:none;border-radius:6px;cursor:pointer;">Coba Lagi</button>
   </div>
 
   <script>
     const host = '<?= boxui_host() ?>';
+    let loadingTimer = null;
+    let minDisplayTimer = null;
 
     function toggleSidebar() {
       document.getElementById('sidebar').classList.toggle('active');
       document.getElementById('overlay').classList.toggle('active');
     }
 
+    function showLoading() {
+      const loading = document.getElementById('loading');
+      const err = document.getElementById('load-error');
+      loading.style.display = 'flex';
+      err.style.display = 'none';
+      document.getElementById('loading-text').textContent = 'Memuat...';
+
+      // Loading timeout (10s)
+      clearTimeout(loadingTimer);
+      loadingTimer = setTimeout(function() {
+        if (loading.style.display !== 'none') {
+          document.getElementById('loading-text').textContent = 'Memuat... (terlambat)';
+        }
+      }, 10000);
+    }
+
+    function hideLoading() {
+      clearTimeout(loadingTimer);
+      // Minimum 300ms display to prevent flash
+      clearTimeout(minDisplayTimer);
+      minDisplayTimer = setTimeout(function() {
+        document.getElementById('loading').style.display = 'none';
+      }, 300);
+    }
+
+    function showError(msg) {
+      clearTimeout(loadingTimer);
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('load-error').style.display = 'block';
+      document.getElementById('load-error-detail').textContent = msg || '';
+    }
+
     function loadContent(url) {
       const loading = document.getElementById('loading');
       const content = document.getElementById('content');
-      loading.style.display = 'flex';
+      const err = document.getElementById('load-error');
+      showLoading();
       content.innerHTML = '';
+      err.style.display = 'none';
 
-      // Check if it's an SPA (need iframe)
-      if (url.endsWith('.html') || url.includes('zashboard') || url.includes('libernet')) {
-        const iframe = document.createElement('iframe');
-        iframe.src = url;
-        iframe.style.width = '100%';
-        iframe.style.minHeight = '110vh';
-        iframe.style.border = 'none';
-        iframe.onload = function() {
-          loading.style.display = 'none';
-          // Adjust iframe height
-          try {
-            const h = iframe.contentWindow.document.body.scrollHeight;
-            iframe.style.height = Math.max(h, 1100) + 'px';
-          } catch(e) {}
-        };
-        content.appendChild(iframe);
-      } else {
-        // Load via fetch
-        fetch(url)
-          .then(r => r.text())
-          .then(html => {
-            content.innerHTML = html;
-            loading.style.display = 'none';
-          })
-          .catch(() => {
-            content.innerHTML = '<p style="color:red;padding:20px;">Gagal memuat konten.</p>';
-            loading.style.display = 'none';
-          });
-      }
+      // Same-origin pages: load via fetch
+      fetch(url)
+        .then(function(r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status + ': ' + r.statusText);
+          return r.text();
+        })
+        .then(function(html) {
+          content.innerHTML = html;
+          hideLoading();
+        })
+        .catch(function(e) {
+          content.innerHTML = '';
+          showError(e.message || 'Gagal memuat konten.');
+        });
 
       if (window.innerWidth <= 768) {
         toggleSidebar();
       }
     }
+
+    /**
+     * postMessage listener for iframe child height reports.
+     * Child frames send: parent.postMessage({iframeHeight: N}, '*')
+     */
+    window.addEventListener('message', function(e) {
+      if (e.data && typeof e.data.iframeHeight === 'number') {
+        var iframes = document.querySelectorAll('#content iframe');
+        for (var i = 0; i < iframes.length; i++) {
+          try {
+            if (iframes[i].contentWindow === e.source) {
+              iframes[i].style.height = Math.max(e.data.iframeHeight, 400) + 'px';
+              break;
+            }
+          } catch(ex) {}
+        }
+      }
+    });
 
     function refreshContent() {
       const url = document.querySelector('#sidebar a.active')?.getAttribute('href') || '/webui/monitor/Overview.php';

@@ -38,7 +38,21 @@ switch (true) {
 
     // Default: let PHP built-in server handle (serve static files)
     default:
-        return false;
+        $filePath = __DIR__ . $uri;
+        $ext = pathinfo($uri, PATHINFO_EXTENSION);
+        // If it's a real file, serve it directly
+        if (file_exists($filePath) && is_file($filePath)) {
+            return false;
+        }
+        // If it's a directory index, serve it
+        if (is_dir($filePath) && file_exists($filePath . '/index.php')) {
+            require $filePath . '/index.php';
+            return true;
+        }
+        // 404 — show branded page
+        http_response_code(404);
+        require __DIR__ . '/pages/error/404.php';
+        return true;
 }
 
 return false;

@@ -338,6 +338,22 @@ iframe {
   color: #FECA0A;
 }
 
+/* Loading spinner (SPA layout) */
+.loading-spinner {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 30px;
+  border-radius: 16px;
+}
+
 /* Dark mode styles (for browsers that support dark mode preference) */
 @media (prefers-color-scheme: dark) {
   body, html {
