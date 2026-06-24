@@ -1,26 +1,35 @@
 <?php
-// Mengambil file JSON
-$jsonFilePath = 'select_theme/theme.json';
-$jsonData = file_get_contents($jsonFilePath);
+/**
+ * BOX UI Extended — Entry Point
+ * 
+ * Loads bootstrap, checks auth, renders SPA shell.
+ * Theme selection via select_theme/theme.json.
+ */
+require_once __DIR__ . '/includes/bootstrap.php';
 
-// Mengecek apakah file JSON berhasil dibaca
-if ($jsonData === false) {
-    die('Error membaca file JSON');
+use BoxUI\Auth\AuthService;
+use BoxUI\Module\ModuleRegistry;
+
+AuthService::init();
+AuthService::requireAuth();
+
+// Theme loader (backward compat for old custom themes)
+$themeJson = boxui_theme_json_path();
+if (file_exists($themeJson)) {
+    $themeData = boxui_json_read($themeJson);
+    $themePath = $themeData['path'] ?? '';
+
+    // Old theme system (user has a custom theme file)
+    if ($themePath !== '' && $themePath !== 'extended') {
+        $themeFile = __DIR__ . '/' . $themePath . '.php';
+        if (file_exists($themeFile)) {
+            require $themeFile;
+            exit;
+        }
+    }
 }
 
-// Decode JSON menjadi array
-$data = json_decode($jsonData, true);
-
-// Mengecek apakah ada kesalahan dalam decoding JSON
-if ($data === null) {
-    die('Error decoding JSON');
-}
-
-// Cek nilai path di dalam JSON
-$path = isset($data['path']) ? $data['path'] : 'default';
-
-// Tentukan file PHP yang akan di-include berdasarkan nilai path
-if ($path === 'extended') {
-    include('extended.php');
-}
-?>
+// Default: use new SPA layout (no config needed)
+$title = 'BOX UI Extended';
+$content = '';
+require __DIR__ . '/pages/layouts/default.php';

@@ -241,7 +241,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </button>
           <div class="dropdown-container">
             <a onclick="loadContent('http://<?php echo $host; ?>:9090/ui/?hostname=<?php echo $host; ?>&port=9090'); closeDropdown(); addUnderline(this)">Default</a>
-            <a onclick="loadContent('http://<?php echo $host; ?>/zashboard/ui#/setup?hostname=<?php echo $host; ?>&port=9090'); closeDropdown(); addUnderline(this)">Zashboard</a>
           </div>
         </li>
         <li>
@@ -294,7 +293,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </button>
           <div class="dropdown-container">
             <a onclick="loadContent('/tools/opsi_box.php'); closeDropdown(); addUnderline(this)"> BFR</a>
-            <a onclick="loadContent('/libernet/index.php'); closeDropdown(); addUnderline(this)"> Libernet Plus</a>
           </div>
         </li>
         <li>
