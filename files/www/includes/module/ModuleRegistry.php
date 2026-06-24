@@ -94,13 +94,13 @@ class ModuleRegistry
             'name' => 'Config Generator',
             'category' => 'clash',
             'icon' => 'fas fa-cogs',
-            'route' => '/tools/ocgen/index.php',
+            'route' => '/pages/clash/ocgen.php',
         ]);
         self::register('box_settings', [
             'name' => 'BOX Settings',
             'category' => 'clash',
             'icon' => 'fas fa-box',
-            'route' => '/tools/bfr/boxsettings.php',
+            'route' => '/pages/box/settings.php',
         ]);
 
         // ── Status ─────────────────────────────────────────
@@ -163,9 +163,9 @@ class ModuleRegistry
             'category' => 'box',
             'risk' => 'system',
             'icon' => 'fas fa-play-circle',
-            'route' => '/tools/bfr/executed.php',
+            'route' => '/pages/box/executed.php',
         ]);
-
+        
         // ── Network ────────────────────────────────────────
         self::register('network_monitor', [
             'name' => 'Network Monitor',
