@@ -13,28 +13,23 @@ use BoxUI\Module\ModuleRegistry;
 AuthService::init();
 AuthService::requireAuth();
 
-// Theme loader (backward compat)
+// Theme loader (backward compat for old custom themes)
 $themeJson = boxui_theme_json_path();
 if (file_exists($themeJson)) {
     $themeData = boxui_json_read($themeJson);
-    $themePath = $themeData['path'] ?? 'default';
+    $themePath = $themeData['path'] ?? '';
 
-    // If theme is 'extended', use our new layout instead of extended.php
-    if ($themePath === 'extended') {
-        // Load via new layout system
-        $title = 'BOX UI Extended';
-        $content = ''; // Will be loaded via JS
-        require __DIR__ . '/pages/layouts/default.php';
-        exit;
-    }
-
-    // Fallback: old theme system
-    $themeFile = __DIR__ . '/' . $themePath . '.php';
-    if (file_exists($themeFile)) {
-        require $themeFile;
-        exit;
+    // Old theme system (user has a custom theme file)
+    if ($themePath !== '' && $themePath !== 'extended') {
+        $themeFile = __DIR__ . '/' . $themePath . '.php';
+        if (file_exists($themeFile)) {
+            require $themeFile;
+            exit;
+        }
     }
 }
 
-// Ultimate fallback — old extended.php
-require __DIR__ . '/extended.php';
+// Default: use new SPA layout (no config needed)
+$title = 'BOX UI Extended';
+$content = '';
+require __DIR__ . '/pages/layouts/default.php';
