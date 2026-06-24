@@ -67,7 +67,7 @@ Fitur tambahan dan integrasi third-party.
 
 ---
 
-## Phase 4: Polish & Optimization (Current)
+## Phase 4: Polish & Optimization (Complete)
 
 Optimasi performa, UI polish, bug fixes.
 
@@ -78,12 +78,10 @@ Optimasi performa, UI polish, bug fixes.
 - [x] Mobile responsive fixes.
 - [x] Theme simplifikasi (remove Akun menu).
 - [x] AMOLED-friendly dark default.
-
-### In Progress
-- [ ] Perbaikan iframe height/resize.
-- [ ] Optimasi PHP session handling.
-- [ ] Error page yang lebih informatif.
-- [ ] Loading state improvements.
+- [x] Perbaikan iframe height/resize (postMessage, timeout 10s).
+- [x] Optimasi PHP session handling (HttpOnly, SameSite, idle timeout).
+- [x] Error page yang lebih informatif (404/500 branded).
+- [x] Loading state improvements (min display, timeout indicator, error fallback).
 
 ---
 
