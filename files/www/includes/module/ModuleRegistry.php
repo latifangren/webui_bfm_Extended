@@ -88,7 +88,7 @@ class ModuleRegistry
             'name' => 'Dashboard Clash',
             'category' => 'clash',
             'icon' => 'fas fa-tachometer-alt',
-            'route' => '/webui/monitor/Overview.php',
+            'route' => '/pages/monitor/index.php',
         ]);
         self::register('config_generator', [
             'name' => 'Config Generator',
@@ -108,31 +108,31 @@ class ModuleRegistry
             'name' => 'System Info',
             'category' => 'status',
             'icon' => 'fas fa-info-circle',
-            'route' => '/webui/monitor/Overview.php',
+            'route' => '/pages/monitor/index.php',
         ]);
         self::register('cpu_monitor', [
             'name' => 'CPU Monitor',
             'category' => 'status',
             'icon' => 'fas fa-microchip',
-            'route' => '/webui/monitor/CpuMonitor.php',
+            'route' => '/pages/monitor/cpu.php',
         ]);
         self::register('ram_monitor', [
             'name' => 'RAM Monitor',
             'category' => 'status',
             'icon' => 'fas fa-memory',
-            'route' => '/webui/monitor/RamMonitor.php',
+            'route' => '/pages/monitor/ram.php',
         ]);
         self::register('battery_monitor', [
             'name' => 'Battery Monitor',
             'category' => 'status',
             'icon' => 'fas fa-battery-three-quarters',
-            'route' => '/webui/monitor/BatteryMonitor.php',
+            'route' => '/pages/monitor/battery.php',
         ]);
         self::register('storage_monitor', [
             'name' => 'Storage Monitor',
             'category' => 'status',
             'icon' => 'fas fa-hdd',
-            'route' => '/webui/monitor/StorageMonitor.php',
+            'route' => '/pages/monitor/storage.php',
         ]);
 
         // ── System ─────────────────────────────────────────
@@ -141,13 +141,13 @@ class ModuleRegistry
             'category' => 'system',
             'risk' => 'danger',
             'icon' => 'fas fa-power-off',
-            'route' => '/tools/powermanager.php',
+            'route' => '/pages/system/power.php',
         ]);
         self::register('logs', [
             'name' => 'Logs',
             'category' => 'system',
             'icon' => 'fas fa-clipboard-list',
-            'route' => '/tools/logs.php',
+            'route' => '/pages/system/logs.php',
         ]);
 
         // ── Box ────────────────────────────────────────────
@@ -156,7 +156,7 @@ class ModuleRegistry
             'category' => 'box',
             'risk' => 'system',
             'icon' => 'fas fa-server',
-            'route' => '/tools/box_manager.php',
+            'route' => '/pages/box/index.php',
         ]);
         self::register('box_exec', [
             'name' => 'BOX Execution',
@@ -237,19 +237,19 @@ class ModuleRegistry
             'name' => 'ADB Tools',
             'category' => 'services',
             'icon' => 'fas fa-laptop',
-            'route' => '/tools/adb_tools.php',
+            'route' => '/pages/services/adb.php',
         ]);
         self::register('sms_viewer', [
             'name' => 'SMS Viewer',
             'category' => 'services',
             'icon' => 'fas fa-sms',
-            'route' => '/tools/smsviewer.php',
+            'route' => '/pages/services/sms.php',
         ]);
         self::register('sidompul', [
             'name' => 'Sidompul',
             'category' => 'services',
             'icon' => 'fas fa-credit-card',
-            'route' => '/tools/sidompul.php',
+            'route' => '/pages/services/sidompul.php',
         ]);
     }
 
