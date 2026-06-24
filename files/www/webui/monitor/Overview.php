@@ -441,7 +441,7 @@ function getSignalLevel($level) {
       <!-- Network Usage Card -->
     <div class="show hidden" id="network-card">
     <div class="network-card">
-      <div class="card-header" onclick="window.location.href='/tools/vnstat.php'">
+      <div class="card-header" onclick="window.location.href='/pages/network/bandwidth.php'">
         <iconify-icon icon="mdi:network"></iconify-icon>
         <h3>Network Usage</h3>
       </div>
