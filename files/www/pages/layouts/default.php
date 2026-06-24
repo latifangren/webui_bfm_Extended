@@ -208,13 +208,13 @@ use BoxUI\Module\ModuleRegistry;
     });
 
     function refreshContent() {
-      const url = document.querySelector('#sidebar a.active')?.getAttribute('href') || '/webui/monitor/Overview.php';
+      const url = document.querySelector('#sidebar a.active')?.getAttribute('href') || '/pages/monitor/index.php';
       loadContent(url);
     }
 
     document.addEventListener('DOMContentLoaded', function() {
       // Load default content
-      loadContent('/webui/monitor/Overview.php');
+      loadContent('/pages/monitor/index.php');
     });
   </script>
 </body>

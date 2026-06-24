@@ -249,11 +249,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <span class="dropdown-icon iconify" data-icon="ci:caret-right-sm" style="font-size: 25px;"></span> <!-- Dropdown icon -->
           </button>
           <div class="dropdown-container">
-            <a onclick="loadContent('/webui/monitor/Overview.php'); closeDropdown(); addUnderline(this)">Overview</a>
-			<a onclick="loadContent('/webui/monitor/CpuMonitor.php'); closeDropdown(); addUnderline(this)">Cpu Monitor</a>
-      <a onclick="loadContent('/webui/monitor/BatteryMonitor.php'); closeDropdown(); addUnderline(this)">Battery Monitor</a>
-			<a onclick="loadContent('/webui/monitor/RamMonitor.php'); closeDropdown(); addUnderline(this)">Ram Monitor</a>
-      <a onclick="loadContent('/webui/monitor/StorageMonitor.php'); closeDropdown(); addUnderline(this)">Storage Monitor</a>
+            <a onclick="loadContent('/pages/monitor/index.php'); closeDropdown(); addUnderline(this)">Overview</a>
+			<a onclick="loadContent('/pages/monitor/cpu.php'); closeDropdown(); addUnderline(this)">Cpu Monitor</a>
+      <a onclick="loadContent('/pages/monitor/battery.php'); closeDropdown(); addUnderline(this)">Battery Monitor</a>
+			<a onclick="loadContent('/pages/monitor/ram.php'); closeDropdown(); addUnderline(this)">Ram Monitor</a>
+      <a onclick="loadContent('/pages/monitor/storage.php'); closeDropdown(); addUnderline(this)">Storage Monitor</a>
             <a onclick="loadContent('/tools/logs.php'); closeDropdown(); addUnderline(this)">Magisk Log</a>
           </div>
         </li>
@@ -490,7 +490,7 @@ function adjustIframeHeight(iframe) {
 
   // Load "System Info" content automatically when the page loads
   window.onload = function() {
-    loadContent('/webui/monitor/Overview.php'); // Automatically load System Info
+    loadContent('/pages/monitor/index.php'); // Automatically load Overview
   }
 
   // Close dropdown if clicked outside the sidebar or dropdown
