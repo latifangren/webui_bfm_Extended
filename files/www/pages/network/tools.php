@@ -31,7 +31,7 @@ $interfaces = NetworkService::getInterfaces();
                     <?= $airplane_enabled ? 'AKTIF' : 'Nonaktif' ?>
                 </strong>
             </p>
-            <form method="POST" action="/tools/networktools_handler.php" style="margin-top:15px;">
+            <form method="POST" action="/tools/network/networktools_handler.php" style="margin-top:15px;">
                 <input type="hidden" name="action" value="<?= $airplane_enabled ? 'disable_airplane_mode' : 'enable_airplane_mode' ?>">
                 <input type="hidden" name="enabled_radios" value='<?= boxui_e(json_encode($radios)) ?>'>
 

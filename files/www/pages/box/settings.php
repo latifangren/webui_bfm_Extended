@@ -28,7 +28,7 @@ $save_msg = isset($_GET['msg']) ? html_entity_decode($_GET['msg']) : '';
     <?php endif; ?>
 
     <div style="background:var(--bg-secondary,#1a1a1a);border-radius:12px;padding:20px;border:1px solid var(--border,#333);">
-        <form method="POST" action="/tools/box_settings_handler.php">
+        <form method="POST" action="/tools/box/box_settings_handler.php">
             <input type="hidden" name="type_comment" value="comment">
 
             <!-- Toggle (bool) settings -->

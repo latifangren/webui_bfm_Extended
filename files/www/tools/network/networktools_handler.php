@@ -5,7 +5,7 @@
  * Extracted from networktools.php for clean separation.
  * Handles all form submissions, returns response for HTMX/fetch.
  */
-require_once __DIR__ . '/../includes/bootstrap.php';
+require_once __DIR__ . '/../../includes/bootstrap.php';
 
 use BoxUI\Auth\AuthService;
 use BoxUI\Features\Network\NetworkService;

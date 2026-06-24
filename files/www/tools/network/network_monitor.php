@@ -990,7 +990,7 @@ $scriptDirectory = getScriptDirectory($scriptPath);
         <div class="tab-buttons">
             <button class="tab-button active" data-tab="airplane">Auto AirplaneMode</button>
             <button class="tab-button" data-tab="apn">Auto APN Switch</button>
-            <button class="tutorial-btn" onclick="window.open('tutorial/readme.php', '_blank')">
+            <button class="tutorial-btn" onclick="window.open('../tutorial/readme.php', '_blank')">
                 <span class="button-icon">📖</span> Tutorial
             </button>
         </div>

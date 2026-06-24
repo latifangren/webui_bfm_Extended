@@ -1039,8 +1039,8 @@ if (isset($_GET['msg'])) {
             font-family: 'Material Icons';
             font-style: normal;
             font-weight: 400;
-            src: url('../webui/fonts/MaterialIcons-Regular.woff2') format('woff2'),
-                 url('../webui/fonts/MaterialIcons-Regular.woff') format('woff');
+            src: url('../../webui/fonts/MaterialIcons-Regular.woff2') format('woff2'),
+                 url('../../webui/fonts/MaterialIcons-Regular.woff') format('woff');
         }
 
         .material-icons {

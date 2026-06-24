@@ -5,7 +5,7 @@
  * AJAX handler for start/stop/restart actions.
  * Separated from pages/box/executed.php for clean view separation.
  */
-require_once __DIR__ . '/../includes/bootstrap.php';
+require_once __DIR__ . '/../../includes/bootstrap.php';
 
 use BoxUI\Auth\AuthService;
 use BoxUI\Features\Box\BoxService;

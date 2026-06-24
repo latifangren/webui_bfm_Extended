@@ -27,7 +27,7 @@
         }
   @font-face {
     font-family: 'LemonMilkProRegular';
-    src: url('../webui/fonts/LemonMilkProRegular.otf') format('opentype');
+    src: url('../../webui/fonts/LemonMilkProRegular.otf') format('opentype');
   }
 
         * {

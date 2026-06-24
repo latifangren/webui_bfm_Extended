@@ -768,8 +768,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             font-family: 'Material Icons';
             font-style: normal;
             font-weight: 400;
-            src: url('../webui/fonts/MaterialIcons-Regular.woff2') format('woff2'),
-                 url('../webui/fonts/MaterialIcons-Regular.woff') format('woff');
+            src: url('../../webui/fonts/MaterialIcons-Regular.woff2') format('woff2'),
+                 url('../../webui/fonts/MaterialIcons-Regular.woff') format('woff');
         }
 
         .material-icons {
@@ -791,7 +791,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     </style>
     <!-- Materialize CSS -->
-    <link rel="stylesheet" href="../auth/css/materialize.min.css">
+    <link rel="stylesheet" href="../../auth/css/materialize.min.css">
     <style>
         body {
             background-color: #000000;
@@ -1093,8 +1093,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </a>
             <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="dashboard.php"><i class="material-icons left">dashboard</i>Dashboard</a></li>
-                <li><a href="../auth/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
+                <li><a href="../box/dashboard.php"><i class="material-icons left">dashboard</i>Dashboard</a></li>
+                <li><a href="../../auth/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
             </ul>
         </div>
     </nav>
@@ -1109,9 +1109,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <span class="white-text email">Mobile Menu</span>
             </div>
         </li>
-        <li><a href="dashboard.php"><i class="material-icons">dashboard</i>Dashboard</a></li>
+        <li><a href="../box/dashboard.php"><i class="material-icons">dashboard</i>Dashboard</a></li>
         <li><div class="divider"></div></li>
-        <li><a href="../auth/logout.php"><i class="material-icons">exit_to_app</i>Logout</a></li>
+        <li><a href="../../auth/logout.php"><i class="material-icons">exit_to_app</i>Logout</a></li>
     </ul>
 
     <div class="container">
@@ -1573,7 +1573,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <div class="col s12 m4">
                         <div class="right">
-                            <a class="waves-effect waves-light btn-small blue darken-2" href="dashboard.php">
+                            <a class="waves-effect waves-light btn-small blue darken-2" href="../box/dashboard.php">
                                 <i class="material-icons left tiny">signal_cellular_alt</i>
                                 DASHBOARD SINYAL
                             </a>
@@ -1585,7 +1585,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </footer>
 
     <!-- Materialize JavaScript -->
-    <script src="../auth/js/materialize.min.js"></script>
+    <script src="../../auth/js/materialize.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Inisialisasi sidenav untuk mobile

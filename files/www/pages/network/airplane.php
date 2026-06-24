@@ -25,7 +25,7 @@ $radios = NetworkService::getRadios();
                     Status: <strong style="color:<?= $airplane ? '#ff4444' : '#4CAF50' ?>"><?= $airplane ? 'AKTIF' : 'Nonaktif' ?></strong>
                 </p>
             </div>
-            <form method="POST" action="/tools/networktools_handler.php">
+            <form method="POST" action="/tools/network/networktools_handler.php">
                 <input type="hidden" name="action" value="<?= $airplane ? 'disable_airplane_mode' : 'enable_airplane_mode' ?>">
                 <button type="submit"
                         style="padding:10px 24px;border:none;border-radius:8px;background:<?= $airplane ? '#4CAF50' : '#ff4444' ?>;color:#fff;font-weight:600;cursor:pointer;">

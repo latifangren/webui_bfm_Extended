@@ -63,7 +63,7 @@ $logs = BoxService::getLogs(50);
         btns.forEach(b => b.disabled = true);
 
         try {
-            const r = await fetch('/tools/box_exec_handler.php', { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:'action='+action });
+            const r = await fetch('/tools/box/box_exec_handler.php', { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:'action='+action });
             if (r.ok) setTimeout(() => location.reload(), 1500);
         } catch(e) {
             console.error(e);
