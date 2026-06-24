@@ -188,6 +188,72 @@ class NetworkService
         CommandRunner::su('iptables -F INPUT');
     }
 
+    // ── Network Preference ────────────────────────────────
+
+    const NETWORK_MODE_NAMES = [
+        0 => '2G Only (GSM/WCDMA)',
+        1 => '3G Only (WCDMA)',
+        2 => '3G Preferred (WCDMA pref)',
+        3 => '2G/3G Auto',
+        4 => '3G/4G Auto (LTE/WCDMA)',
+        5 => '4G Preferred (LTE only)',
+        6 => '4G Only (LTE/UMTS auto)',
+        7 => '5G Auto (NR/LTE)',
+        8 => '5G NSA (NR + LTE)',
+        9 => '5G Only (NR only)',
+        10 => '5G SA (Standalone)',
+        11 => '4G/5G Auto',
+    ];
+
+    public static function getNetworkPreference(): array
+    {
+        $mode = CommandRunner::network_preference_get();
+        $name = self::NETWORK_MODE_NAMES[$mode] ?? 'Unknown (' . $mode . ')';
+        return ['mode' => $mode, 'name' => $name];
+    }
+
+    public static function setNetworkPreference(int $mode): void
+    {
+        CommandRunner::network_preference_set($mode);
+    }
+
+    // ── Connectivity Check ────────────────────────────────
+
+    public static function checkConnectivity(): array
+    {
+        $raw = CommandRunner::connectivity_check();
+        $reachable = strpos($raw, '1 received') !== false || strpos($raw, '2 received') !== false;
+        $loss = '100%';
+        if (preg_match('/(\d+)% packet loss/', $raw, $m)) {
+            $loss = $m[0];
+        }
+        return [
+            'reachable' => $reachable,
+            'loss' => $loss,
+            'raw' => $raw,
+        ];
+    }
+
+    // ── DNS Lookup ────────────────────────────────────────
+
+    public static function dnsLookup(string $host): array
+    {
+        $raw = CommandRunner::sh('nslookup ' . escapeshellarg($host) . ' 2>&1');
+        $servers = [];
+        $addresses = [];
+        foreach (explode("\n", $raw) as $line) {
+            if (preg_match('/Server:\s*([0-9.]+)/', $line, $m)) $servers[] = $m[1];
+            elseif (preg_match('/Address\s*\d*:\s*([0-9.]+)/', $line, $m)) $addresses[] = $m[1];
+            elseif (preg_match('/Name:\s*(.+)/', $line, $m)) $resolvedName = trim($m[1]);
+        }
+        return [
+            'host' => $host,
+            'servers' => array_values(array_unique($servers)),
+            'addresses' => $addresses,
+            'raw' => $raw,
+        ];
+    }
+
     // ── Hotspot ──────────────────────────────────────────
 
     public static function hotspotStatus(): array

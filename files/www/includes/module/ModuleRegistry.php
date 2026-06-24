@@ -167,10 +167,16 @@ class ModuleRegistry
         ]);
         
         // ── Network ────────────────────────────────────────
-        self::register('network_monitor', [
-            'name' => 'Network Monitor',
+        self::register('ping_monitor', [
+            'name' => 'Ping Monitor',
             'category' => 'network',
             'icon' => 'fas fa-chart-line',
+            'route' => '/pages/network/ping_monitor.php',
+        ]);
+        self::register('network_monitor', [
+            'name' => 'Ping Utility',
+            'category' => 'network',
+            'icon' => 'fas fa-signal',
             'route' => '/pages/network/monitor.php',
         ]);
         self::register('network_tools', [

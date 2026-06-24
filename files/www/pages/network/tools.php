@@ -1,9 +1,8 @@
 <?php
 /**
- * Network Tools — Airplane Mode page
- * 
- * Refactored from tools/networktools.php.
- * Logic extracted to NetworkService, this is pure view.
+ * Network Tools — Airplane Mode + Network Preference + WiFi.
+ *
+ * Pure view — logic in NetworkService.
  */
 use BoxUI\Features\Network\NetworkService;
 
@@ -11,83 +10,215 @@ $airplane_enabled = NetworkService::isAirplaneMode();
 $radios = NetworkService::getRadios();
 $wifi_status = NetworkService::wifiStatus();
 $interfaces = NetworkService::getInterfaces();
+$net_pref = NetworkService::getNetworkPreference();
 ?>
+<style>
+:root {
+    --bg-p: #0a0a0a; --bg-s: #111; --tx: #F1F1F1;
+    --accent: #FECA0A; --border: #333;
+    --green: #4CAF50; --red: #ff4444;
+}
+body {
+    font-family: 'Rajdhani', sans-serif; margin: 0; padding: 20px;
+    background: var(--bg-p); color: var(--tx);
+}
+.container { max-width: 900px; margin: 0 auto; }
+h1 {
+    font-family: 'Orbitron', monospace; font-size: 20px; color: var(--accent);
+    margin: 0 0 16px 0;
+}
+.card {
+    background: var(--bg-s); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px; margin-bottom: 14px;
+}
+.card-title {
+    font-size: 14px; font-weight: 600; color: var(--accent);
+    margin: 0 0 12px 0;
+    font-family: 'Orbitron', monospace;
+    text-transform: uppercase;
+}
+.flex { display: flex; flex-wrap: wrap; gap: 15px; }
+.col { flex: 1; min-width: 280px; }
+.btn {
+    padding: 8px 18px; border: none; border-radius: 6px;
+    font-family: 'Orbitron', monospace; font-size: 11px;
+    font-weight: 600; cursor: pointer; text-transform: uppercase;
+    transition: opacity .15s;
+}
+.btn:hover { opacity: .85; }
+.btn-primary { background: var(--accent); color: #000; }
+.btn-small { padding: 5px 12px; font-size: 10px; }
+select, input[type="text"] {
+    padding: 8px 12px; background: #1a1a1a; border: 1px solid var(--border);
+    border-radius: 6px; color: var(--tx); font-size: 13px; width: 100%;
+    box-sizing: border-box; font-family: inherit;
+}
+label { display: block; font-size: 12px; color: #888; margin-bottom: 4px; }
+.mb-8 { margin-bottom: 8px; }
+.mt-8 { margin-top: 8px; }
+.note { font-size: 12px; color: #666; margin-top: 4px; }
+pre.output {
+    background: #000; color: #0f0; padding: 10px; border-radius: 6px;
+    font-size: 11px; overflow-x: auto; max-height: 200px;
+    white-space: pre-wrap; word-break: break-all;
+    border: 1px solid #222; font-family: 'Courier New', monospace;
+}
+.status-badge {
+    display: inline-block; padding: 2px 10px; border-radius: 10px;
+    font-size: 11px; font-weight: 600;
+}
+.badge-on { background: var(--green); color: #000; }
+.badge-off { background: #444; color: #ccc; }
+
+/* WiFi scan table */
+table.wifi { width: 100%; border-collapse: collapse; font-size: 12px; }
+table.wifi th {
+    text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border);
+    color: #888; font-weight: 600; font-family: 'Orbitron', monospace; font-size: 10px;
+    text-transform: uppercase;
+}
+table.wifi td { padding: 6px 8px; border-bottom: 1px solid #1a1a1a; }
+table.wifi tr:hover td { background: #1a1a1a; }
+.signal-bar { display: inline-block; height: 10px; border-radius: 2px; }
+</style>
+
 <div class="container">
-    <div class="header">
-        <div class="logo">
-            <span class="logo-icon">📡</span>
-            <h1>Network Tools</h1>
-        </div>
-    </div>
+    <h1>Network Tools</h1>
 
-    <div style="display:flex;flex-wrap:wrap;gap:15px;">
+    <div class="flex">
         <!-- Airplane Mode -->
-        <div style="flex:1;min-width:280px;background:var(--bg-secondary,#1a1a1a);border-radius:12px;padding:20px;border:1px solid var(--border,#333);">
-            <h3 style="margin-top:0;font-size:16px;color:var(--accent,#FECA0A);">
-                <i class="fas fa-plane"></i> Mode Pesawat
-            </h3>
-            <p style="font-size:13px;color:#888;">Status: 
-                <strong style="color:<?= $airplane_enabled ? '#ff4444' : '#4CAF50' ?>">
-                    <?= $airplane_enabled ? 'AKTIF' : 'Nonaktif' ?>
-                </strong>
-            </p>
-            <form method="POST" action="/tools/network/networktools_handler.php" style="margin-top:15px;">
-                <input type="hidden" name="action" value="<?= $airplane_enabled ? 'disable_airplane_mode' : 'enable_airplane_mode' ?>">
-                <input type="hidden" name="enabled_radios" value='<?= boxui_e(json_encode($radios)) ?>'>
-
-                <?php if (!$airplane_enabled): ?>
-                <div style="margin-bottom:12px;">
-                    <label style="display:block;font-size:12px;color:#aaa;margin-bottom:6px;">Radio yang tetap aktif:</label>
-                    <label style="display:flex;align-items:center;gap:8px;margin-bottom:4px;font-size:13px;">
-                        <input type="checkbox" name="cell" value="cell" <?= in_array('cell', $radios) ? 'checked' : '' ?>>
-                        <span>Cellular</span>
-                    </label>
-                    <label style="display:flex;align-items:center;gap:8px;margin-bottom:4px;font-size:13px;">
-                        <input type="checkbox" name="bluetooth" value="bluetooth" <?= in_array('bluetooth', $radios) ? 'checked' : '' ?>>
-                        <span>Bluetooth</span>
-                    </label>
-                </div>
-                <?php endif; ?>
-
-                <button type="submit" style="width:100%;padding:10px;background:var(--accent,#FECA0A);color:#000;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:13px;">
-                    <i class="fas fa-<?= $airplane_enabled ? 'toggle-off' : 'toggle-on' ?>"></i>
-                    <?= $airplane_enabled ? 'Nonaktifkan' : 'Aktifkan' ?> Mode Pesawat
-                </button>
-            </form>
-        </div>
-
-        <!-- WiFi Status -->
-        <div style="flex:1;min-width:280px;background:var(--bg-secondary,#1a1a1a);border-radius:12px;padding:20px;border:1px solid var(--border,#333);">
-            <h3 style="margin-top:0;font-size:16px;color:var(--accent,#FECA0A);">
-                <i class="fas fa-wifi"></i> WiFi Status
-            </h3>
-            <?php if (isset($wifi_status['ssid'])): ?>
-                <p style="font-size:13px;color:#888;">SSID: <strong style="color:#F1F1F1;"><?= boxui_e($wifi_status['ssid']) ?></strong></p>
-                <p style="font-size:13px;color:#888;">Signal: <strong style="color:#F1F1F1;"><?= boxui_e($wifi_status['signal'] ?? 'N/A') ?></strong></p>
-                <p style="font-size:13px;color:#888;">Frequency: <strong style="color:#F1F1F1;"><?= boxui_e($wifi_status['frequency'] ?? 'N/A') ?></strong></p>
-            <?php else: ?>
-                <p style="font-size:13px;color:#888;">Tidak terhubung ke WiFi</p>
-            <?php endif; ?>
-        </div>
-
-        <!-- Network Interfaces -->
-        <div style="flex:1;min-width:280px;background:var(--bg-secondary,#1a1a1a);border-radius:12px;padding:20px;border:1px solid var(--border,#333);">
-            <h3 style="margin-top:0;font-size:16px;color:var(--accent,#FECA0A);">
-                <i class="fas fa-network-wired"></i> Interfaces
-            </h3>
-            <ul style="list-style:none;padding:0;margin:0;">
-            <?php foreach ($interfaces as $iface): ?>
-                <li style="padding:6px 0;border-bottom:1px solid #222;font-size:13px;display:flex;justify-content:space-between;">
-                    <span><?= boxui_e($iface['name']) ?></span>
-                    <span style="color:<?= $iface['state'] === 'up' ? '#4CAF50' : '#888' ?>">
-                        <?= $iface['state'] === 'up' ? 'UP' : 'DOWN' ?>
-                        <?php if (!empty($iface['ips'])): ?>
-                            (<?= boxui_e($iface['ips'][0]) ?>)
-                        <?php endif; ?>
+        <div class="col">
+            <div class="card">
+                <div class="card-title">Mode Pesawat</div>
+                <form method="post" action="/tools/network/networktools_handler.php" style="margin-bottom:10px;">
+                    <input type="hidden" name="action" value="airplane">
+                    <input type="hidden" name="enable" value="<?= $airplane_enabled ? '0' : '1' ?>">
+                    <button type="submit" class="btn btn-primary">
+                        <?= $airplane_enabled ? 'Matikan' : 'Aktifkan' ?>
+                    </button>
+                    <span class="status-badge <?= $airplane_enabled ? 'badge-on' : 'badge-off' ?>" style="margin-left:8px;">
+                        <?= $airplane_enabled ? 'ON' : 'OFF' ?>
                     </span>
-                </li>
-            <?php endforeach; ?>
-            </ul>
+                </form>
+
+                <label>Radio selection saat airplane mode ON:</label>
+                <form method="post" action="/tools/network/networktools_handler.php">
+                    <input type="hidden" name="action" value="radios">
+                    <?php foreach (['wifi' => 'WiFi', 'bluetooth' => 'Bluetooth', 'mobile' => 'Mobile Data'] as $k => $lbl): ?>
+                    <label style="display:flex;align-items:center;gap:8px;margin:6px 0;font-size:13px;cursor:pointer;">
+                        <input type="checkbox" name="radios[]" value="<?= $k ?>" <?= in_array($k, $radios) ? 'checked' : '' ?>>
+                        <?= $lbl ?>
+                    </label>
+                    <?php endforeach; ?>
+                    <button type="submit" class="btn btn-primary btn-small mt-8">Simpan</button>
+                </form>
+            </div>
+
+            <!-- WiFi Status + Scan -->
+            <div class="card">
+                <div class="card-title">WiFi</div>
+                <div class="mb-8">
+                    <label>Status</label>
+                    <span class="status-badge <?= ($wifi_status['ssid'] ?? '') ? 'badge-on' : 'badge-off' ?>">
+                        <?= $wifi_status['ssid'] ?? 'Tidak terhubung' ?>
+                    </span>
+                    <?php if ($wifi_status['ssid'] ?? ''): ?>
+                    <div class="note">Signal: <?= $wifi_status['signal'] ?? '-' ?> | Freq: <?= $wifi_status['frequency'] ?? '-' ?></div>
+                    <?php endif; ?>
+                </div>
+                <button class="btn btn-primary btn-small" onclick="scanWifi()">Scan WiFi</button>
+                <div id="wifi-results" style="margin-top:10px;"></div>
+            </div>
+        </div>
+
+        <!-- Network Preference -->
+        <div class="col">
+            <div class="card">
+                <div class="card-title">Preferensi Jaringan</div>
+                <form method="post" action="/tools/network/networktools_handler.php">
+                    <input type="hidden" name="action" value="netpref">
+                    <div class="mb-8">
+                        <label>Mode jaringan saat ini:</label>
+                        <div style="font-size:15px;font-weight:600;color:var(--accent);" id="current-mode">
+                            <?= htmlspecialchars($net_pref['name']) ?> (<?= $net_pref['mode'] ?>)
+                        </div>
+                    </div>
+                    <div class="mb-8">
+                        <label>Set mode:</label>
+                        <select name="mode">
+                            <option value="0">2G Only (GSM/WCDMA)</option>
+                            <option value="1">3G Only (WCDMA)</option>
+                            <option value="3">2G/3G Auto</option>
+                            <option value="5">4G Only</option>
+                            <option value="7">5G Auto (NR/LTE)</option>
+                            <option value="8">5G NSA</option>
+                            <option value="9">5G Only (NR)</option>
+                            <option value="10">5G SA</option>
+                            <option value="11">4G/5G Auto</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-small">Terapkan</button>
+                </form>
+            </div>
+
+            <!-- Connectivity Check -->
+            <div class="card">
+                <div class="card-title">Konektivitas</div>
+                <button class="btn btn-primary btn-small" onclick="checkConn()">Cek Koneksi</button>
+                <pre class="output" id="conn-output" style="margin-top:8px;display:none;"></pre>
+            </div>
+
+            <!-- DNS Lookup -->
+            <div class="card">
+                <div class="card-title">DNS Lookup</div>
+                <form method="post" action="/tools/network/networktools_handler.php">
+                    <input type="hidden" name="action" value="dns">
+                    <div class="mb-8">
+                        <input type="text" name="host" placeholder="google.com" value="google.com">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-small">Lookup</button>
+                </form>
+                <?php if (isset($_GET['dns_result'])): ?>
+                <pre class="output mt-8"><?= htmlspecialchars(urldecode($_GET['dns_result'])) ?></pre>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+function scanWifi() {
+    var el = document.getElementById('wifi-results');
+    el.innerHTML = '<p style="color:#888;font-size:13px;">Scanning...</p>';
+    fetch('/tools/network/networktools_handler.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'action=wifi_scan'
+    })
+    .then(function(r) { return r.text(); })
+    .then(function(html) {
+        el.innerHTML = html || '<p style="color:#888;">Tidak ada jaringan ditemukan.</p>';
+    })
+    .catch(function() {
+        el.innerHTML = '<p style="color:var(--red);">Gagal scan WiFi.</p>';
+    });
+}
+
+function checkConn() {
+    var el = document.getElementById('conn-output');
+    el.style.display = 'block';
+    el.textContent = 'Checking...';
+    fetch('/tools/network/networktools_handler.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'action=connectivity'
+    })
+    .then(function(r) { return r.text(); })
+    .then(function(out) {
+        el.textContent = out || 'No response';
+    })
+    .catch(function() {
+        el.textContent = 'Error checking connectivity.';
+    });
+}
+</script>
