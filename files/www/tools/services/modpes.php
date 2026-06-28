@@ -3,14 +3,14 @@
 <head>
     <title>Modpes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link href="../webui/css/materialize.min.css" rel="stylesheet">
+    <link href="../../webui/css/materialize.min.css" rel="stylesheet">
     <style>
         @font-face {
             font-family: 'Material Icons';
             font-style: normal;
             font-weight: 400;
-            src: url('../webui/fonts/MaterialIcons-Regular.woff2') format('woff2'),
-                 url('../webui/fonts/MaterialIcons-Regular.woff') format('woff');
+            src: url('../../webui/fonts/MaterialIcons-Regular.woff2') format('woff2'),
+                 url('../../webui/fonts/MaterialIcons-Regular.woff') format('woff');
         }
 
         .material-icons {
@@ -417,6 +417,6 @@
         </div>
     </div>
 
-    <script src="../webui/js/materialize.min.js"></script>
+    <script src="../../webui/js/materialize.min.js"></script>
 </body>
 </html>

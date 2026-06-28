@@ -10,14 +10,14 @@
             font-family: 'Roboto';
             font-style: normal;
             font-weight: 400;
-            src: url('../webui/fonts/Roboto-Regular.woff2') format('woff2');
+            src: url('../../webui/fonts/Roboto-Regular.woff2') format('woff2');
         }
 
         @font-face {
             font-family: 'Roboto';
             font-style: normal;
             font-weight: 500;
-            src: url('../webui/fonts/Roboto-Medium.woff2') format('woff2');
+            src: url('../../webui/fonts/Roboto-Medium.woff2') format('woff2');
         }
         body {
             font-family: 'LemonMilkProRegular';

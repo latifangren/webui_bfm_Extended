@@ -4,7 +4,7 @@
  * 
  * Separated from pages/network/bandwidth.php for clean view separation.
  */
-require_once __DIR__ . '/../includes/bootstrap.php';
+require_once __DIR__ . '/../../includes/bootstrap.php';
 
 use BoxUI\Auth\AuthService;
 use BoxUI\Features\Network\NetworkService;
@@ -18,5 +18,9 @@ if (isset($_POST['reset_vnstat'])) {
     NetworkService::vnstatStart();
 }
 
-header('Location: /pages/network/bandwidth.php');
+if (isset($_SERVER['HTTP_HX_REQUEST'])) {
+    header('HX-Location: /pages/network/bandwidth.php');
+} else {
+    header('Location: /pages/network/bandwidth.php');
+}
 exit;

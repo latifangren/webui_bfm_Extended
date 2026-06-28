@@ -1,8 +1,8 @@
 <?php
 /**
- * Interface Manager (renamed from opsi_interface.php)
+ * Airplane Pilot (renamed from modpes.php)
  * 
  * New name — delegates to original file for now.
  * After full refactor, logic will move to includes/features/network/.
  */
-require __DIR__ . '/opsi_interface.php';
+require __DIR__ . '/services/modpes.php';

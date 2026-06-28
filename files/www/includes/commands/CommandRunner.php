@@ -177,6 +177,62 @@ class CommandRunner
         return trim(static::sh('box.service restart 2>&1'));
     }
 
+    // ── Ping Loop ─────────────────────────────────────────
+    const PING_LOOP_SCRIPT = '/data/adb/service.d/pingloop.sh';
+    const PING_LOOP_LOG = '/data/local/tmp/pingloop.log';
+
+    public static function ping_loop_status(): bool
+    {
+        $out = static::su('pgrep -f pingloop.sh');
+        return trim($out) !== '';
+    }
+
+    public static function ping_loop_start(): string
+    {
+        return static::su("nohup /system/bin/sh " . self::PING_LOOP_SCRIPT . " > " . self::PING_LOOP_LOG . " 2>&1 &");
+    }
+
+    public static function ping_loop_stop(): string
+    {
+        return static::su('pkill -f pingloop.sh');
+    }
+
+    public static function ping_loop_log(int $lines = 50): string
+    {
+        return static::sh('tail -n ' . $lines . ' ' . self::PING_LOOP_LOG . ' 2>&1');
+    }
+
+    public static function ping_loop_host(): string
+    {
+        if (!file_exists(self::PING_LOOP_SCRIPT)) {
+            return 'N/A';
+        }
+        $content = file_get_contents(self::PING_LOOP_SCRIPT);
+        if (preg_match('/HOST="([^"]+)"/', $content, $m)) {
+            return $m[1];
+        }
+        return 'N/A';
+    }
+
+    // ── Network Preference ─────────────────────────────────
+    public static function network_preference_get(): int
+    {
+        return (int) trim(static::su('settings get global preferred_network_mode'));
+    }
+
+    public static function network_preference_set(int $value): void
+    {
+        static::su("settings put global preferred_network_mode {$value}");
+        static::su("settings put global preferred_network_mode1 {$value}");
+        static::su("settings put global preferred_network_mode2 {$value}");
+    }
+
+    // ── Connectivity ───────────────────────────────────────
+    public static function connectivity_check(): string
+    {
+        return static::sh('ping -c 2 -W 3 8.8.8.8 2>&1');
+    }
+
     // ── Hotspot Commands ──────────────────────────────────
 
     public static function hotspot_status(): string

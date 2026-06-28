@@ -16,7 +16,7 @@ class SystemMonitorService
     /**
      * Get CPU usage percentage (averaged over 0.5s).
      */
-    public static function getCpuUsage(): array
+    public static function getCpuUsage(): float
     {
         $stats1 = file('/proc/stat');
         $user1 = self::readCpuField($stats1[0], 1);

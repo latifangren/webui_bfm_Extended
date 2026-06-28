@@ -249,11 +249,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <span class="dropdown-icon iconify" data-icon="ci:caret-right-sm" style="font-size: 25px;"></span> <!-- Dropdown icon -->
           </button>
           <div class="dropdown-container">
-            <a onclick="loadContent('/webui/monitor/Overview.php'); closeDropdown(); addUnderline(this)">Overview</a>
-			<a onclick="loadContent('/webui/monitor/CpuMonitor.php'); closeDropdown(); addUnderline(this)">Cpu Monitor</a>
-      <a onclick="loadContent('/webui/monitor/BatteryMonitor.php'); closeDropdown(); addUnderline(this)">Battery Monitor</a>
-			<a onclick="loadContent('/webui/monitor/RamMonitor.php'); closeDropdown(); addUnderline(this)">Ram Monitor</a>
-      <a onclick="loadContent('/webui/monitor/StorageMonitor.php'); closeDropdown(); addUnderline(this)">Storage Monitor</a>
+            <a onclick="loadContent('/pages/monitor/index.php'); closeDropdown(); addUnderline(this)">Overview</a>
+			<a onclick="loadContent('/pages/monitor/cpu.php'); closeDropdown(); addUnderline(this)">Cpu Monitor</a>
+      <a onclick="loadContent('/pages/monitor/battery.php'); closeDropdown(); addUnderline(this)">Battery Monitor</a>
+			<a onclick="loadContent('/pages/monitor/ram.php'); closeDropdown(); addUnderline(this)">Ram Monitor</a>
+      <a onclick="loadContent('/pages/monitor/storage.php'); closeDropdown(); addUnderline(this)">Storage Monitor</a>
             <a onclick="loadContent('/tools/logs.php'); closeDropdown(); addUnderline(this)">Magisk Log</a>
           </div>
         </li>
@@ -281,7 +281,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <a onclick="loadContent('/tools/smsviewer.php'); closeDropdown(); addUnderline(this)"> SMS Viewer</a>
             <a onclick="loadContent('/tools/sidompul.php'); closeDropdown(); addUnderline(this)"> Sidompul</a>
             <a onclick="loadContent('/tools/ocgen/index.php'); closeDropdown(); addUnderline(this)"> Config Generator</a>
-            <a onclick="loadContent('/tools/modpes.php'); closeDropdown(); addUnderline(this)"> Airplane Pilot</a>
+            <a onclick="loadContent('/tools/_legacy/modpes.php'); closeDropdown(); addUnderline(this)"> Airplane Pilot</a>
             <a onclick="loadContent('/tools/speedtest/speedtest.php'); closeDropdown(); addUnderline(this)"> Speed Test</a>
             <a onclick="loadContent('http://<?php echo $p; ?>:3001'); closeDropdown(); addUnderline(this)"> Terminal</a>   
           </div>
@@ -292,7 +292,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <span class="dropdown-icon iconify" data-icon="ci:caret-right-sm" style="font-size: 25px;"></span> <!-- Dropdown icon -->
           </button>
           <div class="dropdown-container">
-            <a onclick="loadContent('/tools/opsi_box.php'); closeDropdown(); addUnderline(this)"> BFR</a>
+            <a onclick="loadContent('/pages/box/index.php'); closeDropdown(); addUnderline(this)"> BFR</a>
           </div>
         </li>
         <li>
@@ -301,11 +301,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <span class="dropdown-icon iconify" data-icon="ci:caret-right-sm" style="font-size: 25px;"></span> <!-- Dropdown icon -->
           </button>
           <div class="dropdown-container">
-            <a onclick="loadContent('/tools/vnstat.php'); closeDropdown(); addUnderline(this)">Bandwith Monitor</a>
-            <a onclick="loadContent('/tools/opsi_interface.php'); closeDropdown(); addUnderline(this)">Interface</a>
-            <a onclick="loadContent('/tools/net_limiter_control.php'); closeDropdown(); addUnderline(this)">NetLimiter Control</a>
-            <a onclick="loadContent('/tools/network_monitor.php'); closeDropdown(); addUnderline(this)"> Network Monitor</a>
-            <a onclick="loadContent('/tools/networktools.php'); closeDropdown(); addUnderline(this)">Network Tools</a>
+            <a onclick="loadContent('/pages/network/bandwidth.php'); closeDropdown(); addUnderline(this)">Bandwith Monitor</a>
+            <a onclick="loadContent('/pages/network/interface.php'); closeDropdown(); addUnderline(this)">Interface</a>
+            <a onclick="loadContent('/pages/network/netlimiter.php'); closeDropdown(); addUnderline(this)">NetLimiter</a>
+            <a onclick="loadContent('/pages/network/ping_monitor.php'); closeDropdown(); addUnderline(this)"> Ping Monitor</a>
+            <a onclick="loadContent('/pages/network/tools.php'); closeDropdown(); addUnderline(this)">Network Tools</a>
             <a onclick="loadContent('/tools/hotspot/hotspot.php'); closeDropdown(); addUnderline(this)">Wireless Hotspot</a>
           </div>
         </li>
@@ -490,7 +490,7 @@ function adjustIframeHeight(iframe) {
 
   // Load "System Info" content automatically when the page loads
   window.onload = function() {
-    loadContent('/webui/monitor/Overview.php'); // Automatically load System Info
+    loadContent('/pages/monitor/index.php'); // Automatically load Overview
   }
 
   // Close dropdown if clicked outside the sidebar or dropdown

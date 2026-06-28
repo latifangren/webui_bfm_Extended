@@ -119,44 +119,32 @@ body {
             <button type="submit">Ping</button>
         </form>
 
-        <?php if (!empty($result['stats'])): ?>
+        <?php if (!empty($result['raw'])): ?>
         <div class="stat-grid">
             <div class="stat-item">
                 <div class="label">Min</div>
-                <div class="value"><?= boxui_e(number_format($result['stats']['min'] ?? 0, 1)) ?>ms</div>
+                <div class="value"><?= boxui_e($result['min'] ?? '0') ?>ms</div>
             </div>
             <div class="stat-item">
                 <div class="label">Avg</div>
-                <div class="value"><?= boxui_e(number_format($result['stats']['avg'] ?? 0, 1)) ?>ms</div>
+                <div class="value"><?= boxui_e($result['avg'] ?? '0') ?>ms</div>
             </div>
             <div class="stat-item">
                 <div class="label">Max</div>
-                <div class="value"><?= boxui_e(number_format($result['stats']['max'] ?? 0, 1)) ?>ms</div>
+                <div class="value"><?= boxui_e($result['max'] ?? '0') ?>ms</div>
             </div>
             <div class="stat-item">
                 <div class="label">Loss</div>
-                <div class="value" style="color:<?= ($result['stats']['loss'] ?? 100) > 0 ? 'var(--danger)' : 'var(--success)' ?>">
-                    <?= boxui_e($result['stats']['loss'] ?? 100) ?>%
+                <div class="value" style="color:<?= ((int) ($result['loss'] ?? 100)) > 0 ? 'var(--danger)' : 'var(--success)' ?>">
+                    <?= boxui_e($result['loss'] ?? 100) ?>%
                 </div>
             </div>
         </div>
-        <?php endif; ?>
 
-        <?php if (!empty($result['results'])): ?>
-        <div class="result-list">
-            <h3 style="font-size:14px;color:#888;margin:0 0 8px 0;">Results (<?= count($result['results']) ?> replies)</h3>
-            <?php foreach ($result['results'] as $i => $ms): ?>
-            <div class="result-item">
-                <span>Reply <?= $i + 1 ?></span>
-                <span><?= number_format($ms, 1) ?> ms</span>
-            </div>
-            <?php endforeach; ?>
+        <div class="result-list" style="margin-top: 15px;">
+            <h3 style="font-size:14px;color:#888;margin:0 0 8px 0;">Raw Output</h3>
+            <pre style="font-size:11px;color:#888;max-height:200px;overflow:auto;background:#000;padding:10px;border-radius:6px;border:1px solid #222;font-family:monospace;white-space:pre-wrap;"><?= boxui_e($result['raw']) ?></pre>
         </div>
-        <?php endif; ?>
-
-        <?php if (empty($result['results']) && !empty($result['raw'])): ?>
-        <p style="color:#ff4444;font-size:13px;">No replies from <?= boxui_e($ping_target) ?></p>
-        <pre style="font-size:11px;color:#888;max-height:200px;overflow:auto;"><?= boxui_e($result['raw']) ?></pre>
         <?php endif; ?>
     </div>
 </div>

@@ -3,7 +3,7 @@
  * ADB Tools — POST handler
  * Extracted from adb_tools.php for clean separation.
  */
-require_once __DIR__ . '/../includes/bootstrap.php';
+require_once __DIR__ . '/../../includes/bootstrap.php';
 
 use BoxUI\Auth\AuthService;
 use BoxUI\Features\Services\ServicesService;

@@ -58,7 +58,7 @@ $devices = ServicesService::adbDevices();
         resultDiv.style.display = 'block';
         resultDiv.textContent = 'Executing ' + action + '...';
 
-        fetch('/tools/adb_tools_handler.php', {
+        fetch('/tools/services/adb_tools_handler.php', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             body: 'action=' + action

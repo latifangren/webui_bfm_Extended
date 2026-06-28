@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, dev-refactor ]
+  pull_request:
+    branches: [ main, dev-refactor ]
+
+jobs:
+  php-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          tools: none
+          coverage: none
+      - name: Syntax Lint Check
+        run: |
+          find . -name "*.php" ! -path "./_legacy/*" ! -path "./files/www/tiny/*" -print0 | xargs -0 -n 1 php -l

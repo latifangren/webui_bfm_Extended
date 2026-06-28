@@ -329,8 +329,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
             font-family: 'Material Icons';
             font-style: normal;
             font-weight: 400;
-            src: url('../webui/fonts/MaterialIcons-Regular.woff2') format('woff2'),
-                 url('../webui/fonts/MaterialIcons-Regular.woff') format('woff');
+            src: url('../../webui/fonts/MaterialIcons-Regular.woff2') format('woff2'),
+                 url('../../webui/fonts/MaterialIcons-Regular.woff') format('woff');
         }
 
         .material-icons {
@@ -352,7 +352,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
         }
     </style>
     <!-- Materialize CSS -->
-    <link rel="stylesheet" href="../auth/css/materialize.min.css">
+    <link rel="stylesheet" href="../../auth/css/materialize.min.css">
     <style>
         body {
             background-color: #000000;
@@ -559,8 +559,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
             </a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li class="active"><a href="dashboard.php"><i class="material-icons left">dashboard</i>Dashboard</a></li>
-                <li><a href="networktools.php"><i class="material-icons left">build</i>Tools</a></li>
-                <li><a href="../auth/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
+                <li><a href="../network/networktools.php"><i class="material-icons left">build</i>Tools</a></li>
+                <li><a href="../../auth/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
             </ul>
         </div>
     </nav>
@@ -718,7 +718,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
                     </div>
                     <div class="col s12 m4">
                         <div class="right">
-                            <a class="waves-effect waves-light btn-small blue darken-2" href="networktools.php">
+                            <a class="waves-effect waves-light btn-small blue darken-2" href="../network/networktools.php">
                                 <i class="material-icons left tiny">build</i>
                                 Network Tools
                             </a>
@@ -730,7 +730,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
     </footer>
 
     <!-- Materialize JavaScript -->
-    <script src="../auth/js/materialize.min.js"></script>
+    <script src="../../auth/js/materialize.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Refresh data secara otomatis setiap 30 detik

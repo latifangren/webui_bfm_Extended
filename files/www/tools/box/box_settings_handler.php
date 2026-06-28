@@ -5,7 +5,7 @@
  * Separated from pages/box/settings.php for clean view separation.
  * Processes form submission and redirects back with status.
  */
-require_once __DIR__ . '/../includes/bootstrap.php';
+require_once __DIR__ . '/../../includes/bootstrap.php';
 
 use BoxUI\Auth\AuthService;
 use BoxUI\Features\Box\BoxService;
@@ -15,9 +15,14 @@ AuthService::requireAuth();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     $result = BoxService::saveSettings($_POST);
-    header('Location: /pages/box/settings.php?msg=' . urlencode($result));
-    exit;
+    $url = '/pages/box/settings.php?msg=' . urlencode($result);
+} else {
+    $url = '/pages/box/settings.php';
 }
 
-header('Location: /pages/box/settings.php');
+if (isset($_SERVER['HTTP_HX_REQUEST'])) {
+    header('HX-Location: ' . $url);
+} else {
+    header('Location: ' . $url);
+}
 exit;
