@@ -46,7 +46,9 @@ class BoxService
         $logfile = '/data/adb/box/run/runs.log';
         if (!file_exists($logfile)) return ['No logs available'];
         $raw = CommandRunner::su("tail -{$lines} \"{$logfile}\" 2>/dev/null");
-        return array_filter(explode("\n", $raw), fn($l) => trim($l) !== '');
+        return array_filter(explode("\n", $raw), function($l) {
+            return trim($l) !== '';
+        });
     }
 
     // ── Settings ─────────────────────────────────────────

@@ -47,7 +47,9 @@ class ModuleRegistry
     public static function byCategory(string $category): array
     {
         self::initDefaults();
-        return array_filter(self::$modules, fn($m) => $m['category'] === $category);
+        return array_filter(self::$modules, function($m) use ($category) {
+            return $m['category'] === $category;
+        });
     }
 
     /**

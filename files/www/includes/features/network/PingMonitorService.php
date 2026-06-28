@@ -101,7 +101,9 @@ class PingMonitorService
 
         // Calculate statistics
         $total = count($points);
-        $success = count(array_filter($points, fn($p) => $p['ok']));
+        $success = count(array_filter($points, function($p) {
+            return $p['ok'];
+        }));
         $fail = $total - $success;
         $uptime = $total > 0 ? round(($success / $total) * 100, 1) : 0;
 
