@@ -263,14 +263,14 @@ class ModuleRegistry
 
     private static function categoryLabel(string $cat): string
     {
-        return match ($cat) {
-            'clash' => 'Clash',
-            'status' => 'Status',
-            'system' => 'System',
-            'box' => 'Box',
-            'network' => 'Network',
-            'services' => 'Services',
-            default => ucfirst($cat),
-        };
+        switch ($cat) {
+            case 'clash': return 'Clash';
+            case 'status': return 'Status';
+            case 'system': return 'System';
+            case 'box': return 'Box';
+            case 'network': return 'Network';
+            case 'services': return 'Services';
+            default: return ucfirst($cat);
+        }
     }
 }

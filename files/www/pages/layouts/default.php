@@ -144,7 +144,7 @@ use BoxUI\Module\ModuleRegistry;
             </svg>
           </div>
           <span class="font-head text-base font-normal uppercase tracking-wider">
-            DEVFORGE
+            BOX UI EXTENDED
           </span>
         </a>
 
