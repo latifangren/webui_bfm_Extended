@@ -10,8 +10,8 @@ namespace BoxUI\Auth;
  */
 class AuthService
 {
-    private static ?array $credentials = null;
-    private static ?array $config = null;
+    private static $credentials = null;
+    private static $config = null;
 
     /**
      * Load credentials from config.json and credentials.php.

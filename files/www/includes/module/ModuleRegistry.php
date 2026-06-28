@@ -11,8 +11,8 @@ namespace BoxUI\Module;
  */
 class ModuleRegistry
 {
-    private static array $modules = [];
-    private static bool $initialized = false;
+    private static $modules = [];
+    private static $initialized = false;
 
     /**
      * Register a module.
