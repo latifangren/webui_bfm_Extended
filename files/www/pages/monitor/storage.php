@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../includes/bootstrap.php';
+
 /**
  * Storage Monitor
  * Refactored from webui/monitor/StorageMonitor.php

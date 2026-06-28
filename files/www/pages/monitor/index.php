@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../includes/bootstrap.php';
+
 /**
  * Monitor Overview — combines CPU, RAM, Battery, Storage
  * Refactored from webui/monitor/Overview.php

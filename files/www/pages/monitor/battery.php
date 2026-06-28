@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../includes/bootstrap.php';
+
 /**
  * Battery Monitor
  * Refactored from webui/monitor/BatteryMonitor.php

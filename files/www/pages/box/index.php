@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../includes/bootstrap.php';
+
 /**
  * BOX Options (BFR) — View
  * Refactored from tools/opsi_box.php

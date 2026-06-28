@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../includes/bootstrap.php';
+
 /**
  * Interface Manager — View
  * Refactored from tools/opsi_interface.php

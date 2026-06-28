@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../includes/bootstrap.php';
+
 /**
  * Sidompul — Telco Balance Check
  * Refactored from tools/sidompul.php

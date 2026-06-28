@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../includes/bootstrap.php';
+
 /**
  * Bandwidth Monitor (vnStat) — View
  * Refactored from tools/vnstat.php

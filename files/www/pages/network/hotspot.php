@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../includes/bootstrap.php';
+
 /**
  * Hotspot — View
  * Refactored from tools/hotspot/hotspot.php

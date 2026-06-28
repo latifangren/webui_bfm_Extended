@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../includes/bootstrap.php';
+
 /**
  * DNS Leak Test — redirect to dnscheck.tools
  */

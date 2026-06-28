@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../includes/bootstrap.php';
+
 /**
  * Network Tools — Airplane Mode + Network Preference + WiFi.
  *

@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../includes/bootstrap.php';
+
 /**
  * AdBlock Test — redirect to adblock.turtlecute.org
  */

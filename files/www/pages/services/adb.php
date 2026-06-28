@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../includes/bootstrap.php';
+
 /**
  * ADB Tools
  * Refactored from tools/adb_tools.php

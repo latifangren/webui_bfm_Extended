@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../includes/bootstrap.php';
+
 /**
  * BOX Settings (BFR Configuration)
  * Refactored from tools/bfr/boxsettings.php

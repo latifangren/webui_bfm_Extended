@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../includes/bootstrap.php';
+
 /**
  * Airplane Pilot — View
  * Refactored from tools/modpes.php

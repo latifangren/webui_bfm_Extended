@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../includes/bootstrap.php';
+
 /**
  * SMS Viewer
  * Refactored from tools/smsviewer.php

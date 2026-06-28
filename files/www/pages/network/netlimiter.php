@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../includes/bootstrap.php';
+
 /**
  * NetLimiter (iptables) — View
  * Refactored from tools/net_limiter_control.php

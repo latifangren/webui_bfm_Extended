@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../includes/bootstrap.php';
+
 /**
  * RAM Monitor
  * Refactored from webui/monitor/RamMonitor.php

@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../includes/bootstrap.php';
+
 /**
  * CPU Monitor
  * Refactored from webui/monitor/CpuMonitor.php

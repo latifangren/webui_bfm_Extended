@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../includes/bootstrap.php';
+
 /**
  * BOX Execution (BFR Service Control)
  * Refactored from tools/bfr/executed.php
