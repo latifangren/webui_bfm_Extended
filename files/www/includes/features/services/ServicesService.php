@@ -87,7 +87,7 @@ class ServicesService
 
     public static function getSmsMessages(int $limit = 20): array
     {
-        $cmd = '/data/data/com.termux/files/home/go/bin/sms';
+        $cmd = "content query --uri content://sms --projection address,body,date";
         $result = CommandRunner::su_exec($cmd);
         $output = $result['output'];
         $messages = [];
@@ -95,11 +95,13 @@ class ServicesService
         foreach ($output as $line) {
             $line = trim($line);
             if (empty($line)) continue;
-            if (preg_match('/^\{.*\}$/', $line)) {
-                $msg = json_decode($line, true);
-                if ($msg) $messages[] = $msg;
+            if (preg_match('/address=(.*?), body=(.*?), date=(\d+)/', $line, $matches)) {
+                $messages[] = [
+                    'address' => $matches[1],
+                    'body' => $matches[2],
+                    'date' => date('Y-m-d H:i:s', $matches[3] / 1000)
+                ];
             } else {
-                // Plain text format
                 $messages[] = ['raw' => $line];
             }
         }
@@ -113,7 +115,7 @@ class ServicesService
     public static function smsStats(): array
     {
         return [
-            'binary' => file_exists('/data/data/com.termux/files/home/go/bin/sms') ? 'Available' : 'Not installed',
+            'binary' => 'Available',
         ];
     }
 
