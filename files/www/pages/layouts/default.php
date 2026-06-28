@@ -14,6 +14,7 @@ use BoxUI\Module\ModuleRegistry;
   <title><?= boxui_e($title ?? 'BOX UI Extended') ?></title>
   <link rel="icon" href="/webui/assets/luci.ico" type="image/x-icon">
   <script src="/webui/js/iconify.min.js"></script>
+  <script src="/webui/js/htmx.min.js"></script>
   <link rel="stylesheet" href="/webui/css/styles.css">
   <style>
     @font-face {
@@ -177,6 +178,9 @@ use BoxUI\Module\ModuleRegistry;
         })
         .then(function(html) {
           content.innerHTML = html;
+          if (window.htmx) {
+            htmx.process(content);
+          }
           hideLoading();
         })
         .catch(function(e) {

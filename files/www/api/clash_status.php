@@ -7,6 +7,7 @@
 require_once __DIR__ . '/../includes/bootstrap.php';
 
 use BoxUI\Auth\AuthService;
+use BoxUI\Commands\CommandRunner;
 
 AuthService::init();
 if (!AuthService::isAuthenticated()) {
@@ -17,9 +18,9 @@ if (!AuthService::isAuthenticated()) {
 
 // Check multiple Clash/BFR indicators
 $checks = [
-    shell_exec('box.service status 2>&1'),
-    shell_exec('pidof clash 2>/dev/null'),
-    shell_exec('pidof bfr 2>/dev/null'),
+    CommandRunner::box_status(),
+    CommandRunner::sh('pidof clash 2>/dev/null'),
+    CommandRunner::sh('pidof bfr 2>/dev/null'),
 ];
 
 $output = implode('', $checks);

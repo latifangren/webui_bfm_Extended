@@ -18,5 +18,9 @@ if (isset($_POST['reset_vnstat'])) {
     NetworkService::vnstatStart();
 }
 
-header('Location: /pages/network/bandwidth.php');
+if (isset($_SERVER['HTTP_HX_REQUEST'])) {
+    header('HX-Location: /pages/network/bandwidth.php');
+} else {
+    header('Location: /pages/network/bandwidth.php');
+}
 exit;

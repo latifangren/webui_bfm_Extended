@@ -32,5 +32,10 @@ switch ($action) {
         exit;
 }
 
+if (isset($_SERVER['HTTP_HX_REQUEST'])) {
+    header('HX-Location: /pages/box/executed.php');
+    exit;
+}
+
 header('Content-Type: text/plain');
 echo "OK: {$action}";

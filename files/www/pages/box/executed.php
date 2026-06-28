@@ -26,9 +26,9 @@ $logs = BoxService::getLogs(50);
                 </span>
             </div>
             <div style="display:flex;gap:8px;">
-                <button onclick="svcAction('start')" class="svc-btn" style="background:#4CAF50;">Start</button>
-                <button onclick="svcAction('stop')" class="svc-btn" style="background:#f44336;">Stop</button>
-                <button onclick="svcAction('restart')" class="svc-btn" style="background:#ff9800;">Restart</button>
+                <button hx-post="/tools/box/box_exec_handler.php" hx-vals='{"action": "start"}' hx-target="#content" class="svc-btn" style="background:#4CAF50;">Start</button>
+                <button hx-post="/tools/box/box_exec_handler.php" hx-vals='{"action": "stop"}' hx-target="#content" class="svc-btn" style="background:#f44336;">Stop</button>
+                <button hx-post="/tools/box/box_exec_handler.php" hx-vals='{"action": "restart"}' hx-target="#content" class="svc-btn" style="background:#ff9800;">Restart</button>
             </div>
         </div>
     </div>
@@ -57,19 +57,4 @@ $logs = BoxService::getLogs(50);
     .svc-btn { padding:8px 20px; border:none; border-radius:8px; color:#fff; font-weight:600; cursor:pointer; font-size:13px; }
     .svc-btn:disabled { opacity:0.5; }
     </style>
-    <script>
-    async function svcAction(action) {
-        const btns = document.querySelectorAll('.svc-btn');
-        btns.forEach(b => b.disabled = true);
-
-        try {
-            const r = await fetch('/tools/box/box_exec_handler.php', { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:'action='+action });
-            if (r.ok) setTimeout(() => location.reload(), 1500);
-        } catch(e) {
-            console.error(e);
-        } finally {
-            btns.forEach(b => b.disabled = false);
-        }
-    }
-    </script>
 </div>

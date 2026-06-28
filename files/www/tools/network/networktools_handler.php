@@ -21,7 +21,8 @@ switch ($action) {
     case 'airplane':
         $enable = ($_POST['enable'] ?? '0') === '1';
         NetworkService::setAirplaneMode($enable);
-        header('Location: /pages/network/tools.php');
+        $redirect = $_POST['redirect'] ?? '/pages/network/tools.php';
+        boxui_respond_refresh($redirect);
         exit;
 
     case 'radios':
@@ -31,14 +32,16 @@ switch ($action) {
             $v = in_array($k, $selected) ? 'on' : 'off';
         }
         NetworkService::setRadios($map);
-        header('Location: /pages/network/tools.php');
+        $redirect = $_POST['redirect'] ?? '/pages/network/tools.php';
+        boxui_respond_refresh($redirect);
         exit;
 
-    // ── Network Preference ───────────────────────────────
+    // ── Network Preference ────────────────:::::::::::::::
     case 'netpref':
         $mode = (int) ($_POST['mode'] ?? 3);
         NetworkService::setNetworkPreference($mode);
-        header('Location: /pages/network/tools.php');
+        $redirect = $_POST['redirect'] ?? '/pages/network/tools.php';
+        boxui_respond_refresh($redirect);
         exit;
 
     // ── WiFi Scan ────────────────────────────────────────
@@ -100,6 +103,17 @@ switch ($action) {
  */
 function redirect_with_message(string $msg): void {
     $url = '/pages/network/tools.php?dns_result=' . urlencode($msg);
-    header('Location: ' . $url);
+    boxui_respond_refresh($url);
+}
+
+/**
+ * Handle redirects or AJAX location replacements for HTMX seamlessly.
+ */
+function boxui_respond_refresh(string $url): void {
+    if (isset($_SERVER['HTTP_HX_REQUEST'])) {
+        header('HX-Location: ' . $url);
+    } else {
+        header('Location: ' . $url);
+    }
     exit;
 }

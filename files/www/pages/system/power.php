@@ -77,7 +77,7 @@ $uptime = SystemService::uptimeFormatted();
         btn.disabled = true;
         btn.style.opacity = '0.5';
 
-        fetch('', { method: 'POST', headers: {'Content-Type':'application/x-www-form-urlencoded'}, body: `action=${action}` })
+        fetch('/pages/system/power.php', { method: 'POST', headers: {'Content-Type':'application/x-www-form-urlencoded'}, body: `action=${action}` })
             .then(r => r.json())
             .then(d => {
                 alert(`${names[action]} executed!`);

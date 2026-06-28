@@ -163,7 +163,6 @@ function doAction(action) {
 }
 
 function refreshStatus() {
-    document.getElementById('loading-msg').style.display = 'block';
     fetch('/tools/network/ping_monitor_handler.php?action=get_status')
     .then(function(r) { return r.json(); })
     .then(function(data) {

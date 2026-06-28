@@ -63,6 +63,7 @@ pre.output {
     white-space: pre-wrap; word-break: break-all;
     border: 1px solid #222; font-family: 'Courier New', monospace;
 }
+pre.output:empty { display: none; }
 .status-badge {
     display: inline-block; padding: 2px 10px; border-radius: 10px;
     font-size: 11px; font-weight: 600;
@@ -90,7 +91,7 @@ table.wifi tr:hover td { background: #1a1a1a; }
         <div class="col">
             <div class="card">
                 <div class="card-title">Mode Pesawat</div>
-                <form method="post" action="/tools/network/networktools_handler.php" style="margin-bottom:10px;">
+                <form hx-post="/tools/network/networktools_handler.php" hx-target="#content" style="margin-bottom:10px;">
                     <input type="hidden" name="action" value="airplane">
                     <input type="hidden" name="enable" value="<?= $airplane_enabled ? '0' : '1' ?>">
                     <button type="submit" class="btn btn-primary">
@@ -102,7 +103,7 @@ table.wifi tr:hover td { background: #1a1a1a; }
                 </form>
 
                 <label>Radio selection saat airplane mode ON:</label>
-                <form method="post" action="/tools/network/networktools_handler.php">
+                <form hx-post="/tools/network/networktools_handler.php" hx-target="#content">
                     <input type="hidden" name="action" value="radios">
                     <?php foreach (['wifi' => 'WiFi', 'bluetooth' => 'Bluetooth', 'mobile' => 'Mobile Data'] as $k => $lbl): ?>
                     <label style="display:flex;align-items:center;gap:8px;margin:6px 0;font-size:13px;cursor:pointer;">
@@ -126,7 +127,14 @@ table.wifi tr:hover td { background: #1a1a1a; }
                     <div class="note">Signal: <?= $wifi_status['signal'] ?? '-' ?> | Freq: <?= $wifi_status['frequency'] ?? '-' ?></div>
                     <?php endif; ?>
                 </div>
-                <button class="btn btn-primary btn-small" onclick="scanWifi()">Scan WiFi</button>
+                <button class="btn btn-primary btn-small" 
+                        hx-post="/tools/network/networktools_handler.php" 
+                        hx-vals='{"action": "wifi_scan"}'
+                        hx-target="#wifi-results"
+                        hx-indicator="#wifi-indicator">
+                    Scan WiFi
+                </button>
+                <div id="wifi-indicator" class="htmx-indicator" style="color:#888;font-size:12px;margin-top:8px;">Scanning...</div>
                 <div id="wifi-results" style="margin-top:10px;"></div>
             </div>
         </div>
@@ -135,7 +143,7 @@ table.wifi tr:hover td { background: #1a1a1a; }
         <div class="col">
             <div class="card">
                 <div class="card-title">Preferensi Jaringan</div>
-                <form method="post" action="/tools/network/networktools_handler.php">
+                <form hx-post="/tools/network/networktools_handler.php" hx-target="#content">
                     <input type="hidden" name="action" value="netpref">
                     <div class="mb-8">
                         <label>Mode jaringan saat ini:</label>
@@ -164,14 +172,21 @@ table.wifi tr:hover td { background: #1a1a1a; }
             <!-- Connectivity Check -->
             <div class="card">
                 <div class="card-title">Konektivitas</div>
-                <button class="btn btn-primary btn-small" onclick="checkConn()">Cek Koneksi</button>
-                <pre class="output" id="conn-output" style="margin-top:8px;display:none;"></pre>
+                <button class="btn btn-primary btn-small" 
+                        hx-post="/tools/network/networktools_handler.php" 
+                        hx-vals='{"action": "connectivity"}'
+                        hx-target="#conn-output"
+                        hx-indicator="#conn-indicator">
+                    Cek Koneksi
+                </button>
+                <div id="conn-indicator" class="htmx-indicator" style="color:#888;font-size:12px;margin-top:8px;">Checking...</div>
+                <pre class="output" id="conn-output" style="margin-top:8px;"></pre>
             </div>
 
             <!-- DNS Lookup -->
             <div class="card">
                 <div class="card-title">DNS Lookup</div>
-                <form method="post" action="/tools/network/networktools_handler.php">
+                <form hx-post="/tools/network/networktools_handler.php" hx-target="#content">
                     <input type="hidden" name="action" value="dns">
                     <div class="mb-8">
                         <input type="text" name="host" placeholder="google.com" value="google.com">
@@ -185,40 +200,3 @@ table.wifi tr:hover td { background: #1a1a1a; }
         </div>
     </div>
 </div>
-
-<script>
-function scanWifi() {
-    var el = document.getElementById('wifi-results');
-    el.innerHTML = '<p style="color:#888;font-size:13px;">Scanning...</p>';
-    fetch('/tools/network/networktools_handler.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: 'action=wifi_scan'
-    })
-    .then(function(r) { return r.text(); })
-    .then(function(html) {
-        el.innerHTML = html || '<p style="color:#888;">Tidak ada jaringan ditemukan.</p>';
-    })
-    .catch(function() {
-        el.innerHTML = '<p style="color:var(--red);">Gagal scan WiFi.</p>';
-    });
-}
-
-function checkConn() {
-    var el = document.getElementById('conn-output');
-    el.style.display = 'block';
-    el.textContent = 'Checking...';
-    fetch('/tools/network/networktools_handler.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: 'action=connectivity'
-    })
-    .then(function(r) { return r.text(); })
-    .then(function(out) {
-        el.textContent = out || 'No response';
-    })
-    .catch(function() {
-        el.textContent = 'Error checking connectivity.';
-    });
-}
-</script>
