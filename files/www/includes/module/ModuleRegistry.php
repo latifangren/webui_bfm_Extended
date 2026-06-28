@@ -151,6 +151,12 @@ class ModuleRegistry
             'icon' => 'fas fa-clipboard-list',
             'route' => '/pages/system/logs.php',
         ]);
+        self::register('file_manager', [
+            'name' => 'File Manager',
+            'category' => 'system',
+            'icon' => 'fas fa-folder-open',
+            'route' => '/tiny/opsi.php',
+        ]);
 
         // ── Box ────────────────────────────────────────────
         self::register('box_manager', [
