@@ -38,44 +38,64 @@ if (isset($_POST['clear']) && $_POST['clear'] === '1') {
 
 $log_files = SystemService::getLogFiles();
 ?>
-<div class="container">
-    <div class="header">
-        <div class="logo">
-            <span class="logo-icon">📋</span>
-            <h1>System Logs</h1>
+<div class="container font-sans">
+    <div class="mb-8 border-b-2 border-border pb-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center bg-primary border-2 border-border text-black font-bold">
+                📋
+            </div>
+            <h1 class="font-head text-2xl uppercase tracking-wider text-primary">System Logs</h1>
         </div>
+        <span class="text-xs font-mono bg-border/20 text-[#aeaeae] px-3 py-1 border border-border/20">LOG VIEWER</span>
     </div>
 
     <!-- Log File Selector -->
-    <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+    <div class="flex gap-3 mb-6 flex-wrap">
         <?php foreach ($log_files as $lf): ?>
         <a href="#" hx-get="/pages/system/logs.php?path=<?= urlencode($lf['path']) ?>" hx-target="#content"
-           style="padding:5px 12px;border-radius:6px;font-size:11px;background:<?= $log_path === $lf['path'] ? 'var(--accent,#FECA0A)' : 'var(--bg-secondary,#1a1a1a)' ?>;color:<?= $log_path === $lf['path'] ? '#000' : '#aaa' ?>;text-decoration:none;border:1px solid var(--border,#333);">
+           class="border-2 border-border font-mono text-[10px] px-3.5 py-1.5 font-bold uppercase transition-all shadow-[2px_2px_0px_0px_rgba(249,244,218,1)] hover:bg-[#fcba28] hover:text-black <?= $log_path === $lf['path'] ? 'bg-[#fcba28] text-black shadow-[2px_2px_0px_0px_rgba(249,244,218,1)]' : 'bg-black text-[#f9f4da]' ?>">
             <?= boxui_e($lf['name']) ?>
         </a>
         <?php endforeach; ?>
     </div>
 
     <!-- Controls -->
-    <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;align-items:center;">
-        <span style="font-size:13px;color:#888;"><?= boxui_e($log_name) ?></span>
-        <form hx-get="/pages/system/logs.php" hx-target="#content" style="display:flex;gap:6px;">
-            <input type="hidden" name="path" value="<?= boxui_e($log_path) ?>">
-            <input type="text" name="search" placeholder="Search..." style="padding:6px 10px;border-radius:6px;border:1px solid var(--border,#333);background:var(--bg-primary,#0d0d0d);color:#fff;font-size:12px;width:150px;">
-            <button type="submit" style="padding:6px 12px;border:none;border-radius:6px;background:var(--accent,#FECA0A);color:#000;font-size:12px;cursor:pointer;">Cari</button>
-        </form>
-        <a href="#" hx-get="/pages/system/logs.php?path=<?= urlencode($log_path) ?>" hx-target="#content" style="padding:6px 12px;border-radius:6px;background:var(--bg-secondary,#1a1a1a);color:#aaa;text-decoration:none;border:1px solid var(--border,#333);font-size:12px;">↻ Refresh</a>
-        <form hx-post="/pages/system/logs.php" hx-target="#content" style="display:inline;" onsubmit="return confirm('Clear this log?')">
-            <input type="hidden" name="path" value="<?= boxui_e($log_path) ?>">
-            <input type="hidden" name="clear" value="1">
-            <button type="submit" style="padding:6px 12px;border:none;border-radius:6px;background:#d32f2f;color:#fff;font-size:12px;cursor:pointer;">Clear</button>
-        </form>
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-[#f9f4da]/15 pb-4">
+        <div class="flex items-center gap-3">
+            <span class="text-xs font-mono text-[#fcba28] font-bold bg-[#fcba28]/10 px-2 py-0.5 border border-[#fcba28]/25"><?= boxui_e($log_name) ?></span>
+        </div>
+        
+        <div class="flex flex-wrap items-center gap-3">
+            <!-- Search Form -->
+            <form hx-get="/pages/system/logs.php" hx-target="#content" class="flex gap-2">
+                <input type="hidden" name="path" value="<?= boxui_e($log_path) ?>">
+                <input type="text" name="search" placeholder="Search logs..." 
+                       class="px-3 py-1.5 border-2 border-border bg-black text-[#f9f4da] font-mono text-xs focus:outline-none focus:border-primary w-40">
+                <button type="submit" 
+                        class="border-2 border-border bg-[#fcba28] text-black font-bold uppercase text-xs px-4 py-1.5 shadow-[2px_2px_0px_0px_rgba(249,244,218,1)] active:translate-y-[1px] active:shadow-[0px_0px_0px_0px] transition-all cursor-pointer">
+                    Cari
+                </button>
+            </form>
+
+            <!-- Action buttons -->
+            <a href="#" hx-get="/pages/system/logs.php?path=<?= urlencode($log_path) ?>" hx-target="#content" 
+               class="border-2 border-border bg-[#1a1a1a] text-[#f9f4da] font-bold uppercase text-xs px-4 py-1.5 shadow-[2px_2px_0px_0px_rgba(249,244,218,1)] active:translate-y-[1px] active:shadow-[0px_0px_0px_0px] transition-all text-center">
+                Refresh
+            </a>
+            
+            <form hx-post="/pages/system/logs.php" hx-target="#content" class="inline" onsubmit="return confirm('Clear this log file?')">
+                <input type="hidden" name="path" value="<?= boxui_e($log_path) ?>">
+                <input type="hidden" name="clear" value="1">
+                <button type="submit" 
+                        class="border-2 border-[#ff5c5c] bg-red-950/20 text-[#ff5c5c] font-bold uppercase text-xs px-4 py-1.5 hover:bg-[#ff5c5c] hover:text-white transition-colors cursor-pointer">
+                    Clear
+                </button>
+            </form>
+        </div>
     </div>
 
-    <!-- Log Content -->
-    <div style="background:var(--bg-secondary,#1a1a1a);border-radius:12px;padding:0;border:1px solid var(--border,#333);overflow:hidden;">
-        <pre style="margin:0;padding:15px;font-size:11px;overflow-x:auto;color:#ccc;line-height:1.5;max-height:70vh;white-space:pre-wrap;word-break:break-all;">
-<?= boxui_e($log_content) ?: 'No log content.' ?>
-        </pre>
+    <!-- Log Content Box -->
+    <div class="border-2 border-border bg-black shadow-[4px_4px_0px_0px_rgba(249,244,218,1)]">
+        <pre class="m-0 p-4 font-mono text-xs text-[#aeaeae] select-text h-[55vh] overflow-y-auto w-full whitespace-pre-wrap leading-relaxed"><?= boxui_e($log_content) ?: 'No log content recorded.' ?></pre>
     </div>
 </div>

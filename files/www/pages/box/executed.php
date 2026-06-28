@@ -8,53 +8,71 @@ use BoxUI\Features\Box\BoxService;
 $status = BoxService::status();
 $logs = BoxService::getLogs(50);
 ?>
-<div class="container">
-    <div class="header">
-        <div class="logo">
-            <span class="logo-icon">🚀</span>
-            <h1>BOX Execution</h1>
+<div class="container font-sans">
+    <div class="mb-8 border-b-2 border-border pb-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center bg-primary border-2 border-border text-black font-bold">
+                🚀
+            </div>
+            <h1 class="font-head text-2xl uppercase tracking-wider text-primary">BOX Execution</h1>
         </div>
+        <span class="text-xs font-mono bg-border/20 text-[#aeaeae] px-3 py-1 border border-border/20">SERVICE EXEC</span>
     </div>
 
-    <!-- Status -->
-    <div style="background:var(--bg-secondary,#1a1a1a);border-radius:12px;padding:20px;margin-bottom:15px;border:1px solid var(--border,#333);">
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+    <!-- Status & Operations -->
+    <div class="border-2 border-border bg-[#1a1a1a] p-6 mb-6 shadow-[4px_4px_0px_0px_rgba(249,244,218,1)]">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
             <div>
-                <h3 style="margin:0 0 4px;font-size:16px;">Service Status</h3>
-                <span style="font-size:14px;padding:4px 12px;border-radius:8px;background:<?= $status['is_running'] ? 'rgba(76,175,80,0.2)' : 'rgba(255,68,68,0.2)' ?>;color:<?= $status['is_running'] ? '#4CAF50' : '#ff4444' ?>;">
-                    <?= $status['is_running'] ? 'RUNNING' : 'STOPPED' ?>
+                <h3 class="font-head text-xs uppercase tracking-widest text-[#aeaeae] mb-2">Service Status</h3>
+                <?php if ($status['is_running']): ?>
+                <span class="inline-block px-3 py-1 text-xs font-bold text-[#0ca95b] border-2 border-[#0ca95b] bg-[#0ca95b]/10 tracking-widest uppercase">
+                    RUNNING
                 </span>
+                <?php else: ?>
+                <span class="inline-block px-3 py-1 text-xs font-bold text-[#ff5c5c] border-2 border-[#ff5c5c] bg-[#ff5c5c]/10 tracking-widest uppercase">
+                    STOPPED
+                </span>
+                <?php endif; ?>
             </div>
-            <div style="display:flex;gap:8px;">
-                <button hx-post="/tools/box/box_exec_handler.php" hx-vals='{"action": "start"}' hx-target="#content" class="svc-btn" style="background:#4CAF50;">Start</button>
-                <button hx-post="/tools/box/box_exec_handler.php" hx-vals='{"action": "stop"}' hx-target="#content" class="svc-btn" style="background:#f44336;">Stop</button>
-                <button hx-post="/tools/box/box_exec_handler.php" hx-vals='{"action": "restart"}' hx-target="#content" class="svc-btn" style="background:#ff9800;">Restart</button>
+            
+            <div class="flex flex-wrap gap-4">
+                <button hx-post="/tools/box/box_exec_handler.php" hx-vals='{"action": "start"}' hx-target="#content" 
+                        class="border-2 border-border bg-[#0ca95b] hover:bg-[#0ca95b]/80 text-white font-bold font-sans uppercase text-xs px-5 py-2 shadow-[2px_2px_0px_0px_rgba(249,244,218,1)] hover:translate-y-[-1px] active:translate-y-[1px] active:shadow-[0px_0px_0px_0px] transition-all cursor-pointer">
+                    Start
+                </button>
+                <button hx-post="/tools/box/box_exec_handler.php" hx-vals='{"action": "stop"}' hx-target="#content" 
+                        class="border-2 border-border bg-[#ff5c5c] hover:bg-[#ff5c5c]/80 text-white font-bold font-sans uppercase text-xs px-5 py-2 shadow-[2px_2px_0px_0px_rgba(249,244,218,1)] hover:translate-y-[-1px] active:translate-y-[1px] active:shadow-[0px_0px_0px_0px] transition-all cursor-pointer">
+                    Stop
+                </button>
+                <button hx-post="/tools/box/box_exec_handler.php" hx-vals='{"action": "restart"}' hx-target="#content" 
+                        class="border-2 border-border bg-[#fcba28] hover:bg-[#fcba28]/80 text-black font-bold font-sans uppercase text-xs px-5 py-2 shadow-[2px_2px_0px_0px_rgba(249,244,218,1)] hover:translate-y-[-1px] active:translate-y-[1px] active:shadow-[0px_0px_0px_0px] transition-all cursor-pointer">
+                    Restart
+                </button>
             </div>
         </div>
     </div>
 
     <!-- Status Output -->
-    <div style="background:var(--bg-secondary,#1a1a1a);border-radius:12px;padding:20px;margin-bottom:15px;border:1px solid var(--border,#333);">
-        <h3 style="margin-top:0;font-size:14px;color:var(--accent,#FECA0A);margin-bottom:8px;">Status Detail</h3>
-        <pre style="margin:0;padding:12px;background:var(--bg-primary,#0d0d0d);border-radius:8px;font-size:11px;color:#aaa;max-height:200px;overflow-y:auto;white-space:pre-wrap;"><?= boxui_e($status['raw']) ?></pre>
+    <div class="border-2 border-border bg-[#1a1a1a] p-6 mb-6 shadow-[4px_4px_0px_0px_rgba(249,244,218,1)]">
+        <h3 class="font-head text-xs text-primary mb-3 uppercase tracking-widest">Status Detail</h3>
+        <pre class="m-0 p-4 bg-black border border-[#f9f4da]/15 font-mono text-[11px] text-[#aeaeae] max-h-48 overflow-y-auto w-full whitespace-pre-wrap leading-relaxed"><?= boxui_e($status['raw']) ?></pre>
     </div>
 
     <!-- Logs -->
-    <div style="background:var(--bg-secondary,#1a1a1a);border-radius:12px;padding:20px;border:1px solid var(--border,#333);">
-        <h3 style="margin-top:0;font-size:14px;color:var(--accent,#FECA0A);margin-bottom:8px;">
+    <div class="border-2 border-border bg-[#1a1a1a] p-6 shadow-[4px_4px_0px_0px_rgba(249,244,218,1)]">
+        <h3 class="font-head text-xs text-primary mb-3 uppercase tracking-widest flex items-center gap-2">
             <i class="fas fa-clipboard-list"></i> Service Logs (<?= count($logs) ?>)
         </h3>
-        <div style="max-height:300px;overflow-y:auto;background:var(--bg-primary,#0d0d0d);border-radius:8px;padding:10px;">
-            <?php foreach ($logs as $log): ?>
-            <div style="padding:3px 0;font-size:11px;color:#888;font-family:monospace;border-bottom:1px solid #222;">
-                <?= boxui_e($log) ?>
-            </div>
-            <?php endforeach; ?>
+        <div class="max-h-72 overflow-y-auto bg-black border border-[#f9f4da]/15 p-4 rounded-none h-60">
+            <?php if (empty($logs)): ?>
+                <div class="text-xs text-[#aeaeae]/60 font-mono py-4 text-center">No log output recorded yet.</div>
+            <?php else: ?>
+                <?php foreach ($logs as $log): ?>
+                <div class="py-1 font-mono text-[10px] text-[#aeaeae] border-b border-[#f9f4da]/5 last:border-b-0 hover:text-[#fcba28]">
+                    <?= boxui_e($log) ?>
+                </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
     </div>
-
-    <style>
-    .svc-btn { padding:8px 20px; border:none; border-radius:8px; color:#fff; font-weight:600; cursor:pointer; font-size:13px; }
-    .svc-btn:disabled { opacity:0.5; }
-    </style>
 </div>

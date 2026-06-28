@@ -19,77 +19,107 @@ $ram_pct = $total_ram > 0 ? round(($used_ram / $total_ram) * 100) : 0;
 $bat_pct = $battery['capacity'] ?? 0;
 $bat_status = $battery['status'] ?? 'Unknown';
 $bat_temp = isset($battery['temp']) ? round($battery['temp'] / 10, 1) : 'N/A';
+
+$cpu_color = $cpu_usage > 85 ? '#ff5c5c' : ($cpu_usage > 55 ? '#fcba28' : '#14b6e5');
+$ram_color = $ram_pct > 85 ? '#ff5c5c' : ($ram_pct > 55 ? '#fcba28' : '#14b6e5');
+$bat_color = $bat_pct > 80 ? '#14b6e5' : ($bat_pct > 25 ? '#fcba28' : '#ff5c5c');
 ?>
-<div class="container">
-    <div class="header">
-        <div class="logo">
-            <span class="logo-icon">📊</span>
-            <h1>Overview</h1>
+
+<div class="mb-8 border-b-2 border-border pb-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+        <div class="flex h-10 w-10 shrink-0 items-center justify-center bg-primary border-2 border-border text-black font-bold">
+            📊
+        </div>
+        <h1 class="font-head text-2xl uppercase tracking-wider text-primary">Overview</h1>
+    </div>
+    <span class="text-xs font-mono bg-border/20 text-[#aeaeae] px-3 py-1 border border-border/20">SYSTEM STATE</span>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- CPU Bento Card -->
+    <div class="border-2 border-border bg-[#1a1a1a] p-6 hover:bg-black/20 transition-colors flex flex-col justify-between h-44" style="box-shadow: 4px 4px 0px 0px <?= $cpu_color ?>;">
+        <div class="flex items-center justify-between border-b border-[#f9f4da]/10 pb-2 mb-2">
+            <span class="text-xs font-bold uppercase text-[#aeaeae] flex items-center gap-2">
+                <i class="fas fa-microchip text-primary"></i> CPU LOAD
+            </span>
+            <span class="h-2 w-2 rounded-full" style="background-color: <?= $cpu_color ?>;"></span>
+        </div>
+        <div class="font-head text-4xl font-normal leading-none" style="color: <?= $cpu_color ?>;">
+            <?= $cpu_usage ?>%
+        </div>
+        <div class="text-[11px] text-[#aeaeae] font-medium tracking-wide">
+            <?= $cpu_info['cores'] ?? '?' ?> Cores &middot; <?= $cpu_info['gov'] ?? 'N/A' ?>
         </div>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;">
-        <!-- CPU -->
-        <div style="background:var(--bg-secondary,#1a1a1a);border-radius:12px;padding:20px;border:1px solid var(--border,#333);">
-            <div style="font-size:13px;color:#888;margin-bottom:8px;">
-                <i class="fas fa-microchip"></i> CPU
-            </div>
-            <div style="font-size:36px;font-weight:700;color:<?= $cpu_usage > 80 ? '#ff4444' : ($cpu_usage > 50 ? '#ff9800' : '#4CAF50') ?>;">
-                <?= $cpu_usage ?>%
-            </div>
-            <div style="font-size:11px;color:#666;margin-top:4px;">
-                <?= $cpu_info['cores'] ?? '?' ?> Cores &middot; <?= $cpu_info['gov'] ?? 'N/A' ?>
-            </div>
+    <!-- RAM Bento Card -->
+    <div class="border-2 border-border bg-[#1a1a1a] p-6 hover:bg-black/20 transition-colors flex flex-col justify-between h-44" style="box-shadow: 4px 4px 0px 0px <?= $ram_color ?>;">
+        <div class="flex items-center justify-between border-b border-[#f9f4da]/10 pb-2 mb-2">
+            <span class="text-xs font-bold uppercase text-[#aeaeae] flex items-center gap-2">
+                <i class="fas fa-memory text-primary"></i> RAM STATE
+            </span>
+            <span class="h-2 w-2 rounded-full" style="background-color: <?= $ram_color ?>;"></span>
         </div>
+        <div class="font-head text-4xl font-normal leading-none" style="color: <?= $ram_color ?>;">
+            <?= $ram_pct ?>%
+        </div>
+        <div class="text-[11px] text-[#aeaeae] font-medium tracking-wide">
+            <?= $used_ram ?>MB / <?= $total_ram ?>MB
+        </div>
+    </div>
 
-        <!-- RAM -->
-        <div style="background:var(--bg-secondary,#1a1a1a);border-radius:12px;padding:20px;border:1px solid var(--border,#333);">
-            <div style="font-size:13px;color:#888;margin-bottom:8px;">
-                <i class="fas fa-memory"></i> RAM
-            </div>
-            <div style="font-size:36px;font-weight:700;color:<?= $ram_pct > 80 ? '#ff4444' : ($ram_pct > 50 ? '#ff9800' : '#4CAF50') ?>;">
-                <?= $ram_pct ?>%
-            </div>
-            <div style="font-size:11px;color:#666;margin-top:4px;">
-                <?= $used_ram ?>MB / <?= $total_ram ?>MB
-            </div>
+    <!-- Battery Bento Card -->
+    <div class="border-2 border-border bg-[#1a1a1a] p-6 hover:bg-black/20 transition-colors flex flex-col justify-between h-44" style="box-shadow: 4px 4px 0px 0px <?= $bat_color ?>;">
+        <div class="flex items-center justify-between border-b border-[#f9f4da]/10 pb-2 mb-2">
+            <span class="text-xs font-bold uppercase text-[#aeaeae] flex items-center gap-2">
+                <i class="fas fa-battery-three-quarters text-primary"></i> BATTERY
+            </span>
+            <span class="h-2 w-2 rounded-full" style="background-color: <?= $bat_color ?>;"></span>
         </div>
+        <div class="font-head text-4xl font-normal leading-none" style="color: <?= $bat_color ?>;">
+            <?= $bat_pct ?>%
+        </div>
+        <div class="text-[11px] text-[#aeaeae] font-medium tracking-wide">
+            <?= boxui_e($bat_status) ?> &middot; <?= $bat_temp ?>°C
+        </div>
+    </div>
 
-        <!-- Battery -->
-        <div style="background:var(--bg-secondary,#1a1a1a);border-radius:12px;padding:20px;border:1px solid var(--border,#333);">
-            <div style="font-size:13px;color:#888;margin-bottom:8px;">
-                <i class="fas fa-battery-three-quarters"></i> Battery
-            </div>
-            <div style="font-size:36px;font-weight:700;color:<?= $bat_pct > 20 ? '#4CAF50' : '#ff4444' ?>;">
-                <?= $bat_pct ?>%
-            </div>
-            <div style="font-size:11px;color:#666;margin-top:4px;">
-                <?= boxui_e($bat_status) ?> &middot; <?= $bat_temp ?>°C
-            </div>
+    <!-- Storage Bento Card -->
+    <div class="border-2 border-border bg-[#1a1a1a] p-6 hover:bg-black/20 transition-colors flex flex-col justify-between h-44" style="box-shadow: 4px 4px 0px 0px #14b6e5;">
+        <?php
+        $data_mount = null;
+        foreach ($storage['mounts'] as $m) {
+            if ($m['mounted'] === '/data') { $data_mount = $m; break; }
+        }
+        if ($data_mount):
+            $st_pct = (int)$data_mount['use_pct'];
+            $st_color = $st_pct > 85 ? '#ff5c5c' : ($st_pct > 55 ? '#fcba28' : '#14b6e5');
+        ?>
+        <div class="flex items-center justify-between border-b border-[#f9f4da]/10 pb-2 mb-2">
+            <span class="text-xs font-bold uppercase text-[#aeaeae] flex items-center gap-2">
+                <i class="fas fa-hdd text-primary"></i> STORAGE (/data)
+            </span>
+            <span class="h-2 w-2 rounded-full" style="background-color: <?= $st_color ?>;"></span>
         </div>
-
-        <!-- Storage -->
-        <div style="background:var(--bg-secondary,#1a1a1a);border-radius:12px;padding:20px;border:1px solid var(--border,#333);">
-            <div style="font-size:13px;color:#888;margin-bottom:8px;">
-                <i class="fas fa-hdd"></i> Storage
-            </div>
-            <?php
-            $data_mount = null;
-            foreach ($storage['mounts'] as $m) {
-                if ($m['mounted'] === '/data') { $data_mount = $m; break; }
-            }
-            if ($data_mount):
-                $st_pct = (int)$data_mount['use_pct'];
-            ?>
-            <div style="font-size:36px;font-weight:700;color:<?= $st_pct > 80 ? '#ff4444' : ($st_pct > 50 ? '#ff9800' : '#4CAF50') ?>;">
-                <?= $st_pct ?>%
-            </div>
-            <div style="font-size:11px;color:#666;margin-top:4px;">
-                <?= $data_mount['used'] ?> / <?= $data_mount['size'] ?>
-            </div>
-            <?php else: ?>
-            <div style="font-size:36px;font-weight:700;color:#888;">N/A</div>
-            <?php endif; ?>
+        <div class="font-head text-4xl font-normal leading-none" style="color: <?= $st_color ?>;">
+            <?= $st_pct ?>%
         </div>
+        <div class="text-[11px] text-[#aeaeae] font-medium tracking-wide">
+            <?= $data_mount['used'] ?> / <?= $data_mount['size'] ?>
+        </div>
+        <?php else: ?>
+        <div class="flex items-center justify-between border-b border-[#f9f4da]/10 pb-2 mb-2">
+            <span class="text-xs font-bold uppercase text-[#aeaeae] flex items-center gap-2">
+                <i class="fas fa-hdd text-primary"></i> STORAGE
+            </span>
+            <span class="h-2 w-2 rounded-full bg-border"></span>
+        </div>
+        <div class="font-head text-4xl font-normal leading-none text-[#aeaeae]">
+            N/A
+        </div>
+        <div class="text-[11px] text-[#aeaeae] font-medium tracking-wide">
+            Mount /data not found
+        </div>
+        <?php endif; ?>
     </div>
 </div>
