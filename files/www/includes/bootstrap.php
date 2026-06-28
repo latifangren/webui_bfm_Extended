@@ -50,13 +50,17 @@ if (file_exists($config_file)) {
 
 // ── Simple PSR-4 style autoloader ───────────────────────
 spl_autoload_register(function ($class) {
-    // Convert: BoxUI\Auth\AuthService -> includes/auth/AuthService.php
+    // Convert: BoxUI\Auth\AuthService -> includes/auth/AuthService.php (supports case-sensitive OS)
     $prefix = 'BoxUI\\';
     if (strncmp($prefix, $class, strlen($prefix)) !== 0) {
         return;
     }
     $relative_class = substr($class, strlen($prefix));
-    $file = BOXUI_INCLUDES . '/' . str_replace('\\', '/', $relative_class) . '.php';
+    $parts = explode('\\', $relative_class);
+    $className = array_pop($parts);
+    $dirParts = array_map('strtolower', $parts);
+    $dirPath = count($dirParts) > 0 ? implode('/', $dirParts) . '/' : '';
+    $file = BOXUI_INCLUDES . '/' . $dirPath . $className . '.php';
     if (file_exists($file)) {
         require $file;
     }
